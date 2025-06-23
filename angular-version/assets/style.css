@@ -146,3 +146,12 @@ a[ng-click]:hover {
   cursor: pointer;
   background-color: lightgray;
 }
+
+.clock-speed {
+  font-weight: bold;
+  margin: 0 5px;
+  color: #333;
+  font-size: 1em;
+  vertical-align: middle;
+  display: inline-block;
+}
