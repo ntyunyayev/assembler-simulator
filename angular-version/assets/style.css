@@ -3,6 +3,8 @@
 }
 body {
   margin: 0;
+  max-height: 100vh;
+  overflow-y: hidden
 }
 .source-code {
   font-family: source-code-pro, Courier New;
@@ -212,4 +214,14 @@ a[ng-click]:hover {
 
 .hl.number {
   color: var(--number-color); /* yellow */
+}
+
+.editor div.highlight {
+  background-color: #d3deea;
+}
+
+.source-code {
+  overflow-y: scroll;
+  /* TODO: Better way to handle RAM height */
+  max-height: 50vh;
 }
