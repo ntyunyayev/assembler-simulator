@@ -103,7 +103,7 @@
     <div class="">
       <div class="alert alert-danger" ng-hide="error === ''">{{ error }}</div>
       <div class="row main">
-        <div class="editor">
+        <div class="editor-container">
           <div class=" ">
             <div class="">
               <h4 class="">
@@ -119,7 +119,7 @@
               </h4>
             </div>
             <div class="">
-              <form role="form">
+             <!-- <form role="form">
                 <textarea
                   id="sourceCode"
                   class="form-control source-code"
@@ -136,7 +136,21 @@
                 >
                   Assemble
                 </button>
-              </form>
+              </form> -->
+              <div class="editor" id="editor" contenteditable="true" spellcheck="false"
+                   select-line
+                   ng-blur="updateCode($event)"
+                   ng-keyup="updateCode($event)">
+
+              </div>
+              <button
+                      type="button"
+                      class="btn btn-default"
+                      ng-click="assemble()"
+              >
+                Assemble
+              </button>
+
             </div>
           </div>
         </div>
@@ -196,7 +210,7 @@
                 Change RAM display mode (HEX/ASCII)
               </button>
               <p class="text-muted">RAM</p>
-              <div style="width: 29em" class="source-code">
+              <div style="width: 100%" class="source-code">
                 <div
                   class="memory-block"
                   ng-repeat="m in memory.data track by $index"
@@ -355,5 +369,6 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
     <script src="assets/asmsimulator.js"></script>
+
   </body>
 </html>

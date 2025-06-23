@@ -21,35 +21,7 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
     $scope.displayStartIndex = 925;
     $scope.ramDisplayMode = "HEX";
 
-    $scope.code = [
-        '; Simple example',
-        '; Writes Hello World to the output',
-        '   JMP start',
-        'hello: DB "Hello World!" ; Variable',
-        '       DB 0	; String terminator',
-        'start:',
-        '   MOV D, hello    ; Point to var',
-        '   PUSH 925	; Point to output',
-        '   CALL print',
-        '   HLT             ; Stop execution',
-        'print:		; print(D:*from, SP+2:*to)',
-        '   PUSH C',
-        '   PUSH B',
-        '   MOV C, [SP+6]',
-        '   MOV B, 0',
-        '.loop:',
-        '   MOV A, [D]	; Get char from var',
-        '   MOV [C], A	; Write to output',
-        '   INC D',
-        '   INC C',
-        '   INC D',
-        '   INC C',
-        '   CMP B, [D]	; Check if end',
-        '   JNZ .loop	; jump if not',
-        '   POP B',
-        '   POP C',
-        '   RET',
-    ].join('\n');
+    $scope.code = "";
     $scope.reset = function() {
         cpu.reset();
         memory.reset();
@@ -162,12 +134,39 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
         return value & 0xFF;
     };
 
+    $scope.updateCode = function($event) {
+        $scope.code = $event.target.innerText;
+    };
+    $scope.$watch('code', function(newVal, oldVal) {
+        if (newVal !== oldVal) {
+            var editor = document.getElementById('editor');
+            if (!editor || editor.innerText === newVal) return;
+            $scope.refreshEditorView();
+        }
+    });
 
+    $scope.refreshEditorView = function() {
+        var editor = document.getElementById('editor');
+
+        // Clear existing content
+        editor.innerHTML = '';
+
+        // Split code by lines and append each as a new div
+        const lines = $scope.code.split('\n');
+        while (lines.length < 10) {
+            lines.push(' ');
+        }
+        lines.forEach(line => {
+            const row = document.createElement('div');
+            row.textContent = line;
+            editor.appendChild(row);
+        });
+
+    };
 
     $scope.assemble = function() {
         try {
             $scope.reset();
-
             var assembly = assembler.go($scope.code);
             $scope.mapping = assembly.mapping;
             var binary = assembly.code;
@@ -190,7 +189,7 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
     };
 
     $scope.jumpToLine = function(index) {
-        $document[0].getElementById('sourceCode').scrollIntoView();
+       // $document[0].getElementById('editor').scrollIntoView();
         $scope.selectedLine = $scope.mapping[index];
     };
 
