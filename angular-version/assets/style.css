@@ -1,3 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
 .source-code {
   font-family: source-code-pro, Courier New;
 }
@@ -73,4 +79,70 @@
 
 .codelabel-line a {
   cursor: pointer;
+}
+
+.debug {
+  background-color: red;
+  border: 1px solid lime;
+}
+
+.main {
+  display: flex;
+}
+
+.editor {
+  width: 33%;
+  padding: 10px;
+}
+
+.col1 {
+  width: 33%;
+  padding: 10px;
+}
+
+.col2 {
+  width: 33%;
+  padding: 10px;
+}
+
+textarea {width: 100%;}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar > .actions {
+  display: flex;
+}
+
+.navbar .btn-group {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  outline: none;
+  border: none;
+  padding: 5px 10px;
+  margin: 2px;
+  border-radius: 5px;
+}
+
+table td:nth-child(odd),
+table th:nth-child(odd) {
+  background-color: #f2f2f2; /* Replace with your desired color */
+}
+
+a[ng-click] {
+  text-decoration: underline;
+  color: blue;
+  padding: 2px;
+  transition: .1s all;
+  border-radius: 5px;
+}
+
+a[ng-click]:hover {
+  cursor: pointer;
+  background-color: lightgray;
 }

@@ -16,7 +16,7 @@ Run `grunt` to build the project.
 ### Background
 A technical introduction is available on my blog: [www.mschweighauser.com](https://www.mschweighauser.com/make-your-own-assembler-simulator-in-javascript-part1/).
 
-### License
+### Licen
 **The MIT License**
 
 Copyright (c) 2015 Marco Schweighauser
