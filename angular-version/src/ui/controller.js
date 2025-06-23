@@ -16,6 +16,9 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
     { speed: 1024, desc: "1024 HZ" }];
     $scope.speed = 4;
     $scope.outputStartIndex = 925;
+    $scope.outputEndIndex = 1023;
+    $scope.displayStartIndex = 1024;
+    $scope.displayEndIndex = 2047;
     $scope.ramDisplayMode = "HEX";
 
     $scope.code = [
@@ -199,12 +202,14 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
     };
 
     $scope.getMemoryCellCss = function(index) {
-        if (index >= $scope.outputStartIndex) {
+        if (index >= $scope.outputStartIndex && index <= $scope.outputEndIndex) {
             return 'output-bg';
         } else if ($scope.isInstruction(index)) {
             return 'instr-bg';
         } else if (index > cpu.sp && index <= cpu.maxSP) {
             return 'stack-bg';
+        } else if (index >= $scope.displayStartIndex) {
+            return 'display-bg';
         } else {
             return '';
         }
@@ -215,6 +220,8 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
             return 'marker marker-ip';
         } else if (index === cpu.sp) {
             return 'marker marker-sp';
+        } else if (index === cpu.dp) {
+            return 'marker marker-dp';
         } else if (index === cpu.gpr[0] && $scope.displayA) {
             return 'marker marker-a';
         } else if (index === cpu.gpr[1] && $scope.displayB) {

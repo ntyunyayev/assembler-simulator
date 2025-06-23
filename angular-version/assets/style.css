@@ -27,6 +27,10 @@
   background-color: #F8DCB4;
 }
 
+.display-bg {
+  background-color: #ffd7d7;
+}
+
 .memory-block {
   width: 1.8em;
   display: inline-block;
