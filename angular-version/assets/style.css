@@ -149,7 +149,6 @@ a[ng-click]:hover {
   background-color: lightgray;
 }
 
-
 :root {
   --editor-background: #f8f9fa;         /* Light gray background */
   --line-number-color: #6c757d;         /* Muted gray for line numbers */
@@ -224,4 +223,13 @@ a[ng-click]:hover {
   overflow-y: scroll;
   /* TODO: Better way to handle RAM height */
   max-height: 50vh;
+}
+
+.clock-speed {
+  font-weight: bold;
+  margin: 0 5px;
+  color: #333;
+  font-size: 1em;
+  vertical-align: middle;
+  display: inline-block;
 }
