@@ -162,7 +162,8 @@
               </table>
             </div>
           </div>
-          <div class=" ">
+          <div>
+            <!-- HERE -->
               <button
                 type="button"
                 class="btn btn-default navbar-btn"
@@ -170,17 +171,7 @@
               >
                 Change RAM display mode (HEX/ASCII)
               </button>
-            <h4 class="">Memory (RAM)</h4>
-            <p style="margin-top: 5px">
-              <small>
-                <span style="margin-left: 5px">Instructions:</span>
-                <a ng-click="displayInstr = true" ng-hide="displayInstr"
-                >Show</a
-                >
-                <a ng-click="displayInstr = false" ng-show="displayInstr"
-                >Hide</a
-                >
-              </small>
+            <h4>Memory (RAM)</h4>
             </p>
               <div class="source-code">
                 <div
@@ -219,8 +210,8 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
           </div>
           
-          <p>Clock Speed</p>
-          <div class="clock-speed">
+          <h4>Clock Speed</h4>
+          <div class="selectable">
             <button
                     ng-repeat="item in speeds"
                     ng-click="setSpeed(item.speed)"
@@ -229,8 +220,8 @@
 
           </div>
 
-          <p>Numbers Representation</p>
-          <div class="clock-speed">
+          <h4>Numbers Representation</h4>
+          <div class="selectable">
             <button
                     ng-click="displayHex = false"
                     ng-class="{'active': !displayHex}"> Decimal
@@ -239,7 +230,18 @@
                     ng-click="displayHex = true"
                     ng-class="{'active': displayHex}"> Hexadecimal
             </button>
+          </div>
 
+          <h4>Instructions in RAM</h4>
+          <div class="selectable">
+            <button
+                    ng-click="displayInstr = false"
+                    ng-class="{'active': !displayInstr}"> Hide
+            </button>
+            <button
+                    ng-click="displayInstr = true"
+                    ng-class="{'active': displayInstr}"> Show
+            </button>
           </div>
 
           <h4>Screen Display</h4>

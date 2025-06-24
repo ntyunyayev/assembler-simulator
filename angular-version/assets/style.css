@@ -6,8 +6,7 @@ body {
 }
 
 h4 {
-  margin: 0;
-  padding: 3px;
+  margin: 10px 0;
 }
 
 .source-code {
@@ -237,15 +236,6 @@ a[ng-click]:hover {
   max-height: 50vh;
 }
 
-.clock-speed {
-  font-weight: bold;
-  margin: 0 5px;
-  color: #333;
-  font-size: 1em;
-  vertical-align: middle;
-  display: inline-block;
-}
-
 .screen-container {
   display: flex;
   justify-content: center;
@@ -288,11 +278,11 @@ a[ng-click]:hover {
   background-color: #ff6b81;
  }
 
-.clock-speed {
+.selectable {
   display: flex;
 }
 
-.clock-speed > button {
+.selectable > button {
   margin: 0;
   border-radius: 0;
   background-color: #f6f4f4;
@@ -300,12 +290,12 @@ a[ng-click]:hover {
   transition: .2s all;
 }
 
-.clock-speed > button.active {
+.selectable > button.active {
   background-color: #34495e;
   color: white;
 }
 
-.clock-speed > button:hover:not(.active) {
+.selectable > button:hover:not(.active) {
   background-color: #c6c9c9;
 }
 
