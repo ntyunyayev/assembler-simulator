@@ -138,9 +138,7 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
     $scope.updateCode = function($event) {
         $scope.code = $event.target.innerText;
     };
-    $scope.$watch("memoryHighlight", function() {
-        alert("aa");
-    });
+
     $scope.$watch('code', function(newVal, oldVal) {
         if (newVal !== oldVal) {
             var editor = document.getElementById('editor');
