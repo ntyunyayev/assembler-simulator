@@ -694,7 +694,7 @@ app.service('cpu', ['opcodes', 'memory', function(opcodes, memory) {
             self.gpr = [0, 0, 0, 0];
             self.sp = self.maxSP;
             self.ip = 0;
-            self.dp = 1024;
+            self.dp = 926;
             self.zero = false;
             self.carry = false;
             self.fault = false;

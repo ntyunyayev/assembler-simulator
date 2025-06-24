@@ -17,10 +17,8 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
     { speed: 1024, desc: "1024 HZ" },
     { speed: 2048, desc: "2048 HZ" }];
     $scope.speed = 4;
-    $scope.outputStartIndex = 925;
-    $scope.outputEndIndex = 1023;
     $scope.outputLimit = $scope.outputEndIndex - $scope.outputStartIndex + 1;
-    $scope.displayStartIndex = 1024;
+    $scope.displayStartIndex = 926;
     $scope.screenPixels = [];
     $scope.memoryHighlight = -1;
     $scope.code = "";
