@@ -4,6 +4,12 @@
 body {
   margin: 0;
 }
+
+h4 {
+  margin: 0;
+  padding: 3px;
+}
+
 .source-code {
   font-family: source-code-pro, Courier New;
 }
@@ -244,7 +250,7 @@ a[ng-click]:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
+  margin: 15px 0;
 }
 
 .screen {
@@ -305,4 +311,31 @@ a[ng-click]:hover {
 
 button:hover {
   cursor: pointer;
+}
+
+.registers-header th {
+  font-size: 1em;
+}
+
+.settings-icon-container {
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  z-index: 1000;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.settings-icon-container svg {
+  display: block;
+  width: 32px;
+  height: 32px;
+  color: #444;
+  transition: color 0.2s;
+}
+
+.settings-icon-container:hover svg {
+  color: #1c7ed6;
 }

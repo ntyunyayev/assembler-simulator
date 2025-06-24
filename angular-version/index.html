@@ -215,10 +215,58 @@
             </div>
           </div>
         <div class="col2">
-          <h4>Registers / Flags</h4>
+          <div class="settings-icon-container">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings-icon lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          
+          <p>Clock Speed</p>
+          <div class="clock-speed">
+            <button
+                    ng-repeat="item in speeds"
+                    ng-click="setSpeed(item.speed)"
+                    ng-class="{'active': speed === item.speed}"> {{ item.desc }}
+            </button>
+
+          </div>
+
+          <p>Numbers Representation</p>
+          <div class="clock-speed">
+            <button
+                    ng-click="displayHex = false"
+                    ng-class="{'active': !displayHex}"> Decimal
+            </button>
+            <button
+                    ng-click="displayHex = true"
+                    ng-class="{'active': displayHex}"> Hexadecimal
+            </button>
+
+          </div>
+
+          <h4>Screen Display</h4>
+          <div class="screen-container">
+            <div class="screen" >
+              <table class="screen-table">
+                <tbody>
+                <tr ng-repeat="row in screenPixels track by $index">
+                  <td ng-repeat="pixel in row track by $index">
+                    <div
+                      class="screen-pixel"
+                      ng-class="{
+                        'screen-pixel-on': pixel === 1,
+                        'screen-pixel-off': pixel === 0
+                      }"
+                    ></div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+           <h4>Registers / Flags</h4>
           <table>
             <thead>
-            <tr>
+            <tr class="registers-header">
               <th style="text-align: center">A</th>
               <th style="text-align: center">B</th>
               <th style="text-align: center">C</th>
@@ -293,49 +341,6 @@
             </tbody>
           </table>
 
-          <p>Clock Speed</p>
-          <div class="clock-speed">
-            <button
-                    ng-repeat="item in speeds"
-                    ng-click="setSpeed(item.speed)"
-                    ng-class="{'active': speed === item.speed}"> {{ item.desc }}
-            </button>
-
-          </div>
-
-          <p>Numbers Representation</p>
-          <div class="clock-speed">
-            <button
-                    ng-click="displayHex = false"
-                    ng-class="{'active': !displayHex}"> Decimal
-            </button>
-            <button
-                    ng-click="displayHex = true"
-                    ng-class="{'active': displayHex}"> Hexadecimal
-            </button>
-
-          </div>
-
-          <h4>Screen Display</h4>
-          <div class="screen-container">
-            <div class="screen" >
-              <table class="screen-table">
-                <tbody>
-                <tr ng-repeat="row in screenPixels track by $index">
-                  <td ng-repeat="pixel in row track by $index">
-                    <div
-                      class="screen-pixel"
-                      ng-class="{
-                        'screen-pixel-on': pixel === 1,
-                        'screen-pixel-off': pixel === 0
-                      }"
-                    ></div>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
         </div>
       </div>
       </div>
