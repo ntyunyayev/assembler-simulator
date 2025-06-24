@@ -698,6 +698,7 @@ app.service('cpu', ['opcodes', 'memory', function(opcodes, memory) {
             self.zero = false;
             self.carry = false;
             self.fault = false;
+            self.screenMode = false;
         }
     };
     cpu.reset();

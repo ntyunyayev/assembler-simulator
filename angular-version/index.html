@@ -215,7 +215,7 @@
             </div>
           </div>
         <div class="col2">
-          <p>Registers / Flags</p>
+          <h4>Registers / Flags</h4>
           <table>
             <thead>
             <tr>
@@ -229,6 +229,7 @@
               <th style="text-align: center">Z</th>
               <th style="text-align: center">C</th>
               <th style="text-align: center">F</th>
+              <th style="text-align: center">SM</th>
             </tr>
             </thead>
             <tbody>
@@ -287,6 +288,7 @@
               <td><small>{{ cpu.zero | flag }}</small></td>
               <td><small>{{ cpu.carry | flag }}</small></td>
               <td><small>{{ cpu.fault | flag }}</small></td>
+              <td><small>{{ cpu.screenMode | flag }}</small></td>
             </tr>
             </tbody>
           </table>

@@ -156,7 +156,6 @@ a[ng-click]:hover {
   text-align: center;
 }
 
-
 :root {
   --editor-background: #f8f9fa;         /* Light gray background */
   --line-number-color: #6c757d;         /* Muted gray for line numbers */
@@ -168,7 +167,6 @@ a[ng-click]:hover {
   --number-color: #5f27cd;         /* Muted gray for line numbers */
 
 }
-
 
 .editor {
   font-family: 'Roboto Mono', monospace;
