@@ -243,15 +243,12 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
     };
 
     function updateScreenPixels() {
-        console.log("Updating screen pixels");
         $scope.screenPixels = screen.render($scope.memory.data);
     }
 
     $scope.$watch('memory.data', function (newVal, oldVal) {
-        console.log("Memory data changed");
         if (newVal !== oldVal) {
             updateScreenPixels();
         }
     }, true);
-
 }]);

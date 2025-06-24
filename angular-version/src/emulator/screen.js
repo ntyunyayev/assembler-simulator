@@ -5,7 +5,6 @@ app.service('screen', function () {
     this.endAddress = 2048;
 
     this.render = function(memory) {
-        console.log(memory);
         if (!memory || !Array.isArray(memory) || memory.length < this.endAddress) {
             throw new Error("Invalid memory provided for rendering screen.");
         }

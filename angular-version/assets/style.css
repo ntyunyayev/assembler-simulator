@@ -3,8 +3,6 @@
 }
 body {
   margin: 0;
-  /*max-height: 100vh;
-  overflow-y: hidden*/
 }
 .source-code {
   font-family: source-code-pro, Courier New;
@@ -131,8 +129,8 @@ button {
   border-radius: 5px;
 }
 
-table td:nth-child(odd),
-table th:nth-child(odd) {
+.register-table td:nth-child(odd),
+.register-table th:nth-child(odd) {
   background-color: #f2f2f2; /* Replace with your desired color */
 }
 
@@ -232,4 +230,42 @@ a[ng-click]:hover {
   font-size: 1em;
   vertical-align: middle;
   display: inline-block;
+}
+
+.screen-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.screen {
+  padding: 2px;
+  border-radius: 4px;
+  display: inline-block;
+  background-color: #e0e0e0;
+}
+
+.screen-table {
+  border-collapse: collapse;
+}
+
+.screen-table td {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+}
+
+.screen-pixel {
+  width: 12px;
+  height: 12px;
+  transition: background 0.1s;
+}
+
+.screen-pixel-on {
+  background: #000000;
+}
+
+.screen-pixel-off {
+  background: #ffffff;
 }
