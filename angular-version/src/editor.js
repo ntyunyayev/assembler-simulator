@@ -66,6 +66,7 @@ const editor = (el, highlight = asm, tab = '    ') => {
     highlight(el);
 
     el.addEventListener('keydown', e => {
+        if (e.ctrlKey) return; // allow default behavior if Ctrl is pressed
         if (e.which === 9) {
             const pos = caret() + tab.length;
             const range = window.getSelection().getRangeAt(0);
@@ -78,6 +79,7 @@ const editor = (el, highlight = asm, tab = '    ') => {
     });
 
     el.addEventListener('keyup', e => {
+        if (e.ctrlKey) return; // allow default behavior if Ctrl is pressed
         if (e.keyCode >= 0x30 || e.keyCode == 0x20) {
             const pos = caret();
             highlight(el);
