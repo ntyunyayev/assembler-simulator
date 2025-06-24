@@ -3,8 +3,8 @@
 }
 body {
   margin: 0;
-  max-height: 100vh;
-  overflow-y: hidden
+  /*max-height: 100vh;
+  overflow-y: hidden*/
 }
 .source-code {
   font-family: source-code-pro, Courier New;

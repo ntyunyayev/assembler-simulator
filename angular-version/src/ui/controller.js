@@ -1,4 +1,4 @@
-app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'assembler', function($document, $scope, $timeout, cpu, memory, assembler) {
+app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'assembler', 'screen', function($document, $scope, $timeout, cpu, memory, assembler, screen) {
     $scope.memory = memory;
     $scope.cpu = cpu;
     $scope.error = '';
@@ -20,8 +20,10 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
     $scope.outputLimit = $scope.outputEndIndex - $scope.outputStartIndex + 1;
     $scope.displayStartIndex = 925;
     $scope.ramDisplayMode = "HEX";
-
+    $scope.screenPixels = [];
     $scope.code = "";
+    updateScreenPixels();
+
     $scope.reset = function() {
         cpu.reset();
         memory.reset();
@@ -193,7 +195,6 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
         $scope.selectedLine = $scope.mapping[index];
     };
 
-
     $scope.isInstruction = function(index) {
         return $scope.mapping !== undefined &&
             $scope.mapping[index] !== undefined &&
@@ -240,4 +241,17 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
             $scope.ramDisplayMode = 'ASCII';
         }
     };
+
+    function updateScreenPixels() {
+        console.log("Updating screen pixels");
+        $scope.screenPixels = screen.render($scope.memory.data);
+    }
+
+    $scope.$watch('memory.data', function (newVal, oldVal) {
+        console.log("Memory data changed");
+        if (newVal !== oldVal) {
+            updateScreenPixels();
+        }
+    }, true);
+
 }]);

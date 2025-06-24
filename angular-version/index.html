@@ -352,8 +352,22 @@
           </div>
 
           <h4>Screen Display</h4>
+          <div class="screen-container">
+            <div class="screen" style="border: 3px solid #0074D9; padding: 5px; border-radius: 4px;">
+            <table class="screen-table">
+              <tbody>
+              <tr ng-repeat="row in screenPixels track by $index">
+                <td ng-repeat="pixel in row track by $index"
+                  ng-style="{'background-color': pixel ? '#000' : '#fff', 'width': '10px', 'height': '10px', 
+                  'border': '0.1px solid #ccc'}">
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+          </div>
         </div>
-
       </div>
       <hr style="margin-top: 10px; margin-bottom: 10px" />
       <p>

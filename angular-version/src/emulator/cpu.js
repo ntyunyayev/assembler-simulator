@@ -24,10 +24,6 @@ app.service('cpu', ['opcodes', 'memory', function(opcodes, memory) {
                     }
                 };
 
-
-
-
-
                 var setGPR_SP = function(reg, value) {
                     if (reg >= 0 && reg < self.gpr.length) {
                         self.gpr[reg] = value;
