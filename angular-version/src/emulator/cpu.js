@@ -8,6 +8,8 @@ app.service('cpu', ['opcodes', 'memory', function(opcodes, memory) {
             }
 
             try {
+                self.screenMode = memory.load16(self.maxSP + 1) === 1;
+
                 var checkGPR = function(reg) {
                     if (reg < 0 || reg >= self.gpr.length) {
                         throw "Invalid register: " + reg;
@@ -694,11 +696,11 @@ app.service('cpu', ['opcodes', 'memory', function(opcodes, memory) {
             self.gpr = [0, 0, 0, 0];
             self.sp = self.maxSP;
             self.ip = 0;
-            self.dp = 926;
+            self.dp = 927;
             self.zero = false;
             self.carry = false;
             self.fault = false;
-            self.screenMode = false;
+            self.screenMode = memory.load16(self.maxSP + 1) === 1;
         }
     };
     cpu.reset();
