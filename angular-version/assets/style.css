@@ -7,8 +7,13 @@
 body {
   margin: 0;
 }
+
 .editor *, .source-code *{
   font-family: "Source Code Pro", monospace;
+}
+
+h4 {
+  margin: 10px 0;
 }
 
 .output,
@@ -165,7 +170,6 @@ a[ng-click]:hover {
   text-align: center;
 }
 
-
 :root {
   --editor-background: #f8f9fa;         /* Light gray background */
   --line-number-color: #6c757d;         /* Muted gray for line numbers */
@@ -177,7 +181,6 @@ a[ng-click]:hover {
   --number-color: #5f27cd;         /* Muted gray for line numbers */
 
 }
-
 
 .editor {
   font-family: 'Roboto Mono', monospace;
@@ -242,20 +245,11 @@ a[ng-click]:hover {
   max-height: 50vh;
 }
 
-.clock-speed {
-  font-weight: bold;
-  margin: 0 5px;
-  color: #333;
-  font-size: 1em;
-  vertical-align: middle;
-  display: inline-block;
-}
-
 .screen-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
+  margin: 15px 0;
 }
 
 .screen {
@@ -294,11 +288,11 @@ a[ng-click]:hover {
   background-color: #ff6b81;
  }
 
-.clock-speed {
+.selectable {
   display: flex;
 }
 
-.clock-speed > button {
+.selectable > button {
   margin: 0;
   border-radius: 0;
   background-color: #f6f4f4;
@@ -306,15 +300,48 @@ a[ng-click]:hover {
   transition: .2s all;
 }
 
-.clock-speed > button.active {
+.selectable > button.active {
   background-color: #34495e;
   color: white;
 }
 
-.clock-speed > button:hover:not(.active) {
+.selectable > button:hover:not(.active) {
   background-color: #c6c9c9;
 }
 
 button:hover {
   cursor: pointer;
+}
+
+.registers-header th {
+  font-size: 1em;
+}
+
+.settings-container {
+  display: none;
+  transform-origin: top left;
+  transition: 0.5s all;
+}
+
+.settings-icon-container {
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  z-index: 1000;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.settings-icon-container svg {
+  display: block;
+  width: 32px;
+  height: 32px;
+  color: #444;
+  transition: color 0.2s;
+}
+
+.settings-icon-container:hover svg {
+  color: #1c7ed6;
 }
