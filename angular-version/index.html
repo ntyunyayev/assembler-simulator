@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/style.css" />
     <script type="text/javascript" src="//use.typekit.net/tor0zlh.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script type="text/javascript">
+
       try {
         Typekit.load();
       } catch (e) {}
@@ -359,6 +362,55 @@
             </tbody>
           </table>
 
+          <p>Clock Speed</p>
+          <div class="clock-speed">
+            <button
+                    ng-repeat="item in speeds"
+                    ng-click="setSpeed(item.speed)"
+                    ng-class="{'active': speed === item.speed}"> {{ item.desc }}
+            </button>
+
+          </div>
+
+          <p>Numbers Representation</p>
+          <div class="clock-speed">
+            <button
+                    ng-click="displayHex = false"
+                    ng-class="{'active': !displayHex}"> Decimal
+            </button>
+            <button
+                    ng-click="displayHex = true"
+                    ng-class="{'active': displayHex}"> Hexadecimal
+            </button>
+
+          </div>
+
+          <h4>Screen Display</h4>
+          <div class="screen-container">
+            <div tabindex="0"
+                 record-keys
+                 ng-class="{'screen': true, 'screen-recording': recordingKeys}"
+                 ng-mouseenter="recordingKeys = true; focusScreen()"
+                 ng-mouseleave="recordingKeys = false; focusScreen()"
+            >
+
+              <table class="screen-table">
+                <tbody>
+                <tr ng-repeat="row in screenPixels track by $index">
+                  <td ng-repeat="pixel in row track by $index">
+                    <div
+                      class="screen-pixel"
+                      ng-class="{
+                        'screen-pixel-on': pixel === 1,
+                        'screen-pixel-off': pixel === 0
+                      }"
+                    ></div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
       </div>

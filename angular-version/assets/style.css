@@ -1,16 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 * {
   box-sizing: border-box;
+  font-family: "Poppins", serif;
+
 }
 body {
   margin: 0;
 }
 
-h4 {
-  margin: 10px 0;
+.editor *, .source-code *{
+  font-family: "Source Code Pro", monospace;
 }
 
-.source-code {
-  font-family: source-code-pro, Courier New;
+h4 {
+  margin: 10px 0;
 }
 
 .output,
@@ -41,7 +44,9 @@ h4 {
 .display-bg {
   background-color: #ffd7d7;
 }
-
+.inputbuffer-bg {
+  background-color: #e67e22;
+}
 .memory-block {
   width: 1.8em;
   display: inline-block;
@@ -56,6 +61,10 @@ h4 {
   color: black;
   border-radius: 2px;
   user-select: none;
+}
+
+.screen-recording {
+  border: 3px solid #9b59b6;
 }
 
 .marker-ip {
@@ -248,6 +257,8 @@ a[ng-click]:hover {
   border-radius: 4px;
   display: inline-block;
   background-color: #e0e0e0;
+  outline: none;
+
 }
 
 .screen-table {
@@ -263,7 +274,6 @@ a[ng-click]:hover {
 .screen-pixel {
   width: 12px;
   height: 12px;
-  transition: background 0.1s;
 }
 
 .screen-pixel-on {

@@ -1,4 +1,4 @@
-app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'assembler', 'screen', function($document, $scope, $timeout, cpu, memory, assembler, screen) {
+app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'assembler', 'screen','inputbuffer', function($document, $scope, $timeout, cpu, memory, assembler, screen, inputbuffer) {
     $scope.memory = memory;
     $scope.cpu = cpu;
     $scope.error = '';
@@ -14,16 +14,28 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
     { speed: 4, desc: "4 HZ" },
     { speed: 8, desc: "8 HZ" },
     { speed: 16, desc: "16 HZ" },
-    { speed: 1024, desc: "1024 HZ" }];
+    { speed: 1024, desc: "1024 HZ" },
+    { speed: 2048, desc: "2048 HZ" }];
     $scope.speed = 4;
     $scope.outputStartIndex = 925;
     $scope.outputEndIndex = 1023;
     $scope.outputLimit = $scope.outputEndIndex - $scope.outputStartIndex + 1;
-    $scope.displayStartIndex = 925;
+    $scope.displayStartIndex = 1024;
     $scope.screenPixels = [];
     $scope.memoryHighlight = -1;
     $scope.code = "";
+    $scope.recordingKeys = false;
+    $scope.inputbuffer = inputbuffer;
+    $scope.inputBufferStartIndex = $scope.displayStartIndex+screen.size;
+    $scope.inputBufferEndIndex = $scope.inputBufferStartIndex + inputbuffer.size;
+
+
+
     updateScreenPixels();
+    $scope.focusScreen = function () {
+        const el = document.querySelector('.screen');
+        if (el) el.focus();
+    };
 
     $scope.reset = function() {
         cpu.reset();
@@ -221,8 +233,10 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
             return 'output-bg';
         } else if (index > cpu.sp && index <= cpu.maxSP) {
             return 'stack-bg';
-        } else if (index >= $scope.displayStartIndex) {
+        } else if (index >= $scope.displayStartIndex && index < $scope.displayStartIndex + screen.size) {
             return 'display-bg';
+        } else if (index >= $scope.inputBufferStartIndex && index < $scope.inputBufferEndIndex) {
+            return 'inputbuffer-bg';
         } else {
             return '';
         }
@@ -249,7 +263,7 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
     };
 
     function updateScreenPixels() {
-        $scope.screenPixels = screen.render($scope.memory.data);
+        $scope.screenPixels = screen.render($scope);
     }
 
     $scope.$watch('memory.data', function (newVal, oldVal) {

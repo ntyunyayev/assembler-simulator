@@ -80,7 +80,7 @@ const editor = (el, highlight = asm, tab = '    ') => {
 
     el.addEventListener('keyup', e => {
         if (e.ctrlKey) return; // allow default behavior if Ctrl is pressed
-        if (e.keyCode >= 0x30 || e.keyCode == 0x20) {
+        if (e.keyCode >= 0x30 || e.keyCode == 0x20 || e.key === "Backspace") {
             const pos = caret();
             highlight(el);
             setCaret(pos);
@@ -90,35 +90,14 @@ const editor = (el, highlight = asm, tab = '    ') => {
 
 // Turn div into an editable assembler editor
 const el = document.querySelector('.editor');
-const lines = [
-    '; Simple example',
-    '; Writes Hello World to the output',
-    '   JMP start',
-    'hello: DB "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111" ; Variable',
-    '       DB 0\t; String terminator',
-    'start:',
-    '   MOV D, hello    ; Point to var',
-    '   PUSH 925\t; Point to output',
-    '   CALL print',
-    '   HLT             ; Stop execution',
-    'print:\t\t; print(D:*from, SP+2:*to)',
-    '   PUSH C',
-    '   PUSH B',
-    '   MOV C, [SP+6]',
-    '   MOV B, 0',
-    '.loop:',
-    '   MOV A, [D]	; Get char from var',
-    '   MOV [C], A	; Write to output',
-    '   INC D',
-    '   INC C',
-    '   INC D',
-    '   INC C',
-    '   CMP B, [D]	; Check if end',
-    '   JNZ .loop	; jump if not',
-    '   POP B',
-    '   POP C',
-    '   RET',
-];
+const lines = `
+.start:
+    MOV C, 1024
+.loop:
+    MOV [C], 1
+    ADD C, 2
+    JMP .loop
+`.split("\n");
 
 // clear existing content
 el.innerHTML = '';
