@@ -352,3 +352,7 @@ button:hover {
 .settings-icon-container:hover svg {
   color: #1c7ed6;
 }
+
+.instruction-set-button {
+  color: #337ab7
+}

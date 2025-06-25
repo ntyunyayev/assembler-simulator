@@ -421,3 +421,7 @@ button:hover {
   background: #f2f2f2;
   color: #1c7ed6;
 }
+
+.instruction-set-button {
+  color: #337ab7
+}
