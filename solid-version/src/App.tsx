@@ -1,5 +1,5 @@
 import { createContext } from 'solid-js';
-import {createStateStore} from "./stores/state.ts"
+import { createStateStore } from "./stores/state.ts"
 import './App.css'
 import "./stores/state.ts"
 import type { SetStoreFunction } from 'solid-js/store';
@@ -18,24 +18,24 @@ function App() {
         <StateContext.Provider value={[state, setState]}>
             <Navbar></Navbar>
             <CodeActions></CodeActions>
-                <div class="row main">
-                    <Editor></Editor>
-                    <div class="col1">
+            <div class="row main">
+                <Editor></Editor>
+                <div class="col1">
+                    <div>
                         <div>
-                            <div>
-                                <h4>Labels</h4>
-                            </div>
-                            <div class=" source-code">
-                                <table class="labels-table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Address</th>
-                                            <th>Value</th>
-                                        </tr>
-                                        <tr ng-repeat="(name, value) in labels" class="codelabel">
-                                            <td class="codelabel-name">{name}</td>
-                                            {/*
+                            <h4>Labels</h4>
+                        </div>
+                        <div class=" source-code">
+                            <table class="labels-table">
+                                <tbody>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    <tr ng-repeat="(name, value) in labels" class="codelabel">
+                                        <td class="codelabel-name">{name}</td>
+                                        {/*
                                 <td class="codelabel-line">
                                     <a ng-click="jumpToLine(value)"  ng-mouseenter="setHighlight(value)"   ng-mouseleave="setHighlight(-1)">
                                         {{ value| number:displayHex:true }}
@@ -45,92 +45,43 @@ function App() {
                                     {{ memory.load16(value) | number:displayHex:true }}
                                 </td>
                                 */}
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <Memory></Memory>
                     </div>
-                    <div class="col2">
-                        <Settings></Settings>
+                    <Memory></Memory>
+                </div>
+                <div class="col2">
+                    <Settings></Settings>
 
-                        <div class="settings-container">
-                            <h4>Clock Speed</h4>
-                            <div class="selectable">
-                                {/*
-                    <button
-                        ng-repeat="item in speeds"
-                        ng-click="setSpeed(item.speed)"
-                        ng-class="{'active': speed === item.speed}"> {{ item.desc }}
-                    </button>
-                    */}
-                            </div>
-
-                            <h4 class="settings">Numbers Representation</h4>
-                            <div class="selectable">
-                                <button
-                                    ng-click="displayHex = false"
-                                    ng-class="{'active': !displayHex}"> Decimal
-                                </button>
-                                <button
-                                    ng-click="displayHex = true"
-                                    ng-class="{'active': displayHex}"> Hexadecimal
-                                </button>
-                            </div>
-
-                            <h4>Instructions in RAM</h4>
-                            <div class="selectable">
-                                <button
-                                    ng-click="displayInstr = false"
-                                    ng-class="{'active': !displayInstr}"> Hide
-                                </button>
-                                <button
-                                    ng-click="displayInstr = true"
-                                    ng-class="{'active': displayInstr}"> Show
-                                </button>
-                            </div>
-
-                            <h4>RAM display mode</h4>
-                            <div class="selectable">
-                                <button
-                                    ng-click="ramDisplayMode = 'HEX'"
-                                    ng-class="{'active': ramDisplayMode === 'HEX'}"> HEX
-                                </button>
-                                <button
-                                    ng-click="ramDisplayMode = 'ASCII'"
-                                    ng-class="{'active': ramDisplayMode === 'ASCII'}"> ASCII
-                                </button>
-                            </div>
+                    <h4>Screen Display</h4>
+                    <div class="screen-container">
+                        <div tabindex="0"
+                            record-keys
+                            ng-class="{'screen': true, 'screen-recording': recordingKeys}"
+                            ng-mouseenter="recordingKeys = true; focusScreen()"
+                            ng-mouseleave="recordingKeys = false; focusScreen()"
+                        >
+                            <table class="screen-table">
+                                <tbody>
+                                    <tr ng-repeat="row in screenPixels track by $index">
+                                        <td ng-repeat="pixel in row track by $index">
+                                            <div
+                                                class="screen-pixel"
+                                                ng-class="{
+                'screen-pixel-on': pixel === 1,
+                'screen-pixel-off': pixel === 0,
+                'screen-pixel-ascii': pixel !== 1 && pixel !== 0
+                }"
+                                            ></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-
-                        <h4>Screen Display</h4>
-                        <div class="screen-container">
-                            <div tabindex="0"
-                                record-keys
-                                ng-class="{'screen': true, 'screen-recording': recordingKeys}"
-                                ng-mouseenter="recordingKeys = true; focusScreen()"
-                                ng-mouseleave="recordingKeys = false; focusScreen()"
-                            >
-                                <table class="screen-table">
-                                    <tbody>
-                                        <tr ng-repeat="row in screenPixels track by $index">
-                                            <td ng-repeat="pixel in row track by $index">
-                                                <div
-                                                    class="screen-pixel"
-                                                    ng-class="{
-                        'screen-pixel-on': pixel === 1,
-                        'screen-pixel-off': pixel === 0,
-                        'screen-pixel-ascii': pixel !== 1 && pixel !== 0
-                      }"
-                                                ></div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        {/*
+                    </div>
+                            {/*
             <h4>Registers / Flags</h4>
             <table>
                 <thead>
@@ -211,9 +162,8 @@ function App() {
             */}
 
 
+                        </div>
                     </div>
-                </div>
-
         </StateContext.Provider>
     )
 }
