@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", serif;
+
+}
+body {
+  margin: 0;
+}
+
+.editor *, .source-code *{
+  font-family: "Source Code Pro", monospace;
+}
+
+h4 {
+  margin: 10px 0;
+}
+
+.output,
+.output-bg {
+  background-color: #DFDFDF;
+}
+
+.output {
+  width: 1em;
+  margin-right: 1px;
+  margin-bottom: 1px;
+  text-align: center;
+}
+
+.instr-bg {
+  background-color: #E6F3FF;
+}
+
+.instr-bg a {
+  color: inherit;
+  cursor: pointer;
+}
+
+.stack-bg {
+  background-color: #F8DCB4;
+}
+
+.display-bg {
+  background-color: #ffd7d7;
+}
+.inputbuffer-bg {
+  background-color: #e67e22;
+}
+.memory-block {
+  width: 1.8em;
+  display: inline-block;
+  text-align: center;
+}
+
+.marker:hover {
+  cursor: pointer;
+}
+.marker {
+  width: 1.8em;
+  color: black;
+  border-radius: 2px;
+  user-select: none;
+}
+
+.screen-recording {
+  border: 3px solid #9b59b6;
+}
+
+.marker-ip {
+  background-color: #428BCA;
+}
+
+.marker-sp {
+  background-color: #EEA236;
+}
+
+.marker-dp {
+  background-color: #D9534F;
+}
+
+.marker-a {
+  background-color: #4D8C20;
+}
+
+.marker-b {
+  background-color: #22D19D;
+}
+
+.marker-c {
+  background-color: #A137ED;
+}
+
+.marker-d {
+  background-color: #E81F1F;
+}
+
+.codelabel-line a {
+  cursor: pointer;
+}
+
+.debug {
+  background-color: red;
+  border: 1px solid lime;
+}
+
+.main {
+  display: flex;
+}
+
+.editor-container {
+  width: 33%;
+  padding: 10px;
+}
+
+.col1 {
+  width: 33%;
+  padding: 10px;
+}
+
+.col2 {
+  width: 33%;
+  padding: 10px;
+}
+
+textarea {width: 100%;}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.navbar > .actions {
+  display: flex;
+}
+
+.navbar .btn-group {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  outline: none;
+  border: none;
+  padding: 5px 10px;
+  margin: 2px;
+  border-radius: 5px;
+}
+
+.register-table td:nth-child(odd),
+.register-table th:nth-child(odd) {
+  background-color: #f2f2f2; /* Replace with your desired color */
+}
+
+a[ng-click] {
+  text-decoration: underline;
+  color: blue;
+  padding: 2px;
+  transition: .1s all;
+  border-radius: 5px;
+}
+
+a[ng-click]:hover {
+  cursor: pointer;
+  background-color: lightgray;
+}
+
+.labels-table {
+  width: 100%;
+  text-align: center;
+}
+
+:root {
+  --editor-background: #f8f9fa;         /* Light gray background */
+  --line-number-color: #6c757d;         /* Muted gray for line numbers */
+  --string-color: #d63384;              /* Rose pink for strings */
+  --registers-color: #e67700;           /* Orange for registers */
+  --instruction-color: #1c7ed6;         /* Bright blue for instructions */
+  --labels-color: #2b8a3e;              /* Green for labels */
+  --comments-color: #576574;            /* Soft gray for comments */
+  --number-color: #5f27cd;         /* Muted gray for line numbers */
+
+}
+
+.editor {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 17px;
+  outline: none;
+  overflow-y: auto;
+  padding: 10px 10px 10px 48px;
+  counter-reset: line;
+  background-color: var(--editor-background);
+  border-radius: 10px;
+  color: black;
+}
+
+.editor div {
+  display: block;
+  position: relative;
+  white-space: pre-wrap;
+}
+
+.editor div::before {
+  content: counter(line);
+  counter-increment: line;
+  position: absolute;
+  right: calc(100% + 16px);
+  opacity: 0.5;
+  color: var(--line-number-color);
+}
+
+.hl.strings {
+  color: var(--string-color);
+}
+
+.hl.comments {
+  color: var(--comments-color); /* gray */
+  font-style: italic;
+}
+
+.hl.labels {
+  color: var(--labels-color); /* cyan */
+  font-weight: bold;
+}
+
+.hl.instruction {
+  color: var(--instruction-color);
+}
+
+.hl.register {
+  color: var(--registers-color);
+}
+
+.hl.number {
+  color: var(--number-color); /* yellow */
+}
+
+.editor div.highlight {
+  background-color: #d3deea;
+}
+
+.source-code {
+  overflow-y: scroll;
+  /* TODO: Better way to handle RAM height */
+  max-height: 50vh;
+}
+
+.screen-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.screen {
+  padding: 2px;
+  border-radius: 4px;
+  display: inline-block;
+  background-color: #e0e0e0;
+  outline: none;
+}
+
+.screen-table {
+  border-collapse: collapse;
+}
+
+.screen-table td {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+}
+
+.screen-pixel {
+  width: 12px;
+  height: 12px;
+}
+
+.screen-pixel-on {
+  background: #000000;
+}
+
+.screen-pixel-off {
+  background: #ffffff;
+}
+
+.screen-piexel-ascii {
+  font-family: monospace;
+  font-size: 10px;
+  text-align: center;
+  line-height: 12px;
+  color: #000000;
+}
+
+.highlighted {
+  background-color: #ff6b81;
+}
+
+.selectable {
+  display: flex;
+}
+
+.selectable > button {
+  margin: 0;
+  border-radius: 0;
+  background-color: #f6f4f4;
+  border-top: 2px solid #34495e;
+  transition: .2s all;
+}
+
+.selectable > button.active {
+  background-color: #34495e;
+  color: white;
+}
+
+.selectable > button:hover:not(.active) {
+  background-color: #c6c9c9;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.registers-header th {
+  font-size: 1em;
+}
+
+.settings-container {
+  display: none;
+  transform-origin: top left;
+  transition: 0.5s all;
+}
+
+.settings-icon-container {
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  z-index: 1000;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.settings-icon-container svg {
+  display: block;
+  width: 32px;
+  height: 32px;
+  color: #444;
+  transition: color 0.2s;
+}
+
+.settings-icon-container:hover svg {
+  color: #1c7ed6;
+}
