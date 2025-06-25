@@ -91,8 +91,9 @@ const editor = (el, highlight = asm, tab = '    ') => {
 // Turn div into an editable assembler editor
 const el = document.querySelector('.editor');
 const lines = `
+MOV 925, 1
 .start:
-    MOV C, 1024
+    MOV C, 1000
 .loop:
     MOV [C], 1
     ADD C, 2

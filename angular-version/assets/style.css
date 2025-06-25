@@ -258,7 +258,6 @@ a[ng-click]:hover {
   display: inline-block;
   background-color: #e0e0e0;
   outline: none;
-
 }
 
 .screen-table {
@@ -282,6 +281,14 @@ a[ng-click]:hover {
 
 .screen-pixel-off {
   background: #ffffff;
+}
+
+.screen-piexel-ascii {
+  font-family: monospace;
+  font-size: 10px;
+  text-align: center;
+  line-height: 12px;
+  color: #000000;
 }
 
 .highlighted {

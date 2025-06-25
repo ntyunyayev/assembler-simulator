@@ -17,10 +17,8 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
     { speed: 1024, desc: "1024 HZ" },
     { speed: 2048, desc: "2048 HZ" }];
     $scope.speed = 4;
-    $scope.outputStartIndex = 925;
-    $scope.outputEndIndex = 1023;
     $scope.outputLimit = $scope.outputEndIndex - $scope.outputStartIndex + 1;
-    $scope.displayStartIndex = 1024;
+    $scope.displayStartIndex = 927;
     $scope.screenPixels = [];
     $scope.memoryHighlight = -1;
     $scope.code = "";
@@ -28,8 +26,6 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
     $scope.inputbuffer = inputbuffer;
     $scope.inputBufferStartIndex = $scope.displayStartIndex+screen.size;
     $scope.inputBufferEndIndex = $scope.inputBufferStartIndex + inputbuffer.size;
-
-
 
     updateScreenPixels();
     $scope.focusScreen = function () {
@@ -48,7 +44,6 @@ app.controller('Ctrl', ['$document', '$scope', '$timeout', 'cpu', 'memory', 'ass
         $scope.speed = newSpeed;
         console.log("Speed set to !", newSpeed);
     };
-
 
     $scope.downloadCode = function() {
         var link = document.createElement('a');
