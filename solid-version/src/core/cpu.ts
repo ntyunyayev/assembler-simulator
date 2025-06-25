@@ -1,4 +1,5 @@
-import { Memory } from "./memory.ts";
+import { ReactiveMemory } from "../utils/ReactiveMemory.tsx";
+import { type IMemory } from "./memory.ts";
 import { opcodes } from "./opcodes.ts";
 class LittleCPU {
     fault?: boolean
@@ -11,7 +12,7 @@ class LittleCPU {
     dp: number;
     zero: boolean;
     carry: boolean; 
-    memory: Memory;
+    memory: IMemory;
 
     step() {
         if (this.fault === true) {
@@ -700,10 +701,10 @@ class LittleCPU {
         }
     }
 
-    constructor() {
+    constructor(memory: IMemory) {
         this.maxSP = 924;
         this.minSP = 0;
-        this.memory = new Memory();
+        this.memory = memory;
         this.gpr = [0, 0, 0, 0];
         this.sp = this.maxSP;
         this.ip = 0;
@@ -715,4 +716,4 @@ class LittleCPU {
     }
 }
 
-export const CPU = new LittleCPU()
+export const CPU = new LittleCPU(new ReactiveMemory())

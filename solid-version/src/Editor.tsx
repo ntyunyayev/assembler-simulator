@@ -1,6 +1,6 @@
 import { createSignal, onMount } from 'solid-js';
 import { assembler } from './core/assembler';
-
+import { CPU } from './core/cpu';
 interface AssemblyEditorProps {}
 
 export default function AssemblyEditor(props: AssemblyEditorProps) {
@@ -103,7 +103,12 @@ export default function AssemblyEditor(props: AssemblyEditorProps) {
 
   const assemble = (): void => {
     try {
-      console.log(assembler.go(editorRef?.innerText as string));
+      var {code, mapping, labels} = assembler.go(editorRef?.innerText as string);
+      console.log("aaah")
+      for (var i = 0, l = code.length; i < l; i++) {
+        CPU.memory.store(i, code[i]);
+    }
+    console.log("DONE ! ")
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error');
     }
@@ -115,6 +120,9 @@ export default function AssemblyEditor(props: AssemblyEditorProps) {
       highlight(editorRef);
     }
   });
+
+  //@ts-ignore
+  window.CPU = CPU
 
   return (
     <div class='editor-container'>

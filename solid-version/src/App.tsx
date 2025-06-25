@@ -9,7 +9,7 @@ import Navbar from './navbar.tsx';
 import CodeActions from './code-actions.tsx';
 import Editor from './Editor.tsx';
 import Memory from './Memory.tsx';
-import Settings from './settings.tsx';
+import Settings from './Settings.tsx';
 import Flags from './Flags.tsx';
 import Labels from './Labels.tsx';
 import Screen from './Screen.tsx';

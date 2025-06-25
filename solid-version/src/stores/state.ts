@@ -22,9 +22,13 @@ export interface State {
     memoryHighlight: number;
     code: string;
     recordingKeys: boolean;
+    cpuState: CPUState;
 }
 
 
+export interface CPUState {
+    memory: number[]
+}
 
 // --- Store Creation ---
 export function createStateStore() {
@@ -44,5 +48,8 @@ export function createStateStore() {
         memoryHighlight: -1,
         code: "",
         recordingKeys: false,
+        cpuState: {
+            memory: CPU.memory.data
+        }
     });
 }
