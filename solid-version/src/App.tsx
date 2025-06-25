@@ -7,6 +7,7 @@ import type { CpuState } from './stores/state.ts';
 
 import Navbar from './navbar.tsx';
 import CodeActions from './code-actions.tsx';
+import Editor from './editor.tsx';
 
 function App() {
     const [state, setState] = createStateStore();
@@ -15,37 +16,8 @@ function App() {
         <StateContext.Provider value={[state, setState]}>
             <Navbar></Navbar>
             <CodeActions></CodeActions>
-            <div>
-                <div class="alert alert-danger" ng-hide="error === ''">ERROR</div> {/* TODO: Fix this */}
                 <div class="row main">
-                    <div class="editor-container">
-                        <div>
-                            <div>
-                                <h4>
-                                    Code
-                                    <small>(
-                                        <a class="instruction-set-button" href="./instruction-set.html" target="_blank">Instruction Set</a>
-                                    )</small>
-                                </h4>
-                            </div>
-                            <div>
-                                <div class="editor" id="editor"
-                                    select-line
-                                    ng-blur="updateCode($event)"
-                                    ng-keyup="updateCode($event)">
-
-                                </div>
-                                <button
-                                    type="button"
-                                    class="btn btn-default"
-                                    ng-click="assemble()"
-                                >
-                                    Assemble
-                                </button>
-
-                            </div>
-                        </div>
-                    </div>
+                    <Editor></Editor>
                     <div class="col1">
                         <div>
                             <div>
@@ -272,7 +244,6 @@ function App() {
 
                     </div>
                 </div>
-            </div>
 
         </StateContext.Provider>
     )
