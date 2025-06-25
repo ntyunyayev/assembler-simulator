@@ -7,7 +7,7 @@ import type { SetStoreFunction } from 'solid-js/store';
 
 import Navbar from './navbar.tsx';
 import CodeActions from './code-actions.tsx';
-import Editor from './editor.tsx';
+import Editor from './Editor.tsx';
 import type { State } from './stores/state.ts';
 
 function App() {
