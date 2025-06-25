@@ -1,4 +1,5 @@
 import { createSignal, onMount } from 'solid-js';
+import { assembler } from './core/assembler';
 
 interface AssemblyEditorProps {}
 
@@ -102,11 +103,7 @@ export default function AssemblyEditor(props: AssemblyEditorProps) {
 
   const assemble = (): void => {
     try {
-      if (!editorRef) return;
-      const code = editorRef.innerText;
-      console.log('Assembling code:', code);
-      setError('');
-      // Add your assembly logic here
+      console.log(assembler.go(editorRef?.innerText as string));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error');
     }
