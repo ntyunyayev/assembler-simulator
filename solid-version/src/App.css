@@ -104,11 +104,11 @@ h4 {
   border: 1px solid lime;
 }
 
-.main {
+.columns {
   display: flex;
 }
 
-.editor-container {
+.col0 {
   width: 33%;
   padding: 10px;
 }
