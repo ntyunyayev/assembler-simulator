@@ -1,18 +1,10 @@
 import { createStore, type SetStoreFunction } from "solid-js/store";
+import { CPU } from "../core/cpu";
 
-interface SpeedOption {
-    speed: number;
-    desc: string;
-}
+type SPEED = 1 | 4 | 8 | 16 | 1024
 
-export interface CpuState {
-    memory: any;
-    cpu: any;
-    inputbuffer: any;
-    screen: any;
-    isRunning: boolean;
-    error: string;
-    speed: number;
+
+export interface Settings {
     displayHex: boolean;
     displayInstr: boolean;
     ramDisplayMode: "HEX" | "DEC" | "ASCII";
@@ -20,59 +12,39 @@ export interface CpuState {
     displayB: boolean;
     displayC: boolean;
     displayD: boolean;
-    outputStartIndex: number;
-    outputEndIndex: number;
-    displayStartIndex: number;
-    readonly outputLimit: number;
-    screenPixels: any[];
+}
+
+export interface State {
+    cpu: CPU;
+    isRunning: boolean;
+    error: string;
+    speed: SPEED;
+    settings: Settings;
     memoryHighlight: number;
     code: string;
     recordingKeys: boolean;
-    readonly inputBufferStartIndex: number;
-    readonly inputBufferEndIndex: number;
 }
 
-export const SPEEDS: SpeedOption[] = [
-    { speed: 1, desc: "1 HZ" },
-    { speed: 4, desc: "4 HZ" },
-    { speed: 8, desc: "8 HZ" },
-    { speed: 16, desc: "16 HZ" },
-    { speed: 1024, desc: "1024 HZ" },
-    { speed: 2048, desc: "2048 HZ" }
-];
+
 
 // --- Store Creation ---
 export function createStateStore() {
-    return createStore<CpuState>({
-        memory: null,
-        cpu: null,
-        inputbuffer: null,
-        screen: null,
+    return createStore<State>({
+        cpu: new CPU(),
         isRunning: false,
         error: '',
         speed: 4,
-        displayHex: true,
-        displayInstr: true,
-        ramDisplayMode: "HEX",
-        displayA: true,
-        displayB: true,
-        displayC: true,
-        displayD: true,
-        outputStartIndex: 100,
-        outputEndIndex: 150,
-        displayStartIndex: 927,
-        get outputLimit() {
-            return this.outputEndIndex - this.outputStartIndex + 1;
+        settings: {
+            displayHex: true,
+            displayInstr: true,
+            ramDisplayMode: "HEX",
+            displayA: true,
+            displayB: true,
+            displayC: true,
+            displayD: true,
         },
-        screenPixels: [],
         memoryHighlight: -1,
         code: "",
         recordingKeys: false,
-        get inputBufferStartIndex() {
-            return this.displayStartIndex + (this.screen?.size || 0);
-        },
-        get inputBufferEndIndex() {
-            return this.inputBufferStartIndex + (this.inputbuffer?.size || 0);
-        }
     });
 }
