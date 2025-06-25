@@ -11,22 +11,21 @@ import Editor from './editor.tsx';
 import Memory from './memory.tsx';
 import Settings from './settings.tsx';
 import Flags from './Flags.tsx';
+import Labels from './Labels.tsx';
 
 function App() {
     const [state, setState] = createStateStore();
     const StateContext = createContext<[CpuState, SetStoreFunction<CpuState>]>();
     return (
         <StateContext.Provider value={[state, setState]}>
-            <Navbar></Navbar>
-            <CodeActions></CodeActions>
+            <Navbar/>
+            <CodeActions/>
             <div class="row main">
-                <Editor></Editor>
-                <div class="col1">
-                    <div>
-                        
-                    </div>
-                    <Memory></Memory>
-                </div>
+                <Editor/>
+            <div class="col1">
+                <Labels/>  
+                <Memory/>
+            </div>
                 <div class="col2">
                     <Settings></Settings>
 
