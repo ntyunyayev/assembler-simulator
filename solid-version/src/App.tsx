@@ -4,96 +4,17 @@ import './App.css'
 import "./stores/state.ts"
 import type { SetStoreFunction } from 'solid-js/store';
 import type { CpuState } from './stores/state.ts';
+
+import Navbar from './navbar.tsx';
+import CodeActions from './code-actions.tsx';
+
 function App() {
     const [state, setState] = createStateStore();
     const StateContext = createContext<[CpuState, SetStoreFunction<CpuState>]>();
     return (
         <StateContext.Provider value={[state, setState]}>
-            <nav
-                class="navbar navbar-inverse"
-                role="navigation"
-                style="background-color: #428bca; border: 0px; border-radius: 0px"
-            >
-                <div class="navbar">
-                    <div class="navbar-header navbar-right">
-                        <a class="navbar-brand" style="color: #ffffff">
-                            Simple 16-bit Assembler Simulator
-                        </a>
-                        <a
-                            type="button"
-                            class="btn btn-default navbar-btn"
-                            href="instruction-set.html"
-                        >Instruction set</a>
-                    </div>
-
-                    <div class="actions">
-                        <div class="btn-group">
-                            <button
-                                type="button"
-                                class="btn btn-success navbar-btn"
-                                ng-click="run()"
-                                ng-hide="isRunning"
-                            >
-                                <span class="glyphicon glyphicon-play"></span> Run
-                            </button>
-                            <button
-                                type="button"
-                                class="btn btn-success navbar-btn"
-                                ng-click="runQuickly()"
-                                ng-hide="isRunning"
-                            >
-                                <span class="glyphicon glyphicon-play"></span> Run Quickly
-                            </button>
-                            <button
-                                type="button"
-                                class="btn btn-default navbar-btn"
-                                ng-click="stop()"
-                                ng-show="isRunning"
-                            >
-                                <span class="glyphicon glyphicon-stop"></span> Stop
-                            </button>
-                            <button
-                                type="button"
-                                class="btn btn-default navbar-btn"
-                                ng-click="executeStep()"
-                                ng-disabled="isRunning"
-                            >
-                                <span class="glyphicon glyphicon-forward"></span> Step
-                            </button>
-                            <button
-                                type="button"
-                                class="btn btn-default navbar-btn"
-                                ng-click="reset()"
-                            >
-                                Reset
-                            </button>
-                            <button
-                                type="button"
-                                class="btn btn-default navbar-btn"
-                                ng-click="downloadCode()"
-                            >
-                                Download Code
-                            </button>
-                        </div>
-
-                        <form method="post" enctype="multipart/form-data">
-                            <div>
-                                <label for="file">Choose file to load</label>
-                                <input type="file" id="file" name="file" />
-                            </div>
-                            <div>
-                                <button
-                                    type="button"
-                                    class="btn btn-default navbar-btn"
-                                    ng-click="loadFile()"
-                                >
-                                    Load file
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </nav>
+            <Navbar></Navbar>
+            <CodeActions></CodeActions>
             <div>
                 <div class="alert alert-danger" ng-hide="error === ''">ERROR</div> {/* TODO: Fix this */}
                 <div class="row main">

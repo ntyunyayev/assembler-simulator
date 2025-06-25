@@ -128,15 +128,16 @@ textarea {width: 100%;}
 .navbar {
   display: flex;
   align-items: center;
+  background-color: #428bca;
+  border: 0px;
+  border-radius: 0px
 }
 
-.navbar > .actions {
-  display: flex;
-}
-
-.navbar .btn-group {
-  display: flex;
-  align-items: center;
+.navbar-title {
+  color: white;
+  font-size: 1.25em;
+  margin: 0;
+  padding: 10px;
 }
 
 button {
