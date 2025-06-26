@@ -4,6 +4,7 @@ import { getStateContext } from "./stateContext";
 
 export default function Memory() {
     let [state, setState] = getStateContext();
+
     return (
         <>
             <h4>Memory (RAM)</h4>

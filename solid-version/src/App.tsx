@@ -1,4 +1,3 @@
-import { createContext } from 'solid-js';
 import { createStateStore } from "./stores/state.ts"
 import './App.css'
 import "./stores/state.ts"

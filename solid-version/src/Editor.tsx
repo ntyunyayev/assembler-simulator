@@ -1,19 +1,20 @@
 import { createSignal, onMount } from 'solid-js';
 import { assembler } from './core/assembler';
 import { CPU } from './core/cpu';
-interface AssemblyEditorProps {}
+import { getStateContext } from './stateContext';
+interface AssemblyEditorProps { }
 
 export default function AssemblyEditor(props: AssemblyEditorProps) {
-  const [error, setError] = createSignal<string>('');
+  const [state, setState] = getStateContext();
   let editorRef: HTMLDivElement | undefined;
 
   const keywords: string[] = [
-    'MOV','ADD','SUB','INC','DEC','MUL','DIV',
-    'AND','OR','XOR','NOT','SHL','SHR','SAL','SAR',
-    'CMP','JMP','JC','JNC','JZ','JNZ','JA','JNBE','JAE','JNB',
-    'JB','JNAE','JBE','JNA','JE','JNE','CALL','RET','PUSH','POP','HLT','DB'
+    'MOV', 'ADD', 'SUB', 'INC', 'DEC', 'MUL', 'DIV',
+    'AND', 'OR', 'XOR', 'NOT', 'SHL', 'SHR', 'SAL', 'SAR',
+    'CMP', 'JMP', 'JC', 'JNC', 'JZ', 'JNZ', 'JA', 'JNBE', 'JAE', 'JNB',
+    'JB', 'JNAE', 'JBE', 'JNA', 'JE', 'JNE', 'CALL', 'RET', 'PUSH', 'POP', 'HLT', 'DB'
   ];
-  const registers: string[] = ['A','B','C','D','SP'];
+  const registers: string[] = ['A', 'B', 'C', 'D', 'SP'];
 
   const kwRegex = new RegExp(`\\b(${keywords.join('|')})\\b`, 'g');
   const regRegex = new RegExp(`\\b(${registers.join('|')})\\b`, 'g');
@@ -41,7 +42,7 @@ export default function AssemblyEditor(props: AssemblyEditorProps) {
   const getCaret = (el: HTMLElement): number => {
     const selection = window.getSelection();
     if (!selection || selection.rangeCount === 0) return 0;
-    
+
     const range = selection.getRangeAt(0);
     const prefix = range.cloneRange();
     prefix.selectNodeContents(el);
@@ -103,14 +104,12 @@ export default function AssemblyEditor(props: AssemblyEditorProps) {
 
   const assemble = (): void => {
     try {
-      var {code, mapping, labels} = assembler.go(editorRef?.innerText as string);
-      console.log("aaah")
+      var { code, mapping, labels } = assembler.go(editorRef?.innerText as string);
       for (var i = 0, l = code.length; i < l; i++) {
         CPU.memory.store(i, code[i]);
-    }
-    console.log("DONE ! ")
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error');
+      }
+    } catch (err: {error: string, line: number} | any) {
+      setState("error", err.error+" (ligne "+err.line+")");
     }
   };
 
@@ -126,10 +125,10 @@ export default function AssemblyEditor(props: AssemblyEditorProps) {
 
   return (
     <div class='editor-container'>
-      <div hidden={!error()}>
-        ERROR: {error()}
+      <div hidden={!state.error}>
+        {state.error}
       </div>
-      
+
       <div>
         <h4>
           Code{' '}
@@ -140,9 +139,9 @@ export default function AssemblyEditor(props: AssemblyEditorProps) {
           </small>
         </h4>
       </div>
-      
+
       <div>
-        <div 
+        <div
           ref={editorRef}
           contentEditable={true}
           onKeyDown={handleKeyDown}
@@ -155,9 +154,9 @@ export default function AssemblyEditor(props: AssemblyEditorProps) {
           <div>ADD B, A</div>
           <div>HLT</div>
         </div>
-        
-        <button 
-          type="button" 
+
+        <button
+          type="button"
           onClick={assemble}
         >
           Assemble
