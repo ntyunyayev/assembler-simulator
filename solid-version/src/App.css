@@ -27,7 +27,7 @@ button {
 .code_buttons {
   display: flex;
   align-items: center;
-  padding-right: 40px;
+  padding-right: 10px;
 }
 .code_buttons svg, .settings-icon-container svg {
   margin-right: 10px;
@@ -363,25 +363,6 @@ a[ng-click]:hover {
   right: calc(100% + 16px);
   opacity: 0.5;
   color: var(--line-number-color);
-}
-
-.editor-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.editor-header h4 {
-    color: #d4d4d4;
-    display: inline-block;
-}
-
-.editor-header small a {
-    color: #569cd6;
-    text-decoration: none;
-}
-
-.editor-header small a:hover {
-    text-decoration: underline;
 }
 
 .hl.strings {

@@ -1,10 +1,8 @@
 import { createEffect, createSignal, Show } from "solid-js";
 import { CPU } from "../utils/ReactiveCPU";
 import { getStateContext } from "../utils/stateContext";
-import { VsDebugAlt, VsDebugPause } from "solid-icons/vs";
-import { BsFastForward } from "solid-icons/bs";
+import { VsDebugPause } from "solid-icons/vs";
 import { TbReload } from "solid-icons/tb";
-import { FaSolidPlay } from "solid-icons/fa";
 import { IoPlay, IoPlayForward } from "solid-icons/io";
 import { AiOutlineStepForward } from "solid-icons/ai";
 
@@ -52,7 +50,5 @@ export default function CodeActions() {
             <IoPlayForward color="#2ecc71" size={35} onClick={runQuickly}/>
             <TbReload color="#2c3e50" size={35} />
             </Show>
-
-            
         </div>
 )};

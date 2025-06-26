@@ -4,7 +4,7 @@ import { getStateContext } from '../utils/stateContext';
 import { assembler } from '../core/assembler';
 import { CPU } from '../utils/ReactiveCPU';
 import CodeActions from './CodeActions';
-
+import '../styles/Editor.css';
 
 
 export default function Editor() {
@@ -138,14 +138,11 @@ export default function Editor() {
       base: "vs",
       inherit: true,
       rules: [
-        
           { token: "comment", foreground: "#576574", fontStyle: "italic" },
           { token: "keyword", foreground: "#1c7ed6", fontStyle: "bold" },
           { token: "register", foreground: "#e67700" },
           { token: "number", foreground: "#5f27cd" },
           { token: "string", foreground: "#d63384" },
-        
-        
       ],
       colors: {
         "editor.background": "#ffffff",
@@ -167,8 +164,6 @@ export default function Editor() {
       padding: { top: 10 },
       fontFamily: "Source Code Pro",
       fontSize: 20,
-      
-
     });
 
     //@ts-ignore
@@ -178,8 +173,6 @@ export default function Editor() {
       setState("code", editor!.getValue());
     });
   
-  
-
     const disposable = editor.onMouseDown((e) => {
       if (e.target.type === monaco.editor.MouseTargetType.GUTTER_GLYPH_MARGIN) {
         const line = e.target.position?.lineNumber;
@@ -226,7 +219,6 @@ export default function Editor() {
           CPU.memory.store(i, machineCode[i]);
         }
       })
-    
       
       setState("labels", Object.entries(labels));
       setState("error", "");
@@ -244,29 +236,13 @@ export default function Editor() {
 
   return (
     <>
-      <style>
-        {`
-          .myBreakpoint {
-            background: #e51400;
-            width: 8px !important;
-            height: 8px !important;
-            border-radius: 50%;
-            margin-left: 5px !important;
-            margin-top: 3px;
-          }
-        `}
-      </style>
       <div class="editor-header">
-        <div style="display: flex; align-items: flex-end;">
         <h4 style="margin: 0">
-          Code{' '}
-          <small>
-            (<a href="./instruction-set.html">
+          Editor
+            {/*(<a href="./instruction-set.html">
               Instruction Set
-            </a>)
-          </small>
+            </a>)*/}
         </h4>
-        </div>
         <CodeActions/>
       </div>
       <div
