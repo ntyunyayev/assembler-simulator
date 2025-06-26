@@ -24,7 +24,6 @@ export default function Screen() {
         return `rgb(${r},${g},${b})`;
     }
 
-
     return (
         <>
             <h4>Screen Output</h4>

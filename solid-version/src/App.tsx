@@ -1,4 +1,4 @@
-import { createStateStore } from "./stores/state.ts"
+import { createStateStore, loadExamples } from "./stores/state.ts"
 import './App.css'
 import "./stores/state.ts"
 import { StateContext } from './stateContext.ts';
@@ -11,12 +11,19 @@ import Flags from './Flags.tsx';
 import Labels from './Labels.tsx';
 import Screen from './Screen.tsx';
 import { CPU } from "./ReactiveCPU.ts";
+import { onMount } from "solid-js";
 
 function App() {
     const [state, setState] = createStateStore();
     CPU.setup(state, setState);
     //@ts-ignore
     window.CPU = CPU; // Debug purposes
+
+    onMount(async () => {
+        await loadExamples(setState);
+        setState("code", state.examples?.find(example => example.name === "Draw in screen")?.code || "");
+    });
+
     return (
         <StateContext.Provider value={[state, setState]}>
             <Navbar/>

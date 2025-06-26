@@ -66,7 +66,7 @@ export function createStateStore() {
             displayDP: true,
         },
         memoryHighlight: -1,
-        code: "MOV A, 2",
+        code: "",
         recordingKeys: false,
         cpuState: {
             memory: CPU.memory.data,

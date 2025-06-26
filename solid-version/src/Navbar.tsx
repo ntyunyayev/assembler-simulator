@@ -1,13 +1,7 @@
-import { onMount } from 'solid-js';
 import { getStateContext } from './stateContext';
-import { loadExamples } from './stores/state';
 
 export default function Navbar() {
     const [state, setState] = getStateContext();
-
-    onMount(() => {
-        loadExamples(setState);
-    });
 
     return (
     <nav class="navbar">
@@ -37,16 +31,15 @@ export default function Navbar() {
             <select 
                 id="exampleSelect" 
                 class="example-select"
-                value={state.examples?.find(example => example.code === state.code)?.name || ""}
+                value={state.examples?.find(example => example.code === state.code)?.name || "Draw in screen"}
                 onchange={(e) => {
                     const selectedExample = state.examples?.find(example => example.name === e.currentTarget.value);
                     if (selectedExample) {
                         setState("code", selectedExample.code);
                     }
                 }}>
-                <option value="">-- Select Example ---</option>
                 {state.examples?.map(example => (
-                    <option value={example.name} selected={example.code === state.code}>
+                    <option value={example.name} selected={example.name === "Draw in screen" ? state.code === example.code : example.code === state.code}>
                         {example.name}
                     </option>
                 ))}
