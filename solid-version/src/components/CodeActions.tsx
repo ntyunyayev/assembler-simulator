@@ -3,7 +3,7 @@ import { CPU } from "../utils/ReactiveCPU";
 import { getStateContext } from "../utils/stateContext";
 
 export default function CodeActions() {
-    let [state, _] = getStateContext();
+    let [state, setState] = getStateContext();
     let [interval, _SetInterval] = createSignal(0);
     let [currentSpeed, setCurrentSpeed] = createSignal(0);
 
