@@ -14,13 +14,15 @@ export default function CodeActions() {
         setCurrentSpeed(state.speed)
     }
     const runQuickly = () => {
+        setState("quick", true)
         _SetInterval(setInterval(() => {
             CPU.step()
-        }, 1000 / 1024))
+        }, 1000 / 4096))
         setCurrentSpeed(0)
 
     }
     const stop = () => {
+        setState("quick", false)
         clearInterval(interval())
         _SetInterval(0);
     }
@@ -48,7 +50,7 @@ export default function CodeActions() {
             <button type="button" onClick={() => CPU.step()}>
                 Step
             </button>
-            <button type="button" ng-click="reset()">
+            <button type="button">
                 Reset
             </button>
         </div>

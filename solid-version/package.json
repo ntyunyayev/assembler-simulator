@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "monaco-editor": "^0.52.2",
     "solid-icons": "^1.1.0",
     "solid-js": "1.9.0"
   },

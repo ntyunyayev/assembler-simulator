@@ -1,6 +1,6 @@
 // Size in bytes
 export const DEVICES = createDevices([
-    { size: 512, name: "base" },
+    { size: 1024, name: "base" },
     { size: 2, name: "screen-mode" },
     { size: (32 * 32)*2, name: "screen" },
     { size: 2, name: "input" }

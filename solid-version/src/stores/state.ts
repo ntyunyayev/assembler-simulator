@@ -39,6 +39,7 @@ export interface State {
     error: string;
     speed: SPEED;
     settings: Settings;
+    quick: boolean;
     memoryHighlight: number;
     code: string;
     recordingKeys: boolean;
@@ -54,6 +55,7 @@ export function createStateStore() {
         isRunning: false,
         error: '',
         speed: 4,
+        quick: false,
         settings: {
             displayHex: true,
             displayInstr: true,
