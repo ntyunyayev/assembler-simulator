@@ -1,5 +1,5 @@
 import { FaSolidGear } from 'solid-icons/fa'
-import { getStateContext } from './stateContext';
+import { getStateContext } from '../utils/stateContext';
 
 export default function Settings() {
     const [state, setState] = getStateContext();

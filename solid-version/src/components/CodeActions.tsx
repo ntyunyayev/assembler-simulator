@@ -1,6 +1,6 @@
 import { createEffect, createSignal, Show } from "solid-js";
-import { CPU } from "./ReactiveCPU";
-import { getStateContext } from "./stateContext";
+import { CPU } from "../utils/ReactiveCPU";
+import { getStateContext } from "../utils/stateContext";
 
 export default function CodeActions() {
     let [state, setState] = getStateContext();
@@ -14,13 +14,15 @@ export default function CodeActions() {
         setCurrentSpeed(state.speed)
     }
     const runQuickly = () => {
+        setState("quick", true)
         _SetInterval(setInterval(() => {
             CPU.step()
-        }, 1000 / 1024))
+        }, 1000 / 4096))
         setCurrentSpeed(0)
 
     }
     const stop = () => {
+        setState("quick", false)
         clearInterval(interval())
         _SetInterval(0);
     }

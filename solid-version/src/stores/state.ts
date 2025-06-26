@@ -1,5 +1,5 @@
 import { createStore, type SetStoreFunction } from "solid-js/store";
-import { CPU } from "../ReactiveCPU";
+import { CPU } from "../utils/ReactiveCPU";
 
 type SPEED = 1 | 4 | 8 | 16 | 1024
 
@@ -39,12 +39,14 @@ export interface State {
     error: string;
     speed: SPEED;
     settings: Settings;
+    quick: boolean;
     memoryHighlight: number;
     code: string;
     recordingKeys: boolean;
     cpuState: CPUState;
     labels: [string, number][];
-    examples?: { name: string; code: string }[]; 
+    mapping: Record<string, number>;
+    examples: { name: string; code: string }[];
 }
 
 // --- Store Creation ---
@@ -53,6 +55,7 @@ export function createStateStore() {
         isRunning: false,
         error: '',
         speed: 4,
+        quick: false,
         settings: {
             displayHex: true,
             displayInstr: true,
@@ -66,7 +69,7 @@ export function createStateStore() {
             displayDP: true,
         },
         memoryHighlight: -1,
-        code: "MOV A, 2",
+        code: "",
         recordingKeys: false,
         cpuState: {
             memory: CPU.memory.data,
@@ -84,6 +87,7 @@ export function createStateStore() {
             }
         },
         labels: [],
+        mapping: {},
         examples: []
     });
 }
@@ -98,7 +102,7 @@ export async function loadExamples(set: SetStoreFunction<State>) {
     const loadedExamples = await Promise.all(
         exampleList.map(async (example) => {
             try {
-                const response = await fetch('assets/examples/' + example.file);
+                const response = await fetch('/examples/' + example.file);
                 const code = await response.text();
                 return { ...example, code };
             } catch (error) {

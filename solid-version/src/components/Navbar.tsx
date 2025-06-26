@@ -1,4 +1,4 @@
-import { getStateContext } from './stateContext';
+import { getStateContext } from '../utils/stateContext';
 
 export default function Navbar() {
     const [state, setState] = getStateContext();

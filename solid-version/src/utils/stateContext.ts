@@ -1,5 +1,5 @@
 import { createContext, useContext } from "solid-js";
-import type { State } from "./stores/state";
+import type { State } from "../stores/state";
 import type { SetStoreFunction } from "solid-js/store";
 
 export const StateContext = createContext<[State, SetStoreFunction<State>]>();

@@ -1,9 +1,8 @@
 import type { SetStoreFunction } from "solid-js/store";
-import {LittleCPU} from "./core/cpu"
-import type { IMemory } from "./core/memory";
-import { getStateContext } from "./stateContext";
-import type { State } from "./stores/state";
-import { ReactiveMemory } from "./utils/ReactiveMemory";
+import {LittleCPU} from "../core/cpu"
+import type { IMemory } from "../core/memory";
+import type { State } from "../stores/state";
+import { ReactiveMemory } from "./ReactiveMemory";
 
 class ReactiveCPU extends LittleCPU {
     state?: State

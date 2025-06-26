@@ -1,5 +1,5 @@
 import { For } from 'solid-js';
-import { getStateContext } from './stateContext';
+import { getStateContext } from '../utils/stateContext';
 
 export default function Labels() {
     const [state] = getStateContext();

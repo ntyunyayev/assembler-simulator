@@ -1,36 +1,55 @@
-import { createStateStore } from "./stores/state.ts"
+import { createStateStore, loadExamples } from "./stores/state.ts"
 import './App.css'
 import "./stores/state.ts"
-import { StateContext } from './stateContext.ts';
-import Navbar from './Navbar.tsx';
-import Editor from './Editor.tsx';
-import Memory from './Memory.tsx';
-import Settings from './Settings.tsx';
-import Flags from './Flags.tsx';
-import Labels from './Labels.tsx';
-import Screen from './Screen.tsx';
-import { CPU } from "./ReactiveCPU.ts";
+import { StateContext } from './utils/stateContext.ts';
+import Navbar from './components/Navbar.tsx';
+import CodeActions from './components/CodeActions.tsx';
+import Editor from './components/Editor.tsx';
+import Memory from './components/Memory.tsx';
+import Settings from './components/Settings.tsx';
+import Flags from './components/Flags.tsx';
+import Labels from './components/Labels.tsx';
+import Screen from './components/Screen.tsx';
+import { CPU } from "./utils/ReactiveCPU.ts";
+import { onMount } from "solid-js";
+import { Show } from "solid-js";
+import { DEVICES } from "./core/devices.ts";
 
 function App() {
     const [state, setState] = createStateStore();
     CPU.setup(state, setState);
+
     //@ts-ignore
     window.CPU = CPU; // Debug purposes
+    //@ts-ignore
+    window.DEVICES = DEVICES; // Debug purposes
+
+    onMount(async () => {
+        await loadExamples(setState);
+        setState("code", state.examples?.find(example => example.name === "Draw in screen")?.code || "");
+    });
+
+    
     return (
         <StateContext.Provider value={[state, setState]}>
             <Navbar/>
             <div class="columns">
                 <div class="col0">
-                    <Editor/>
+                    <Editor />
                 </div>
                 <div class="col1">
-                    <Labels/>  
-                    <Memory/>
+                    <Labels />
+                    <Show when={!state.quick}>
+                        <Memory />
+                    </Show>
                 </div>
                 <div class="col2">
-                    <Settings/>
-                    <Screen/>
-                    <Flags></Flags>
+                    <Settings />
+                    <Screen />
+                    <Show when={!state.quick}>
+                        <Flags/>
+                    </Show>
+
                 </div>
             </div>
         </StateContext.Provider>
