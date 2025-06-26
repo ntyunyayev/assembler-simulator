@@ -1,78 +1,121 @@
 import { createStore, type SetStoreFunction } from "solid-js/store";
+import { CPU } from "../ReactiveCPU";
 
-interface SpeedOption {
-    speed: number;
-    desc: string;
-}
+type SPEED = 1 | 4 | 8 | 16 | 1024
 
-export interface CpuState {
-    memory: any;
-    cpu: any;
-    inputbuffer: any;
-    screen: any;
-    isRunning: boolean;
-    error: string;
-    speed: number;
+
+export interface Settings {
     displayHex: boolean;
     displayInstr: boolean;
-    ramDisplayMode: "HEX" | "DEC" | "ASCII";
+    ramDisplayMode: "Number" | "ASCII";
     displayA: boolean;
     displayB: boolean;
     displayC: boolean;
     displayD: boolean;
-    outputStartIndex: number;
-    outputEndIndex: number;
-    displayStartIndex: number;
-    readonly outputLimit: number;
-    screenPixels: any[];
+    displayPC: boolean;
+    displaySP: boolean;
+    displayDP: boolean;
+}
+
+export interface CPUState {
+    pc: number;
+    sp: number;
+    dp: number;
+    a: number;
+    b: number;
+    c: number;
+    d: number;
+    flags: {
+        z: boolean; 
+        c: boolean; 
+        f: boolean; 
+    };
+    memory: number[];
+
+}
+
+export interface State {
+    isRunning: boolean;
+    error: string;
+    speed: SPEED;
+    settings: Settings;
     memoryHighlight: number;
     code: string;
     recordingKeys: boolean;
-    readonly inputBufferStartIndex: number;
-    readonly inputBufferEndIndex: number;
+    cpuState: CPUState;
+    labels: [string, number][];
+    examples?: { name: string; code: string }[]; 
 }
-
-export const SPEEDS: SpeedOption[] = [
-    { speed: 1, desc: "1 HZ" },
-    { speed: 4, desc: "4 HZ" },
-    { speed: 8, desc: "8 HZ" },
-    { speed: 16, desc: "16 HZ" },
-    { speed: 1024, desc: "1024 HZ" },
-    { speed: 2048, desc: "2048 HZ" }
-];
 
 // --- Store Creation ---
 export function createStateStore() {
-    return createStore<CpuState>({
-        memory: null,
-        cpu: null,
-        inputbuffer: null,
-        screen: null,
+    return createStore<State>({
         isRunning: false,
         error: '',
         speed: 4,
-        displayHex: true,
-        displayInstr: true,
-        ramDisplayMode: "HEX",
-        displayA: true,
-        displayB: true,
-        displayC: true,
-        displayD: true,
-        outputStartIndex: 100,
-        outputEndIndex: 150,
-        displayStartIndex: 927,
-        get outputLimit() {
-            return this.outputEndIndex - this.outputStartIndex + 1;
+        settings: {
+            displayHex: true,
+            displayInstr: true,
+            ramDisplayMode: "Number",
+            displayA: true,
+            displayB: true,
+            displayC: true,
+            displayD: true,
+            displayPC: true,
+            displaySP: true,
+            displayDP: true,
         },
-        screenPixels: [],
         memoryHighlight: -1,
         code: "",
         recordingKeys: false,
-        get inputBufferStartIndex() {
-            return this.displayStartIndex + (this.screen?.size || 0);
+        cpuState: {
+            memory: CPU.memory.data,
+            pc: 0,
+            sp: CPU.sp,
+            dp: CPU.dp,
+            a: 0,
+            b: 0,
+            c: 0,
+            d: 0,
+            flags: {
+                z: false,
+                c: false,
+                f: false,
+            }
         },
-        get inputBufferEndIndex() {
-            return this.inputBufferStartIndex + (this.inputbuffer?.size || 0);
-        }
+        labels: [],
+        examples: []
     });
+}
+
+export async function loadExamples(set: SetStoreFunction<State>) {
+    const exampleList = [
+        { name: 'Hello World', file: 'hello-world.asm' },
+        { name: 'Draw in screen', file: 'draw-in-screen.asm' },
+        { name: 'Snake', file: 'snake.asm' }
+    ];
+
+    const loadedExamples = await Promise.all(
+        exampleList.map(async (example) => {
+            try {
+                const response = await fetch('assets/examples/' + example.file);
+                const code = await response.text();
+                return { ...example, code };
+            } catch (error) {
+                console.error('Error loading example:', error);
+                return { ...example, code: '' };
+            }
+        })
+    );
+
+    set("examples", loadedExamples);
+}
+
+export function loadExampleByName(name: string, set: SetStoreFunction<State>, state: State) {
+    const example = state.examples?.find(e => e.name === name);
+    if (!example) {
+        console.error('Example not found:', name);
+        return;
+    }
+    set("code", example.code || "");
 }

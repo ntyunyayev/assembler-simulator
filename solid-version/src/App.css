@@ -37,14 +37,17 @@ h4 {
   cursor: pointer;
 }
 
-.stack-bg {
+.marker.stack-bg {
   background-color: #F8DCB4;
 }
 
-.display-bg {
+.marker.screen-bg {
   background-color: #ffd7d7;
 }
-.inputbuffer-bg {
+.marker.screen-mode-bg {
+  background-color: #df9393;
+}
+.marker.input-bg {
   background-color: #e67e22;
 }
 .memory-block {
@@ -59,7 +62,6 @@ h4 {
 .marker {
   width: 1.8em;
   color: black;
-  border-radius: 2px;
   user-select: none;
 }
 
@@ -67,7 +69,7 @@ h4 {
   border: 3px solid #9b59b6;
 }
 
-.marker-ip {
+.marker-pc {
   background-color: #428BCA;
 }
 
@@ -104,11 +106,11 @@ h4 {
   border: 1px solid lime;
 }
 
-.main {
+.columns {
   display: flex;
 }
 
-.editor-container {
+.col0 {
   width: 33%;
   padding: 10px;
 }
@@ -240,10 +242,13 @@ a[ng-click]:hover {
   background-color: #d3deea;
 }
 
-.source-code {
+.ram {
   overflow-y: scroll;
   /* TODO: Better way to handle RAM height */
   max-height: 50vh;
+}
+.ram  .marker > small {
+  font-family: "Source Code Pro", monospace;
 }
 
 .screen-container {
@@ -259,19 +264,11 @@ a[ng-click]:hover {
   display: inline-block;
   background-color: #e0e0e0;
   outline: none;
-}
-
-.screen-table {
-  border-collapse: collapse;
-}
-
-.screen-table td {
-  width: 12px;
-  height: 12px;
-  padding: 0;
+  font-size: 0; /* To make space between lines = 0*/
 }
 
 .screen-pixel {
+  display: inline-block;
   width: 12px;
   height: 12px;
 }
@@ -340,6 +337,7 @@ button:hover {
   background: none;
   border: none;
   padding: 0;
+  cursor:pointer;
 }
 
 .settings-icon-container svg {
