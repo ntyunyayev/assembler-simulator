@@ -299,7 +299,10 @@ a[ng-click]:hover {
   width: 100%;
   text-align: center;
 }
-
+.labels {
+  max-height: 40vh;
+  overflow-y: auto;
+}
 :root {
   --editor-background: #f8f9fa;         /* Light gray background */
   --line-number-color: #6c757d;         /* Muted gray for line numbers */

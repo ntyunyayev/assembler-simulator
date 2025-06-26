@@ -5,7 +5,7 @@ export default function Labels() {
     const [state] = getStateContext();
     
     return (
-        <div>
+        <div class="labels">
             <h4>Labels</h4>
             <table class="labels-table">
                 <tbody>
