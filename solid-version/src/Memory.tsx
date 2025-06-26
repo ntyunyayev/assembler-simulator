@@ -1,25 +1,35 @@
 
-import { CPU } from "./core/cpu";
+import { Index } from "solid-js";
 import { getStateContext } from "./stateContext";
+import { DEVICES } from "./core/devices";
 
 export default function Memory() {
     let [state, setState] = getStateContext();
+
+    const getClass = (index: number) => {
+        for (const device of DEVICES) {
+            if (index >= device.start() && index < device.end()) {
+                return device.name;
+            }
+        }
+        return "";
+    }
+
     return (
         <>
             <h4>Memory (RAM)</h4>
 
             <div class="ram">
-
-                {CPU.memory.data.map(_ =>
-                    <div
-                        class="memory-block"
-                        ng-class="getMemoryCellCss($index)"
-                    >
-                        <div class="marker">
-                            <small>00</small>
+                <Index each={state.cpuState.memory}>
+                    {(item, index) =>
+                        <div class="memory-block">
+                            <div class={`marker ${getClass(index)}-bg`}>
+                                <small>{item().toString(16).padStart(2, '0')}</small>
+                            </div>
                         </div>
-                    </div>
-                )}
+                    }
+                </Index>
+
 
 
             </div>

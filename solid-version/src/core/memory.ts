@@ -1,4 +1,12 @@
-export class Memory {
+export interface IMemory {
+    data: number[]
+    load(address: number): number;
+    load16(address: number): number;
+    store(address: number, value: number): void;
+    store16(address: number, value: number): void;
+}
+
+export class ArrayMemory {
     data: Array<number>
     lastAccess: number
 

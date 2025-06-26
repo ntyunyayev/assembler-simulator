@@ -119,10 +119,18 @@ export default function Flags() {
                             <small>{state.settings.displayHex ? state.cpuState.dp : state.cpuState.dp}</small>
                         </div>
                     </td>
+<<<<<<< solid
+                    <td><small>{/*{ cpu.zero | flag }*/}</small></td>
+                    <td><small>{/*{ cpu.carry | flag }*/}</small></td>
+                    <td><small>{/*{ cpu.fault | flag }*/}</small></td>
+                    <td><small>{/*{ cpu.screenMode | flag }*/}</small></td>
+                    
+=======
                     <td><small>{state.cpuState.flags.sm.valueOf() ? '1' : '0'}</small></td>
                     <td><small>{state.cpuState.flags.sm.valueOf() ? '1' : '0'}</small></td>
                     <td><small>{state.cpuState.flags.sm.valueOf() ? '1' : '0'}</small></td>
                     <td><small>{state.cpuState.flags.sm.valueOf() ? '1' : '0'}</small></td>
+>>>>>>> piwy
                 </tr>
                 </tbody>
             </table>

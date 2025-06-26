@@ -37,14 +37,17 @@ h4 {
   cursor: pointer;
 }
 
-.stack-bg {
+.marker.stack-bg {
   background-color: #F8DCB4;
 }
 
-.display-bg {
+.marker.screen-bg {
   background-color: #ffd7d7;
 }
-.inputbuffer-bg {
+.marker.screen-mode-bg {
+  background-color: #df9393;
+}
+.marker.input-bg {
   background-color: #e67e22;
 }
 .memory-block {
@@ -59,7 +62,6 @@ h4 {
 .marker {
   width: 1.8em;
   color: black;
-  border-radius: 2px;
   user-select: none;
 }
 

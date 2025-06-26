@@ -1,8 +1,9 @@
-import { Memory } from "./memory.ts";
+import { ReactiveMemory } from "../utils/ReactiveMemory.tsx";
+import { DEVICES } from "./devices.ts";
+import { type IMemory } from "./memory.ts";
 import { opcodes } from "./opcodes.ts";
 class LittleCPU {
     fault?: boolean
-    screenMode?: boolean
     maxSP: number;
     minSP: number; 
     gpr: [number, number, number, number];
@@ -11,7 +12,7 @@ class LittleCPU {
     dp: number;
     zero: boolean;
     carry: boolean; 
-    memory: Memory;
+    memory: IMemory;
 
     step() {
         if (this.fault === true) {
@@ -19,8 +20,6 @@ class LittleCPU {
         }
 
         try {
-            this.screenMode = this.memory.load16(this.maxSP + 1) === 1;
-
             var checkGPR = (reg: number) => {
                 if (reg < 0 || reg >= this.gpr.length) {
                     throw "Invalid register: " + reg;
@@ -700,19 +699,18 @@ class LittleCPU {
         }
     }
 
-    constructor() {
-        this.maxSP = 924;
-        this.minSP = 0;
-        this.memory = new Memory();
+    constructor(memory: IMemory) {
+        this.maxSP = DEVICES.base.end();
+        this.minSP = DEVICES.base.start();
+        this.memory = memory;
         this.gpr = [0, 0, 0, 0];
         this.sp = this.maxSP;
-        this.ip = 0;
-        this.dp = 927;
+        this.ip = DEVICES.base.start();
+        this.dp = DEVICES.screen.start();
         this.zero = false;
         this.carry = false;
         this.fault = false;
-        this.screenMode = this.memory.load16(this.maxSP + 1) === 1;
     }
 }
 
-export const CPU = new LittleCPU()
+export const CPU = new LittleCPU(new ReactiveMemory())

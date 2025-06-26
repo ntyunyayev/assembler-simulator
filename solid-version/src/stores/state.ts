@@ -31,6 +31,8 @@ export interface CPUState {
         f: boolean; 
         sm: boolean; 
     };
+    memory: number[];
+
 }
 
 export interface State {
@@ -44,8 +46,6 @@ export interface State {
     cpuState: CPUState; // Optional, will be set when CPU is initialized
     labels?: Record<string, number>; 
 }
-
-
 
 // --- Store Creation ---
 export function createStateStore() {
@@ -69,6 +69,7 @@ export function createStateStore() {
         code: "",
         recordingKeys: false,
         cpuState: {
+            memory: CPU.memory.data,
             pc: 0,
             sp: 924,
             dp: 926,
