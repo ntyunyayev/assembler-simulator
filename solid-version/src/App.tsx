@@ -2,10 +2,8 @@ import { createStateStore } from "./stores/state.ts"
 import './App.css'
 import "./stores/state.ts"
 import { StateContext } from './stateContext.ts';
-
-
-import Navbar from './navbar.tsx';
-import CodeActions from './code-actions.tsx';
+import Navbar from './Navbar.tsx';
+import CodeActions from './CodeActions.tsx';
 import Editor from './Editor.tsx';
 import Memory from './Memory.tsx';
 import Settings from './Settings.tsx';

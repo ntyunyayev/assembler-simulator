@@ -7,11 +7,32 @@ type SPEED = 1 | 4 | 8 | 16 | 1024
 export interface Settings {
     displayHex: boolean;
     displayInstr: boolean;
-    ramDisplayMode: "HEX" | "DEC" | "ASCII";
+    ramDisplayMode: "Number" | "ASCII";
     displayA: boolean;
     displayB: boolean;
     displayC: boolean;
     displayD: boolean;
+    displayPC: boolean;
+    displaySP: boolean;
+    displayDP: boolean;
+}
+
+export interface CPUState {
+    pc: number;
+    sp: number;
+    dp: number;
+    a: number;
+    b: number;
+    c: number;
+    d: number;
+    flags: {
+        z: boolean; 
+        c: boolean; 
+        f: boolean; 
+        sm: boolean; 
+    };
+    memory: number[];
+
 }
 
 export interface State {
@@ -22,12 +43,8 @@ export interface State {
     memoryHighlight: number;
     code: string;
     recordingKeys: boolean;
-    cpuState: CPUState;
-}
-
-
-export interface CPUState {
-    memory: number[]
+    cpuState: CPUState; // Optional, will be set when CPU is initialized
+    labels?: Record<string, number>; 
 }
 
 // --- Store Creation ---
@@ -39,17 +56,33 @@ export function createStateStore() {
         settings: {
             displayHex: true,
             displayInstr: true,
-            ramDisplayMode: "HEX",
+            ramDisplayMode: "Number",
             displayA: true,
             displayB: true,
             displayC: true,
             displayD: true,
+            displayPC: true,
+            displaySP: true,
+            displayDP: true,
         },
         memoryHighlight: -1,
         code: "",
         recordingKeys: false,
         cpuState: {
-            memory: CPU.memory.data
-        }
+            memory: CPU.memory.data,
+            pc: 0,
+            sp: 924,
+            dp: 926,
+            a: 0,
+            b: 0,
+            c: 0,
+            d: 0,
+            flags: {
+                z: false,
+                c: false,
+                f: false,
+                sm: false
+            }
+        },
     });
 }
