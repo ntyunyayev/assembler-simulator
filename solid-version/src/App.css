@@ -17,7 +17,7 @@ button {
   border-color: #51b158;
   padding: 0px 5px;
   cursor: pointer;
-  margin: 10px 0px;
+  margin: 0px 1px;
 }
 
 .btn-success {
@@ -123,14 +123,6 @@ button {
 .code_name {
   position: absolute;
   float: left;
-}
-
-/*------ Code actions ------*/
-.code_buttons {
-  position: absolute;
-  width: fit-content;
-  float: right;
-  z-index: 2;
 }
 
 /*------ Links general ------*/
@@ -345,6 +337,25 @@ a[ng-click]:hover {
   right: calc(100% + 16px);
   opacity: 0.5;
   color: var(--line-number-color);
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.editor-header h4 {
+    color: #d4d4d4;
+    display: inline-block;
+}
+
+.editor-header small a {
+    color: #569cd6;
+    text-decoration: none;
+}
+
+.editor-header small a:hover {
+    text-decoration: underline;
 }
 
 .hl.strings {

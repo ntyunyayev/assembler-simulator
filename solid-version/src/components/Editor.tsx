@@ -1,6 +1,7 @@
 import { assembler } from '../core/assembler';
 import { CPU } from '../utils/ReactiveCPU';
 import { getStateContext } from '../utils/stateContext';
+import CodeActions from './CodeActions.tsx';
 import { createSignal, onMount, onCleanup, createEffect, batch } from 'solid-js';
 import * as monaco from 'monaco-editor';
 
@@ -172,6 +173,19 @@ export default function Editor() {
 
   return (
     <>
+      <div class="editor-header">
+        <div style="display: flex; align-items: flex-end;">
+        <h4 style="margin: 0">
+          Code{' '}
+          <small>
+            (<a href="./instruction-set.html">
+              Instruction Set
+            </a>)
+          </small>
+        </h4>
+        </div>
+        <CodeActions/>
+      </div>
       <style>
         {`
           .myBreakpoint {
