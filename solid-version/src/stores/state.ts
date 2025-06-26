@@ -98,7 +98,7 @@ export async function loadExamples(set: SetStoreFunction<State>) {
     const loadedExamples = await Promise.all(
         exampleList.map(async (example) => {
             try {
-                const response = await fetch('assets/examples/' + example.file);
+                const response = await fetch('public/examples/' + example.file);
                 const code = await response.text();
                 return { ...example, code };
             } catch (error) {
