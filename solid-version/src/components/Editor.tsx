@@ -275,7 +275,7 @@ export default function Editor() {
           height: "500px",
           width: "100%",
           "border-radius": "8px",
-          overflow: "hidden"
+          overflow: "visible",
         }}
       />
         <button type="button" onClick={assemble} class="btn-primary">
