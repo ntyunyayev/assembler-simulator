@@ -6,7 +6,7 @@ import type { CPUState, Settings } from "./stores/state";
 import { CPU } from "./ReactiveCPU";
 
 export default function Memory() {
-    let [state, setState] = getStateContext();
+    let [state, _] = getStateContext();
 
     const getRegisterOrFlagClass = (index: number): string => {
         const { settings, cpuState } = state;

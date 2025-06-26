@@ -355,3 +355,136 @@ button:hover {
 .instruction-set-button {
   color: #337ab7
 }
+
+/*---- buttons ----*/
+button {
+  outline: none;
+  border: none;
+  height: fit-content;
+  width: 40px;
+  margin: 2px;
+  border-radius: 5px;
+  vertical-align: middle;
+}
+
+.btn {
+  border: solid 1px;
+  border-radius: 4px;
+  font-size: 15px;
+  border-color: #51b158;
+  padding: 0px 5px;
+  cursor: pointer;
+  margin: 10px 0px;
+}
+
+.btn-success {
+  color: white;
+  background-color: #5cb85c;
+  border-color: #51b158;
+  text-align: center;
+  line-height: 35px;
+}
+
+.btn-default {
+  background-color: #80AFE4;
+  border-color: #a9ccf4;
+  color: white;
+  height: 37px;
+}
+
+.btn-step {
+  padding: 0em 0.3em;
+  font-size: 20px;
+}
+
+.btn-reset {
+  padding: 0em 0.1em;
+  font-size: 36px;
+  line-height: 30px;
+  padding-bottom: 4px;
+}
+
+.right-top {
+  position: absolute;
+  top: 2em;
+  right: 0.2em;
+}
+
+.btn-action {
+  width: 120px;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+/*----- Navbar -----*/
+.container-sim{
+  display: flex;
+}
+
+.navbar-link {
+  height: 50px;
+  line-height: 50px;
+  font-size: 17px;
+  margin: 0px;
+  border-radius: 0px;
+  border: none;
+  text-align: center;
+  width: 85%;
+  color: white;
+  text-decoration: none;
+}
+
+.github-fork-link {
+  height: 50px;
+  line-height: 50px;
+  background-color: #d9534f;
+  color: white;
+  margin: 0px;
+  border-radius: 0px;
+  width: 15%;
+  font-size: 17px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.instructions {
+  position: absolute;
+  color: white;
+  top: 13px;
+  left: 770px;
+}
+
+.instructions-link {
+  text-decoration: none;
+  color: white;
+}
+.instructions-link:hover {
+  color: yellow;
+}
+
+.instructions-text {
+  margin: 20px;
+}
+
+/*----- Text Code next buttons -----*/
+.code_name {
+  display: inline-block;
+}
+
+/*------ Code actions ------*/
+.code-buttons {
+  z-index: 2;
+}
+
+/*------ Links general ------*/
+/*a:focus, a:hover {
+  text-decoration:underline
+}*/
