@@ -1,4 +1,4 @@
-import { onMount, createEffect, onCleanup } from 'solid-js';
+import { createEffect, onCleanup } from 'solid-js';
 import { assembler } from './core/assembler';
 import { CPU } from './ReactiveCPU';
 import { getStateContext } from './stateContext';

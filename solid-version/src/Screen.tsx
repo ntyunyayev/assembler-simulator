@@ -2,8 +2,6 @@
 import { Index, Show } from "solid-js";
 import { getStateContext } from "./stateContext";
 import { DEVICES } from "./core/devices";
-import type { CPUState, Settings } from "./stores/state";
-import { CPU } from "./ReactiveCPU";
 
 export default function Screen() {
     let [state, _] = getStateContext();
