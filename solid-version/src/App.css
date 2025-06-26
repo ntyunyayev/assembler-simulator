@@ -5,6 +5,8 @@ button {
   border-radius: 5px;
   vertical-align: middle;
   line-height: 24px;
+  border: none;
+  padding: 5px 10px;
 }
 
 .btn {
