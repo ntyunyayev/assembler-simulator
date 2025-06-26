@@ -698,11 +698,9 @@ export class LittleCPU {
             throw e;
         }
     }
-
-    constructor(memory: IMemory) {
+    reset() {
         this.maxSP = DEVICES.base.end() - 1;
         this.minSP = DEVICES.base.start();
-        this.memory = memory;
         this.gpr = [0, 0, 0, 0];
         this.sp = this.maxSP;
         this.ip = DEVICES.base.start();
@@ -710,6 +708,12 @@ export class LittleCPU {
         this.zero = false;
         this.carry = false;
         this.fault = false;
+        this.memory.reset()
+    }
+    constructor(memory: IMemory) {
+        this.memory = memory;
+        this.reset()
+   
     }
 }
 
