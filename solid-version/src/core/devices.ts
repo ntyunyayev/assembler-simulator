@@ -23,7 +23,6 @@ function createDevices<T extends readonly { size: number, name: string }[]>(devi
         devices.map((device, index) => {
             // Calculate cumulative size of all previous devices
             const startOffset = devices.slice(0, index).reduce((sum, d) => sum + d.size, 0);
-
             const enhancedDevice = {
                 ...device,
                 start: () => startOffset,

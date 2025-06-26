@@ -9,11 +9,9 @@ export default function Screen() {
     let [state, _] = getStateContext();
 
     const getBright = (index: number) => {
-        console.log("Running here !")
         const high = state.cpuState.memory[index];
         const low = state.cpuState.memory[index + 1];
         const value = (high << 8) | low;  // 16-bit value
-        console.log(value)
     
         // Extract 6 bits red (bits 15-10), 6 bits green (bits 9-4), 4 bits blue (bits 3-0)
         const r6 = (value >> 10) & 0x3F;  // 6 bits

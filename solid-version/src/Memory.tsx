@@ -1,5 +1,5 @@
 
-import { Index } from "solid-js";
+import { DEV, Index } from "solid-js";
 import { getStateContext } from "./stateContext";
 import { DEVICES } from "./core/devices";
 import type { CPUState, Settings } from "./stores/state";
@@ -29,8 +29,6 @@ export default function Memory() {
     
         return match ? match.className : "";
     };
-    
-
     const getBGClass = (index: number) => {
         const rdclass = getRegisterOrFlagClass(index);
         if (rdclass) return rdclass;
@@ -48,7 +46,7 @@ export default function Memory() {
             <div class="ram">
                 <Index each={state.cpuState.memory}>
                     {(item, index) =>
-                        <div class="memory-block">
+                        <div class="memory-block" id={""+index}>
                             <div class={`marker ${getBGClass(index)}`}>
                                 <small>{state.settings.displayHex ? item().toString(16).padStart(2, '0') : item()}</small>
                             </div>

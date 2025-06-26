@@ -281,12 +281,16 @@ a[ng-click]:hover {
   background: #ffffff;
 }
 
-.screen-piexel-ascii {
+.screen-pixel-ascii {
   font-family: monospace;
   font-size: 10px;
   text-align: center;
   line-height: 12px;
   color: #000000;
+}
+
+.editor-container * {
+  font-family: "Source Code Pro";
 }
 
 .highlighted {

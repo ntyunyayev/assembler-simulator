@@ -1,133 +1,115 @@
-import { onMount } from 'solid-js';
+import { onMount, createEffect, onCleanup } from 'solid-js';
 import { assembler } from './core/assembler';
 import { CPU } from './ReactiveCPU';
 import { getStateContext } from './stateContext';
-
-export default function AssemblyEditor() {
+import "./Editor.css"
+export default function Editor() {
   const [state, setState] = getStateContext();
-  let editorRef: HTMLDivElement | undefined;
 
-  const keywords: string[] = [
-    'MOV', 'ADD', 'SUB', 'INC', 'DEC', 'MUL', 'DIV',
-    'AND', 'OR', 'XOR', 'NOT', 'SHL', 'SHR', 'SAL', 'SAR',
-    'CMP', 'JMP', 'JC', 'JNC', 'JZ', 'JNZ', 'JA', 'JNBE', 'JAE', 'JNB',
-    'JB', 'JNAE', 'JBE', 'JNA', 'JE', 'JNE', 'CALL', 'RET', 'PUSH', 'POP', 'HLT', 'DB'
-  ];
-  const registers: string[] = ['A', 'B', 'C', 'D', 'SP'];
+  let textareaRef: HTMLTextAreaElement | undefined;
+  let backdropRef: HTMLDivElement | undefined;
+  let updateTimer: number;
 
-  const kwRegex = new RegExp(`\\b(${keywords.join('|')})\\b`, 'g');
-  const regRegex = new RegExp(`\\b(${registers.join('|')})\\b`, 'g');
-  const labelRegex = /^\s*(\.?\w+):/;
-  const numRegex = /\b(0x[\da-fA-F]+|0o[0-7]+|\d+[db]?|[01]+b)\b/g;
-  const strRegex = /(["'`])(?:(?=(\\?))\2.)*?\1/g;
-  const commentRegex = /(;.*)$/;
+  // Micro syntax highlighter for Assembly
+  const highlight = (code: string): string => {
+    const keywords = /\b(MOV|ADD|SUB|INC|DEC|MUL|DIV|AND|OR|XOR|NOT|SHL|SHR|SAL|SAR|CMP|JMP|JC|JNC|JZ|JNZ|JA|JNBE|JAE|JNB|JB|JNAE|JBE|JNA|JE|JNE|CALL|RET|PUSH|POP|HLT|DB)\b/gi;
+    const registers = /\b([ABCD]|SP)\b/g;
+    const numbers = /\b(0x[\da-fA-F]+|0o[0-7]+|\d+[db]?|[01]+b)\b/g;
+    const strings = /(["'`])(?:(?=(\\?))\2.)*?\1/g;
+    const comments = /(;.*$)/gm;
+    const labels = /^(\s*\.?\w+):/gm;
+    
+    return code
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(strings, '<span class="hl strings">$&</span>')
+      .replace(comments, '<span class="hl comments">$&</span>')
+      .replace(labels, '<span class="hl labels">$1</span>:')
+      .replace(keywords, '<span class="hl instruction">$&</span>')
+      .replace(registers, '<span class="hl register">$&</span>')
+      .replace(numbers, '<span class="hl number">$&</span>');
+  };
 
-  const highlight = (el: HTMLElement): void => {
-    for (const node of el.children) {
-      const raw = (node as HTMLElement).innerText;
-
-      let line = raw
-        .replace(strRegex, '<span class="hl strings">$&</span>')
-        .replace(commentRegex, '<span class="hl comments">$1</span>')
-        .replace(labelRegex, '<span class="hl labels">$1</span>:')
-        .replace(kwRegex, '<span class="hl instruction">$1</span>')
-        .replace(regRegex, '<span class="hl register">$1</span>')
-        .replace(numRegex, '<span class="hl number">$1</span>');
-
-      (node as HTMLElement).innerHTML = line;
+  const updateHighlight = (): void => {
+    if (backdropRef && textareaRef) {
+      backdropRef.innerHTML = highlight(state.code);
+      backdropRef.scrollTop = textareaRef.scrollTop;
+      backdropRef.scrollLeft = textareaRef.scrollLeft;
     }
   };
 
-  const getCaret = (el: HTMLElement): number => {
-    const selection = window.getSelection();
-    if (!selection || selection.rangeCount === 0) return 0;
-
-    const range = selection.getRangeAt(0);
-    const prefix = range.cloneRange();
-    prefix.selectNodeContents(el);
-    prefix.setEnd(range.endContainer, range.endOffset);
-    return prefix.toString().length;
+  const handleInput = (e: Event): void => {
+    const target = e.target as HTMLTextAreaElement;
+    setState("code", target.value);
+    
+    // Debounce highlighting for performance
+    clearTimeout(updateTimer);
+    updateTimer = setTimeout(updateHighlight, 50);
   };
 
-  const setCaret = (pos: number, parent: HTMLElement = editorRef!): number => {
-    for (const node of parent.childNodes) {
-      if (node.nodeType === Node.TEXT_NODE) {
-        if (node.textContent && node.textContent.length >= pos) {
-          const range = document.createRange();
-          const sel = window.getSelection();
-          if (sel) {
-            range.setStart(node, pos);
-            range.collapse(true);
-            sel.removeAllRanges();
-            sel.addRange(range);
-          }
-          return -1;
-        } else {
-          pos = pos - (node.textContent?.length || 0);
-        }
-      } else {
-        pos = setCaret(pos, node as HTMLElement);
-        if (pos < 0) {
-          return pos;
-        }
-      }
+  const handleScroll = (e: Event): void => {
+    const target = e.target as HTMLTextAreaElement;
+    if (backdropRef) {
+      backdropRef.scrollTop = target.scrollTop;
+      backdropRef.scrollLeft = target.scrollLeft;
     }
-    return pos;
   };
 
   const handleKeyDown = (e: KeyboardEvent): void => {
-    if (e.ctrlKey) return;
-    if (e.which === 9) {
-      if (!editorRef) return;
-      const pos = getCaret(editorRef) + 2;
-      const selection = window.getSelection();
-      if (selection && selection.rangeCount > 0) {
-        const range = selection.getRangeAt(0);
-        range.deleteContents();
-        range.insertNode(document.createTextNode('  '));
-        highlight(editorRef);
-        setCaret(pos);
-      }
+    if (e.key === 'Tab') {
       e.preventDefault();
-    }
-  };
-
-  const handleKeyUp = (e: KeyboardEvent): void => {
-    if (e.ctrlKey || !editorRef) return;
-    if (e.keyCode >= 0x30 || e.keyCode === 0x20 || e.key === "Backspace") {
-      const pos = getCaret(editorRef);
-      highlight(editorRef);
-      setCaret(pos);
+      const target = e.target as HTMLTextAreaElement;
+      const start = target.selectionStart;
+      const end = target.selectionEnd;
+      
+      const newValue = target.value.substring(0, start) + '  ' + target.value.substring(end);
+      target.value = newValue;
+      target.selectionStart = target.selectionEnd = start + 2;
+      
+      setState("code", newValue);
     }
   };
 
   const assemble = (): void => {
     try {
-      var { code, mapping, labels } = assembler.go(editorRef?.innerText as string);
-      for (var i = 0, l = code.length; i < l; i++) {
-        CPU.memory.store(i, code[i]);
+      const { code: machineCode, mapping, labels } = assembler.go(state.code);
+      
+      for (let i = 0; i < machineCode.length; i++) {
+        CPU.memory.store(i, machineCode[i]);
       }
+      
       setState("labels", Object.entries(labels));
-    } catch (err: {error: string, line: number} | any) {
-      setState("error", err.error+" (ligne "+err.line+")");
+      setState("error", "");
+    } catch (err: any) {
+      setState("error", `${err.error} (ligne ${err.line})`);
     }
   };
 
-  onMount(() => {
-    if (editorRef) {
-      editorRef.focus();
-      highlight(editorRef);
-    }
+  const clearEditor = (): void => {
+    setState("code", '');
+    setState("error", "");
+  };
+
+  // Update highlighting when code changes
+  createEffect(() => {
+    updateHighlight();
   });
 
+ 
+  onCleanup(() => {
+    clearTimeout(updateTimer);
+  });
 
   return (
-    <div class='editor-container'>
-      <div hidden={!state.error}>
+    <div class="editor-container">
+      {/* Error Display */}
+      <div class="error-message" classList={{ hidden: !state.error }}>
         {state.error}
       </div>
 
-      <div>
+      {/* Header */}
+      <div class="editor-header">
         <h4>
           Code{' '}
           <small>
@@ -138,28 +120,35 @@ export default function AssemblyEditor() {
         </h4>
       </div>
 
-      <div>
-        <div
-          ref={editorRef}
-          contentEditable={true}
+      {/* Editor */}
+      <div class="prism-editor">
+        <div 
+          ref={backdropRef}
+          class="editor-backdrop"
+        />
+        <textarea
+          ref={textareaRef}
+          class="editor-textarea"
+          value={state.code}
+          onInput={handleInput}
+          onScroll={handleScroll}
           onKeyDown={handleKeyDown}
-          onKeyUp={handleKeyUp}
           spellcheck={false}
-          class="editor"
-        >
-          <div>; Welcome to Assembly Editor</div>
-          <div>MOV A, 10</div>
-          <div>ADD B, A</div>
-          <div>HLT</div>
-        </div>
+          placeholder="Enter assembly code..."
+        />
+      </div>
 
-        <button
-          type="button"
-          onClick={assemble}
-        >
+      {/* Controls */}
+      <div class="editor-controls">
+        <button type="button" onClick={assemble} class="btn-primary">
           Assemble
         </button>
+        <button type="button" onClick={clearEditor} class="btn-secondary">
+          Clear
+        </button>
       </div>
+   
+
     </div>
   );
 }
