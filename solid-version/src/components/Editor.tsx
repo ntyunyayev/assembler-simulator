@@ -80,6 +80,7 @@ export default function Editor() {
       }
       
       setState("labels", Object.entries(labels));
+      setState("mapping", mapping);
       setState("error", "");
     } catch (err: any) {
       setState("error", `${err.error} (ligne ${err.line})`);

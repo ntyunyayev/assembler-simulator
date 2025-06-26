@@ -44,7 +44,8 @@ export interface State {
     recordingKeys: boolean;
     cpuState: CPUState;
     labels: [string, number][];
-    examples?: { name: string; code: string }[]; 
+    mapping: Record<string, number>;
+    examples: { name: string; code: string }[];
 }
 
 // --- Store Creation ---
@@ -84,6 +85,7 @@ export function createStateStore() {
             }
         },
         labels: [],
+        mapping: {},
         examples: []
     });
 }
