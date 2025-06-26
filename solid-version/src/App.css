@@ -93,37 +93,6 @@ button {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-/*----- Navbar -----*/
-.container-sim{
-  display: flex;
-}
-
-.navbar-link {
-  height: 50px;
-  line-height: 50px;
-  font-size: 17px;
-  margin: 0px;
-  border-radius: 0px;
-  border: none;
-  text-align: center;
-  width: 85%;
-  color: white;
-  text-decoration: none;
-}
-
-.github-fork-link {
-  height: 50px;
-  line-height: 50px;
-  background-color: #d9534f;
-  color: white;
-  margin: 0px;
-  border-radius: 0px;
-  width: 15%;
-  font-size: 17px;
-  text-decoration: none;
-  text-align: center;
-}
-
 .instructions {
   position: absolute;
   color: white;

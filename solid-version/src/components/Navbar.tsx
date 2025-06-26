@@ -1,18 +1,10 @@
-import { getStateContext } from '../utils/stateContext';
+import '../styles/Navbar.css';
 
 export default function Navbar() {
-    const [state, setState] = getStateContext();
-
     return (
-    <div class="container-sim">
-      <a
-        class="navbar-link"
-        role="navigation"
-        style="background-color: #428bca;"
-      >
-      Simple 16-bit Assembler Simulator
-      
-      </a>
-      <a class="github-fork-link" href="https://github.com/ntyunyayev/assembler-simulator" title="Fork me on GitHub">Fork me on GitHub</a>
-    </div>
-)};
+      <nav class="navbar">
+        Simple 16-bit Assembler Simulator
+        <a class="instruction-set-link" href="./instruction-set.html" title="Instruction Set">Instruction Set</a>
+      </nav>
+    );
+};

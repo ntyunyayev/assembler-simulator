@@ -3,7 +3,6 @@ import './App.css'
 import "./stores/state.ts"
 import { StateContext } from './utils/stateContext.ts';
 import Navbar from './components/Navbar.tsx';
-import CodeActions from './components/CodeActions.tsx';
 import Editor from './components/Editor.tsx';
 import Memory from './components/Memory.tsx';
 import Settings from './components/Settings.tsx';

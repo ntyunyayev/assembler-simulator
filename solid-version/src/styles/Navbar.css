@@ -1,0 +1,28 @@
+.navbar{
+    font-family: "Poppins", sans-serif;
+    height: 50px;
+    line-height: 50px;
+    background-color: #428bca;
+    color: white;
+    border: 0px;
+    border-radius: 0px;
+    padding: 0 20px; 
+    position: relative;
+}
+
+.instruction-set-link {
+    background-color: #d9534f;
+    color: white;
+    width: 15%;
+    text-decoration: none;
+    text-align: center;
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0;
+}
