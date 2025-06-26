@@ -1,5 +1,5 @@
 import { createStore, type SetStoreFunction } from "solid-js/store";
-import { CPU } from "../core/cpu";
+import { CPU } from "../ReactiveCPU";
 
 type SPEED = 1 | 4 | 8 | 16 | 1024
 
@@ -29,7 +29,6 @@ export interface CPUState {
         z: boolean; 
         c: boolean; 
         f: boolean; 
-        sm: boolean; 
     };
     memory: number[];
 
@@ -81,7 +80,6 @@ export function createStateStore() {
                 z: false,
                 c: false,
                 f: false,
-                sm: false
             }
         },
     });

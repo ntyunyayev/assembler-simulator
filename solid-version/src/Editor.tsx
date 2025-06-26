@@ -1,6 +1,6 @@
 import { onMount } from 'solid-js';
 import { assembler } from './core/assembler';
-import { CPU } from './core/cpu';
+import { CPU } from './ReactiveCPU';
 import { getStateContext } from './stateContext';
 interface AssemblyEditorProps { }
 
@@ -120,8 +120,6 @@ export default function AssemblyEditor(props: AssemblyEditorProps) {
     }
   });
 
-  //@ts-ignore
-  window.CPU = CPU
 
   return (
     <div class='editor-container'>

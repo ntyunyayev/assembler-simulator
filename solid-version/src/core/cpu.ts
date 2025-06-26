@@ -2,7 +2,7 @@ import { ReactiveMemory } from "../utils/ReactiveMemory.tsx";
 import { DEVICES } from "./devices.ts";
 import { type IMemory } from "./memory.ts";
 import { opcodes } from "./opcodes.ts";
-class LittleCPU {
+export class LittleCPU {
     fault?: boolean
     maxSP: number;
     minSP: number; 
@@ -713,4 +713,3 @@ class LittleCPU {
     }
 }
 
-export const CPU = new LittleCPU(new ReactiveMemory())

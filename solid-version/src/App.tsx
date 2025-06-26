@@ -10,9 +10,13 @@ import Settings from './Settings.tsx';
 import Flags from './Flags.tsx';
 import Labels from './Labels.tsx';
 import Screen from './Screen.tsx';
+import { CPU } from "./ReactiveCPU.ts";
 
 function App() {
     const [state, setState] = createStateStore();
+    CPU.setup(state, setState);
+    //@ts-ignore
+    window.CPU = CPU; // Debug purposes
     return (
         <StateContext.Provider value={[state, setState]}>
             <Navbar/>

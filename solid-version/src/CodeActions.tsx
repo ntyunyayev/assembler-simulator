@@ -1,3 +1,5 @@
+import { CPU } from "./ReactiveCPU";
+
 export default function CodeActions() {
     return (
        <div>
@@ -10,7 +12,7 @@ export default function CodeActions() {
             <button type="button" ng-click="stop()" ng-show="isRunning">
                 Stop
             </button>
-            <button type="button" ng-click="executeStep()" ng-disabled="isRunning">
+            <button type="button" onClick={() => CPU.step()}>
                 Step
             </button>
             <button type="button" ng-click="reset()">
