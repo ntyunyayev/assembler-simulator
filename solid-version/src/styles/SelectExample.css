@@ -1,0 +1,27 @@
+.example-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    font-family: "Poppins", sans-serif;
+}
+
+.example-dropdown label {
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+.example-select {
+    padding: 0.4rem 1rem;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    background: #fafafa;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.example-select:focus {
+    border-color: #0078d4;
+    outline: none;
+    background: #fff;
+}

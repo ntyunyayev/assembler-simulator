@@ -4,6 +4,7 @@ import { getStateContext } from "../utils/stateContext";
 import { DEVICES } from "../core/devices";
 import type { CPUState, Settings } from "../stores/state";
 import { CPU } from "../utils/ReactiveCPU";
+import "../styles/Memory.css"; 
 
 export default function Memory() {
     let [state, _] = getStateContext();

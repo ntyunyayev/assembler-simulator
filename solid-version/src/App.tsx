@@ -3,7 +3,6 @@ import './App.css'
 import "./stores/state.ts"
 import { StateContext } from './utils/stateContext.ts';
 import Navbar from './components/Navbar.tsx';
-import CodeActions from './components/CodeActions.tsx';
 import Editor from './components/Editor.tsx';
 import Memory from './components/Memory.tsx';
 import Settings from './components/Settings.tsx';
@@ -14,6 +13,7 @@ import { CPU } from "./utils/ReactiveCPU.ts";
 import { onMount } from "solid-js";
 import { Show } from "solid-js";
 import { DEVICES } from "./core/devices.ts";
+import SelectExample from "./components/SelectExample.tsx";
 
 function App() {
     const [state, setState] = createStateStore();
@@ -28,13 +28,15 @@ function App() {
         await loadExamples(setState);
         setState("code", state.examples?.find(example => example.name === "Draw in screen")?.code || "");
     });
-
     
     return (
         <StateContext.Provider value={[state, setState]}>
             <Navbar/>
             <div class="columns">
                 <div class="col0">
+                    <Show when={!state.isRunning}>
+                        <SelectExample />
+                    </Show>
                     <Editor />
                 </div>
                 <div class="col1">

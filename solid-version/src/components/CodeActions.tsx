@@ -1,12 +1,11 @@
 import { createEffect, createSignal, Show } from "solid-js";
 import { CPU } from "../utils/ReactiveCPU";
 import { getStateContext } from "../utils/stateContext";
-import { VsDebugAlt, VsDebugPause } from "solid-icons/vs";
-import { BsFastForward } from "solid-icons/bs";
+import { VsDebugPause } from "solid-icons/vs";
 import { TbReload } from "solid-icons/tb";
-import { FaSolidPlay } from "solid-icons/fa";
 import { IoPlay, IoPlayForward } from "solid-icons/io";
 import { AiOutlineStepForward } from "solid-icons/ai";
+import "../styles/CodeActions.css"; 
 
 export default function CodeActions() {
     let [state, setState] = getStateContext();
@@ -20,6 +19,7 @@ export default function CodeActions() {
             CPU.step()
         }, 1000 / state.speed))
         setCurrentSpeed(state.speed)
+        setState("isRunning", true)
     }
     const runQuickly = () => {
        // CPU.reset()
@@ -29,12 +29,13 @@ export default function CodeActions() {
             CPU.step()
         }, 1000 / 4096))
         setCurrentSpeed(0)
-
+        setState("isRunning", true)
     }
     const stop = () => {
         setState("quick", false)
         clearInterval(interval())
         _SetInterval(0);
+        setState("isRunning", false);
     }
 
     createEffect(() => {
@@ -56,7 +57,5 @@ export default function CodeActions() {
             <IoPlayForward color="#2ecc71" size={35} onClick={runQuickly}/>
             <TbReload color="#2c3e50" size={35} onClick={() => CPU.reset()} />
             </Show>
-
-            
         </div>
 )};

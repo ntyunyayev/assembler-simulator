@@ -1,0 +1,30 @@
+.screen {
+  padding: 2px;
+  border-radius: 4px;
+  display: inline-block;
+  background-color: #e0e0e0;
+  outline: none;
+  font-size: 0; /* To make space between lines = 0*/
+}
+
+.screen-pixel {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+}
+
+.screen-pixel-on {
+  background: #000000;
+}
+
+.screen-pixel-off {
+  background: #ffffff;
+}
+
+.screen-pixel-ascii {
+  font-family: monospace;
+  font-size: 10px;
+  text-align: center;
+  line-height: 12px;
+  color: #000000;
+}

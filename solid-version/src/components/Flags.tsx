@@ -1,5 +1,6 @@
 import { getStateContext } from "../utils/stateContext";
 import { DEVICES } from "../core/devices";
+import "../styles/Flags.css";
 
 export default function Flags() {
     let [state, setState] = getStateContext();

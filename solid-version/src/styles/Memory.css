@@ -1,0 +1,68 @@
+.marker.stack-bg {
+  background-color: #F8DCB4;
+}
+
+.marker.screen-bg {
+  background-color: #ffd7d7;
+}
+
+.marker.screen-mode-bg {
+  background-color: #df9393;
+}
+
+.marker.input-bg {
+  background-color: #e67e22;
+}
+
+.marker:hover {
+  cursor: pointer;
+}
+
+.marker {
+  width: 1.8em;
+  color: black;
+  user-select: none;
+}
+
+.marker-pc {
+  background-color: #428BCA;
+}
+
+.marker-sp {
+  background-color: #EEA236;
+}
+
+.marker-dp {
+  background-color: #D9534F;
+}
+
+.marker-a {
+  background-color: #4D8C20;
+}
+
+.marker-b {
+  background-color: #22D19D;
+}
+
+.marker-c {
+  background-color: #A137ED;
+}
+
+.marker-d {
+  background-color: #E81F1F;
+}
+
+.memory-block {
+  width: 1.8em;
+  display: inline-block;
+  text-align: center;
+}
+
+.ram {
+  overflow-y: scroll;
+  max-height: 50vh;
+}
+
+.ram  .marker > small {
+  font-family: "Source Code Pro", monospace;
+}
