@@ -687,6 +687,58 @@ export class LittleCPU {
                     this.gpr[regTo] = checkOperation(this.gpr[regTo]! >>> number);
                     this.ip++;
                     break;
+                case opcodes.MOV_DP_TO_REG:
+                    regTo = checkGPR(this.memory.load16(++this.ip));
+                    this.ip++;
+                    this.gpr[regTo] = this.dp;
+                    this.ip++;
+                    break;
+
+                case opcodes.MOV_REG_TO_DP:
+                    regFrom = checkGPR(this.memory.load16(++this.ip));
+                    this.ip++;
+                    this.dp = this.gpr[regFrom];
+                    this.ip++;
+                    break;
+
+                case opcodes.MOV_NUMBER_TO_DP:
+                    number = this.memory.load16(++this.ip);
+                    this.ip++;
+                    this.dp = number;
+                    this.ip++;
+                    break;
+
+                case opcodes.MOV_DPADDRESS_TO_REG:
+                    regTo = checkGPR(this.memory.load16(++this.ip));
+                    this.ip++;
+                    var offset = this.memory.load16(++this.ip); // Declare offset here
+                    this.ip++;
+                    setGPR_SP(regTo, this.memory.load16(this.dp + offset));
+                    this.ip++;
+                    break;
+
+                case opcodes.MOV_REG_TO_DPADDRESS:
+                    var offset = this.memory.load16(++this.ip); // Declare offset here
+                    this.ip++;
+                    regFrom = checkGPR(this.memory.load16(++this.ip));
+                    this.ip++;
+                    this.memory.store16(this.dp + offset, getGPR_SP(regFrom)!);
+                    this.ip++;
+                    break;
+
+                case opcodes.ADD_NUMBER_TO_DP:
+                    number = this.memory.load16(++this.ip);
+                    this.ip++;
+                    this.dp = checkOperation(this.dp + number);
+                    this.ip++;
+                    break;
+
+                case opcodes.SUB_NUMBER_FROM_DP:
+                    number = this.memory.load16(++this.ip);
+                    this.ip++;
+                    this.dp = checkOperation(this.dp - number);
+                    this.ip++;
+                    break;
                 default:
                     throw "Invalid op code: " + instr;
             }

@@ -58,6 +58,8 @@ class Assembler {
                 return 3;
             } else if (input === 'SP') {
                 return 4;
+            } else if (input === 'DP') {
+                return 5;
             } else {
                 return undefined;
             }
@@ -69,38 +71,40 @@ class Assembler {
             var base = 0;
 
             if (input[0] === 'A') {
-                base = 0;
+            base = 0;
             } else if (input[0] === 'B') {
-                base = 1;
+            base = 1;
             } else if (input[0] === 'C') {
-                base = 2;
+            base = 2;
             } else if (input[0] === 'D') {
-                base = 3;
+            base = 3;
             } else if (input.slice(0, 2) === "SP") {
-                base = 4;
+            base = 4;
+            } else if (input.slice(0, 2) === "DP") {
+            base = 5;
             } else {
-                return undefined;
+            return undefined;
             }
             var offset_start = 1;
-            if (base === 4) {
-                offset_start = 2;
+            if (base === 4 || base === 5) {
+            offset_start = 2;
             }
 
             if (input[offset_start] === '-') {
-                m = -1;
+            m = -1;
             } else if (input[offset_start] === '+') {
-                m = 1;
+            m = 1;
             } else {
-                return undefined;
+            return undefined;
             }
 
             var offset = m * parseInt(input.slice(offset_start + 1), 10);
 
             if (offset < -16 || offset > 15)
-                throw "offset must be a value between -16...+15";
+            throw "offset must be a value between -16...+15";
 
             if (offset < 0) {
-                offset = 32 + offset; // two's complement representation in 5-bit
+            offset = 32 + offset; // two's complement representation in 5-bit
             }
 
             return offset * 8 + base; // shift offset 3 bits right and add code for register
