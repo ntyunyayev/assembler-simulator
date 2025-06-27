@@ -6,14 +6,11 @@ A simple assembler simulator for educational purposes, designed to help users un
 You can try the simulator online at [Assembler Simulator](http://asm.info.ucl.ac.be/).
 
 ## Features
-This project implements simplified version of assembly language and CPU simulation on a 16-bit architecture. The details of the instruction set can be found [here](http://asm.info.ucl.ac.be/instruction-set.html).
 
-The simulator includes the following features:
 - Parse and execute basic assembly instructions
 - Step-by-step simulation of instruction execution
 - Visualize registers and memory state
 - User-friendly interface for loading and editing assembly code
-- Small screen mapped to memory to visualize the output
 
 ## Contributing
 Contributions are welcome! Please open issues or submit pull requests for improvements.
@@ -21,7 +18,7 @@ Contributions are welcome! Please open issues or submit pull requests for improv
 ## Acknowledgements
 This project is based on the original work by Marco Schweighauser, which can be found at [Marco's Blog](https://www.mschweighauser.com/make-your-own-assembler-simulator-in-javascript-part1/).
 
-The new version has been completely rewritten as part of an UCL/INGI Open Week 2025 project by @tdaron, @Piwy-dev and @ernesto.
+The new version has been completely rewritten as part of the UCL Open Week 2023, using SolidJS and TypeScript, by @tdaron, @Piwy-dev and @ernesto.
 
 ### Clone the repository
 ```bash
