@@ -11,7 +11,8 @@
 }
 
 .instruction-set-link {
-    background-color: #d9534f;
+    font-family: "Poppins", sans-serif;
+    background-color: #19C17D;
     color: white;
     width: 15%;
     text-decoration: none;
