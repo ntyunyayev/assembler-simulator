@@ -13,8 +13,14 @@
   transition: .2s all;
 }
 
-.code_buttons svg:hover, .settings-icon-container svg:hover {
+.code_buttons svg:not(.disabled):hover, .settings-icon-container svg:hover {
   cursor: pointer;
   filter: brightness(50%);
   background-color: rgba(0, 0, 0, .2);
+}
+
+.code_buttons svg.disabled {
+  fill: grey;
+  background-color: rgba(0, 0, 0, .1);;
+
 }

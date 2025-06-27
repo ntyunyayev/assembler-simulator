@@ -216,6 +216,11 @@ export default function Editor() {
     }
   });
   
+  createEffect(() => {
+    if (editor) {
+      editor.updateOptions({ readOnly: (state.isRunning || state.isDebugging) }); // Enable read-only
+    }
+  })
 
   return (
     <>
@@ -233,6 +238,7 @@ export default function Editor() {
           "border-radius": "8px",
           overflow: "visible",
         }}
+        class={(state.isRunning || state.isDebugging) ? "disabled" : ""}
       />
     </>
   );

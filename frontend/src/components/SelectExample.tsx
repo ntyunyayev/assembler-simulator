@@ -10,6 +10,7 @@ export default function SelectExample() {
             <select 
                 id="exampleSelect" 
                 class="example-select"
+                disabled={state.isRunning}
                 value={state.examples?.find(example => example.code === state.code)?.name || ""}
                 onchange={(e) => {
                     const selectedExample = state.examples?.find(example => example.name === e.currentTarget.value);
