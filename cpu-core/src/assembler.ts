@@ -1,7 +1,18 @@
+import { DEVICES } from "./devices.js";
 import { opcodes } from "./opcodes.js";
 class Assembler {
 
+    constants: {[key: string]: number} = {
+        "DP": DEVICES.screen.start(),
+        "SM": DEVICES["screen-mode"].start()
+    }
+
     go(input: string) {
+        for (const key in this.constants) {
+            const value = this.constants[key];
+            input = input.replaceAll(key, value.toString());
+            
+        }
         // Use https://www.debuggex.com/
         // Matches: "label: INSTRUCTION (["')OPERAND1(]"'), (["')OPERAND2(]"')
         // GROUPS:      1       2               3                    7
