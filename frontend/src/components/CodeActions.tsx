@@ -17,9 +17,10 @@ export default function CodeActions() {
     const dcontinue = () => {
         if (state.error) return;
         _SetInterval(setInterval(() => {
-            CPU.step()
-            if (state.breakpoints.includes(state.lineHighlight)) {
+            const output = CPU.step();
+            if (!output || state.breakpoints.includes(state.lineHighlight)) {
                 stop()
+                if (!output) setState("isDebugging", false);
             }
         }, 1000 / state.speed))
         setCurrentSpeed(state.speed)
@@ -31,7 +32,9 @@ export default function CodeActions() {
         if (state.error) return;
         setState("quick", true)
         _SetInterval(setInterval(() => {
-            CPU.step()
+            if (!CPU.step()) {
+                stop()
+            }
         }, 1000 / 4096))
         setCurrentSpeed(0)
         setState("isRunning", true)
@@ -44,7 +47,7 @@ export default function CodeActions() {
     }
 
     createEffect(() => {
-        if (state.speed != currentSpeed() && currentSpeed() != 0) {
+        if (state.isDebugging && state.isRunning && state.speed != currentSpeed() && currentSpeed() != 0) {
             clearInterval(interval())
             dcontinue()
         }
@@ -83,7 +86,6 @@ export default function CodeActions() {
                 <Show when={!state.isRunning}>
                     <AiOutlineClose title="Stop Debugging" color="red" size={35} onClick={() => setState("isDebugging", false)}/>    
                     <IoPlay title="Run" color="#2ecc71" size={35} onClick={dcontinue} />
-                    <IoPlay color="#2ecc71" size={35} onClick={dcontinue} />
                     <AiOutlineStepForward title="Step" color="#2ecc71" size={35} onClick={() => CPU.step()} />                
                 </Show>
             </Show>

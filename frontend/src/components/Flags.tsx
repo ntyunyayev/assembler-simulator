@@ -124,7 +124,6 @@ export default function Flags() {
                      <td><small>{state.cpuState.flags.z.valueOf() ? '1' : '0'}</small></td>
                      <td><small>{state.cpuState.flags.c.valueOf() ? '1' : '0'}</small></td>
                      <td><small>{state.cpuState.flags.f.valueOf() ? '1' : '0'}</small></td>
-                     {/* TODO: Change this */}
                      <td><small>{state.cpuState.memory[DEVICES["screen-mode"].start()+1]}</small></td>
                 </tr>
                 </tbody>

@@ -61,7 +61,7 @@ export default function Settings() {
                     </button>
                 </div>
 
-                <h4>Clock Speed</h4>
+                <h4>Clock Speed (only in the Debugger)</h4>
                 <div class="selectable">
                     <button
                         onclick={() => setState("speed", 1)}

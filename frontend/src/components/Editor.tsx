@@ -245,7 +245,7 @@ export default function Editor() {
       editor.deltaDecorations(decoration, []);
     }
     if (state.lineHighlight < 0 || (!state.isDebugging && state.error == "")) return;
-
+    editor.revealLine(state.lineHighlight);
     decoration = editor.deltaDecorations([], [
       {
         range: new monaco.Range(state.lineHighlight, 1, state.lineHighlight, 1),

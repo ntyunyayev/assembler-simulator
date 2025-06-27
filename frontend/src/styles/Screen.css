@@ -35,3 +35,11 @@
   line-height: 12px;
   color: #000000;
 }
+
+.screen:hover {
+  border: 5px solid #d63031;
+}
+
+.screen:not(:hover) {
+  border: 5px solid white;
+}

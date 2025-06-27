@@ -49,6 +49,13 @@ export default function Memory() {
         return "";
     }
 
+    const getLetter = (index: number) => {
+        const val = state.cpuState.memory[index];
+        if (val <= 32 || val >= 126) return " ";
+        return String.fromCharCode(val)
+    }
+
+
     return (
         <>
             <h4>Memory (RAM)</h4>
@@ -57,7 +64,14 @@ export default function Memory() {
                     {(item, index) =>
                         <div class="memory-block" id={""+index}>
                             <div class={`marker ${getBGClass(index)}`}>
-                                <small class={`${getInstructionClass(index)}`}>{state.settings.displayHex ? item().toString(16).padStart(2, '0') : item()}</small>
+                                <small class={`${getInstructionClass(index)}`}>
+                                    {state.settings.ramDisplayMode == "Number" ? 
+                                        state.settings.displayHex ? item().toString(16).padStart(2, '0') : item()
+                                        : getLetter(index)
+                                        
+                                    }
+                                    {}
+                                </small>
                             </div>
                         </div>
                     }
