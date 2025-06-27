@@ -6,7 +6,7 @@ import { DEVICES } from "cpu-core/src/devices";
 
 export default function Screen() {
     let [state, _] = getStateContext();
-
+    let isTextMode = () => {return state.cpuState.memory[DEVICES["screen-mode"].start()+1] > 0}
     const getBright = (index: number) => {
         const high = state.cpuState.memory[index];
         const low = state.cpuState.memory[index + 1];
@@ -25,15 +25,24 @@ export default function Screen() {
         return `rgb(${r},${g},${b})`;
     }
 
+    const getLetter = (index: number) => {
+        const high = state.cpuState.memory[index];
+        const low = state.cpuState.memory[index + 1];
+        const value = (high << 8) | low;  // 16-bit value
+        return String.fromCharCode(value)
+    }
     return (
         <>
-            <h4>Screen Output</h4>
+            <h4>Screen Output (Mode: {isTextMode() ? "Texte" : "Graphique"})</h4>
             <div class="screen">
                 <Index each={state.cpuState.memory}>
                     {(item, index) => (
+                        
                         <Show when={index >= DEVICES.screen.start() && index < DEVICES.screen.end() && (index - DEVICES.screen.start()) % 2 === 0}>
-                            <div class="screen-pixel" style={{"background-color": getBright(index)}}>
-
+                            <div class="screen-pixel" style={{"background-color": !isTextMode() ? getBright(index): "black"}}>
+                                <Show when={isTextMode()}>
+                                    {getLetter(index)}
+                                </Show> 
                             </div>
                             <Show when={(index / 2) % 32 == 0}>
                                 <br />
