@@ -21,7 +21,7 @@ export default function Editor() {
     monaco.languages.register({ id: languageId });
 
     const keywords = ['MOV', 'ADD', 'SUB', 'INC', 'DEC', 'MUL', 'DIV', 'AND', 'OR', 'XOR', 'NOT', 'SHL', 'SHR', 'SAL', 'SAR', 'CMP', 'JMP', 'JC', 'JNC', 'JZ', 'JNZ', 'JA', 'JNBE', 'JAE', 'JNB', 'JB', 'JNAE', 'JBE', 'JNA', 'JE', 'JNE', 'CALL', 'RET', 'PUSH', 'POP', 'HLT', 'DB'];
-    const registers = ['A', 'B', 'C', 'D', 'SP'];
+    const registers = ['A', 'B', 'C', 'D', 'SP','DP','SM','IB'];
 
     monaco.languages.setMonarchTokensProvider(languageId, {
       keywords,
@@ -79,7 +79,15 @@ export default function Editor() {
       PUSH: "Push value to stack. Decreases SP.",
       POP: "Pop value from stack into register. Increases SP.",
       HLT: "Halt execution.",
-      DB: "Define byte. Allows constants, characters, or strings."
+      DB: "Define byte. Allows constants, characters, or strings.",
+      SM: "Screen Mode. 0 for Graphics and 1 for text",
+      DP: "Display Pointer. Points to the first pixel of the screen.",
+      A: "General purpose register. Used for multiplications and divisions",
+      B: "General purpose register",
+      C: "General purpose register",
+      D: "General purpose register",
+      SP: "Stack Pointer. Points to the last element of the stack.",
+      IB: "Input Buffer: A constant pointer to the memory address holding the most recently entered character."
     };
     
 
@@ -110,6 +118,11 @@ export default function Editor() {
           kind: monaco.languages.CompletionItemKind.Variable,
           insertText: r,
           range,
+          documentation: {
+            value: `**${r}**: ${keywordDocs[r] || 'No documentation available.'}`,
+            isTrusted: true
+          },
+
        
 
         }));

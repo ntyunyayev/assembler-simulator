@@ -82,7 +82,7 @@ export default function CodeActions() {
             <Show when={state.isDebugging === true}>
                 <Show when={!state.isRunning}>
                     <AiOutlineClose title="Stop Debugging" color="red" size={35} onClick={() => setState("isDebugging", false)}/>    
-                    <IoPlay title="Run" color="#2ecc71" size={35} onClick={run} />
+                    <IoPlay title="Run" color="#2ecc71" size={35} onClick={dcontinue} />
                     <IoPlay color="#2ecc71" size={35} onClick={dcontinue} />
                     <AiOutlineStepForward title="Step" color="#2ecc71" size={35} onClick={() => CPU.step()} />                
                 </Show>
