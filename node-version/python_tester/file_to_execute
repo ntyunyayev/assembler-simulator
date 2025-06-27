@@ -1,9 +1,0 @@
-HLT
-DB x: "test"
-
-HLT
-x:DB 5
-y:DB 1
-f:DB "hello"
-DB 0
-DB 3

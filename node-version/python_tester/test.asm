@@ -1,2 +1,0 @@
-HLT
-DB x: "test"
