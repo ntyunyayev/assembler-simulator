@@ -2,7 +2,6 @@ import { createEffect, createSignal, Show } from "solid-js";
 import { CPU } from "../utils/ReactiveCPU";
 import { getStateContext } from "../utils/stateContext";
 import { VsDebugPause } from "solid-icons/vs";
-import { TbReload } from "solid-icons/tb";
 import { IoPlay, IoPlayForward } from "solid-icons/io";
 import { AiFillBug, AiOutlineClose, AiOutlineStepForward } from "solid-icons/ai";
 import "../styles/CodeActions.css"; 
@@ -59,15 +58,13 @@ export default function CodeActions() {
             <Show when={state.isDebugging === false && !state.isRunning}>
                 <AiFillBug title="Debug" color="#2ecc71" size={35} onClick={launchDebug} />
                 <IoPlayForward class="bite" title="Run fast" color="#2ecc71" size={35} onClick={runQuickly}/>
-                <TbReload title="Reset the VM" color="#2c3e50" size={35} onClick={() => CPU.reset()} />
             </Show>
             <Show when={state.isDebugging === true}>
                 <Show when={!state.isRunning}>
                     <AiOutlineClose color="red" size={35} onClick={() => setState("isDebugging", false)}/>    
-
+                    <IoPlay color="#2ecc71" size={35} onClick={run} />
+                    <AiOutlineStepForward title="Step" color="#2ecc71" size={35} onClick={() => CPU.step()} />                
                 </Show>
-                <IoPlay color="#2ecc71" size={35} onClick={run} />
-                <AiOutlineStepForward class={state.isRunning ? "disabled" : ""} title="Step" color="#2ecc71" size={35} onClick={() => CPU.step()} />                
             </Show>
            
         </div>
