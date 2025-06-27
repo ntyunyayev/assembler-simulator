@@ -162,7 +162,7 @@ export default function Editor() {
       lineNumbersMinChars: 1,
       padding: { top: 10 },
       fontFamily: "Source Code Pro",
-      fontSize: 20,
+      fontSize: 15,
     });
 
     //@ts-ignore
