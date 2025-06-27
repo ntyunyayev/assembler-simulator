@@ -9,6 +9,7 @@ import Settings from './components/Settings.tsx';
 import Flags from './components/Flags.tsx';
 import Labels from './components/Labels.tsx';
 import Screen from './components/Screen.tsx';
+import Credits from './components/Credits.tsx'
 import { CPU } from "./utils/ReactiveCPU.ts";
 import { onMount } from "solid-js";
 import { Show } from "solid-js";
@@ -53,6 +54,7 @@ function App() {
 
                 </div>
             </div>
+        <Credits></Credits>
         </StateContext.Provider>
     )
 }
