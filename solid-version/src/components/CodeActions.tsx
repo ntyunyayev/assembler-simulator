@@ -5,6 +5,7 @@ import { VsDebugPause } from "solid-icons/vs";
 import { TbReload } from "solid-icons/tb";
 import { IoPlay, IoPlayForward } from "solid-icons/io";
 import { AiOutlineStepForward } from "solid-icons/ai";
+import "../styles/CodeActions.css"; 
 
 export default function CodeActions() {
     let [state, setState] = getStateContext();

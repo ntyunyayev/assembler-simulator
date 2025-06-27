@@ -1,5 +1,6 @@
 import { FaSolidGear } from 'solid-icons/fa'
 import { getStateContext } from '../utils/stateContext';
+import '../styles/Settings.css';
 
 export default function Settings() {
     const [state, setState] = getStateContext();

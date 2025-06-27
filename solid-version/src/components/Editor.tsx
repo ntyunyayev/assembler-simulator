@@ -239,9 +239,6 @@ export default function Editor() {
       <div class="editor-header">
         <h4 style="margin: 0">
           Editor
-            {/*(<a href="./instruction-set.html">
-              Instruction Set
-            </a>)*/}
         </h4>
         <CodeActions/>
       </div>
