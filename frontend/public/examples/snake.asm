@@ -87,11 +87,11 @@ HLT
         MUL 32
         ADD A, B
         MUL 2
-        ADD A, 1026
+        ADD A, DP
         MOV [A], 0xFFFF
         RET
 .process_keys:
-        MOV A, [3072] ; Key buffer
+        MOV A, [IB] ; Key buffer
         CMP A, 0x28
         JZ .down
         CMP A, 0x27

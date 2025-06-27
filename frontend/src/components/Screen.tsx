@@ -1,10 +1,12 @@
 
-import { Index, Show } from "solid-js";
+import { createEffect, createSignal, Index, onCleanup, Show } from "solid-js";
 import { getStateContext } from "../utils/stateContext";
 import "../styles/Screen.css";
 import { DEVICES } from "cpu-core/src/devices";
+import { CPU } from "../utils/ReactiveCPU";
 
 export default function Screen() {
+    let [recording, setRecording] = createSignal(false);
     let [state, _] = getStateContext();
     let isTextMode = () => {return state.cpuState.memory[DEVICES["screen-mode"].start()+1] > 0}
     const getBright = (index: number) => {
@@ -31,10 +33,23 @@ export default function Screen() {
         const value = (high << 8) | low;  // 16-bit value
         return String.fromCharCode(value)
     }
+
+    createEffect(() => {
+        if (recording()) {
+          const handler = (e: KeyboardEvent) => {
+            CPU.memory.store16(DEVICES.input.start(), e.keyCode)
+          };
+          window.addEventListener("keydown", handler);
+      
+          onCleanup(() => window.removeEventListener("keydown", handler));
+        }
+      });
+      
+
     return (
         <>
             <h4>Screen Output (Mode: {isTextMode() ? "Texte" : "Graphique"})</h4>
-            <div class="screen">
+            <div class="screen" onMouseEnter={() => setRecording(true)} onMouseLeave={() => setRecording(false)}>
                 <Index each={state.cpuState.memory}>
                     {(item, index) => (
                         
