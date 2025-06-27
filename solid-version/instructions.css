@@ -92,12 +92,6 @@ p {
     margin:0 0 10px
 }
 
-@media (min-width: 768px) {
-    .lead {
-        font-size:21px
-    }
-}
-
 .small, small {
     font-size:85%
 }
@@ -148,24 +142,6 @@ pre code {
     padding-left: 15px;
     margin-right: auto;
     margin-left:auto
-}
-
-@media (min-width: 768px) {
-    .container {
-        width:750px
-    }
-}
-
-@media (min-width: 992px) {
-    .container {
-        width:970px
-    }
-}
-
-@media (min-width: 1200px) {
-    .container {
-        width:1170px
-    }
 }
 
 table {
@@ -245,4 +221,22 @@ hr {
     margin-bottom: 20px;
     border: 0;
     border-top:1px solid #eee
+}
+
+.navbar{
+    font-family: "Poppins", sans-serif;
+    height: 50px;
+    line-height: 50px;
+    background-color: #428bca;
+    color: white;
+    padding: 0 20px; 
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.7em;
 }
