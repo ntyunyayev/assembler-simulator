@@ -4,7 +4,8 @@ hello: DB "Hello World!" ; Variable
        DB 0	; String terminator
 start:
    MOV D, hello    ; Point to var
-   PUSH 925	; Point to output
+   PUSH DP ; Go to output
+   MOV SM, 1 ; Text Mode in screen
    CALL print
    HLT             ; Stop execution
 print:		; print(D:*from, SP+2:*to)

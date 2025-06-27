@@ -5,13 +5,14 @@ import { VsDebugPause } from "solid-icons/vs";
 import { IoPlay, IoPlayForward } from "solid-icons/io";
 import { AiFillBug, AiOutlineClose, AiOutlineStepForward } from "solid-icons/ai";
 import "../styles/CodeActions.css"; 
+import { RiDocumentFolderDownloadFill, RiDocumentFolderUploadFill} from "solid-icons/ri";
+import "../utils/fileManager.ts"; 
+import { downloadFile, uploadFile } from "../utils/fileManager.ts";
 
 export default function CodeActions() {
     let [state, setState] = getStateContext();
     let [interval, _SetInterval] = createSignal(0);
     let [currentSpeed, setCurrentSpeed] = createSignal(0);
-
-    
 
     const dcontinue = () => {
         if (state.error) return;
@@ -56,18 +57,32 @@ export default function CodeActions() {
         setState("isDebugging", true)
     }
 
+    const loadUploadedFile = () => {
+        uploadFile().then(content => {
+            setState("code", content);
+            CPU.assemble();
+        }).catch(error => {
+            console.error("Error loading file:", error);
+        });
+    }
+
     return (
        <div class="code_buttons">
+            <Show when={!state.isRunning && !state.isDebugging}>
+                <RiDocumentFolderUploadFill title="Upload Code" color="#2c3e50" size={35} onClick={() => loadUploadedFile()}/>
+                <RiDocumentFolderDownloadFill title="Download Code" color="#2c3e50" size={35} onClick={() => downloadFile(state.code)}/>
+            </Show>
             <Show when={state.isRunning}>
-                <VsDebugPause color="red" size={35} onClick={stop}/>    
+                <VsDebugPause title="Pause" color="red" size={35} onClick={stop}/>    
             </Show>
             <Show when={state.isDebugging === false && !state.isRunning}>
                 <AiFillBug title="Debug" color="#2ecc71" size={35} onClick={launchDebug} />
-                <IoPlayForward class="bite" title="Run fast" color="#2ecc71" size={35} onClick={runQuickly}/>
+                <IoPlayForward title="Run fast" class="bite" color="#2ecc71" size={35} onClick={runQuickly}/>
             </Show>
             <Show when={state.isDebugging === true}>
                 <Show when={!state.isRunning}>
-                    <AiOutlineClose color="red" size={35} onClick={() => setState("isDebugging", false)}/>    
+                    <AiOutlineClose title="Stop Debugging" color="red" size={35} onClick={() => setState("isDebugging", false)}/>    
+                    <IoPlay title="Run" color="#2ecc71" size={35} onClick={dcontinue} />
                     <IoPlay color="#2ecc71" size={35} onClick={dcontinue} />
                     <AiOutlineStepForward title="Step" color="#2ecc71" size={35} onClick={() => CPU.step()} />                
                 </Show>
