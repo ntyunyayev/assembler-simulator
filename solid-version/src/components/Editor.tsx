@@ -211,22 +211,6 @@ export default function Editor() {
     currentDecorationIds = editor.deltaDecorations(currentDecorationIds, newDecorations);
   });
 
-  const assemble = (): void => {
-    try {
-      const { code: machineCode, mapping, labels } = assembler.go(state.code);
-      batch(() => {
-        for (let i = 0; i < machineCode.length; i++) {
-          CPU.memory.store(i, machineCode[i]);
-        }
-      })
-      
-      setState("labels", Object.entries(labels));
-      setState("error", "");
-    } catch (err: any) {
-      setState("error", `${err.error} (ligne ${err.line})`);
-    }
-  };
-
   createEffect(() => {
     if (editor && editor.getValue() !== state.code) {
       editor.setValue(state.code);

@@ -3,6 +3,8 @@ import {LittleCPU} from "../core/cpu"
 import type { IMemory } from "../core/memory";
 import type { State } from "../stores/state";
 import { ReactiveMemory } from "./ReactiveMemory";
+import { batch } from "solid-js";
+import { assembler } from "../core/assembler";
 
 class ReactiveCPU extends LittleCPU {
     state?: State
@@ -12,26 +14,54 @@ class ReactiveCPU extends LittleCPU {
         this.state = state
         this.setState = setState
     }
+    triggerUpdate() {
+        if (this.setState) {
+            this.setState!("cpuState", (prev) => ({
+                ...prev,
+                a: this.gpr[0],
+                b: this.gpr[1],
+                c: this.gpr[2],
+                d: this.gpr[3],
+                dp: this.dp,
+                sp: this.sp,
+                pc: this.ip,
+                flags: {
+                    ...prev.flags,
+                    c: this.carry,
+                    f: this.fault || false,
+                    z: this.zero,
+                }
+            }));
+        }
+
+    }
+    reset() {
+        super.reset()
+        this.triggerUpdate()
+    }
     step() {
         const val = super.step()
-        this.setState!("cpuState", (prev) => ({
-            ...prev,
-            a: this.gpr[0],
-            b: this.gpr[1],
-            c: this.gpr[2],
-            d: this.gpr[3],
-            dp: this.dp,
-            sp: this.sp,
-            pc: this.ip,
-            flags: {
-                ...prev.flags,
-                c: this.carry,
-                f: this.fault || false,
-                z: this.zero,
-            }
-        }));
+        this.triggerUpdate()
         
         return val;
+    }
+    assemble() {
+        if (!this.state || !this.setState) return;
+        try {
+              const { code: machineCode, mapping, labels } = assembler.go(this.state.code);
+              batch(() => {
+                for (let i = 0; i < machineCode.length; i++) {
+                  CPU.memory.store(i, machineCode[i]);
+                }
+              })
+            
+              
+              this.setState("labels", Object.entries(labels));
+              this.setState("error", "");
+            } catch (err: any) {
+              this.setState("error", `${err.error} (ligne ${err.line})`);
+            }
+
     }
     run() {
         if (this.interval != null) return;
@@ -41,6 +71,7 @@ class ReactiveCPU extends LittleCPU {
     }
     constructor(memory: IMemory) {
         super(memory)
+       
     }
 }
 

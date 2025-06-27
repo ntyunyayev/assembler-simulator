@@ -1,9 +1,12 @@
+import { DEVICES } from "./devices";
+
 export interface IMemory {
     data: number[]
     load(address: number): number;
     load16(address: number): number;
     store(address: number, value: number): void;
     store16(address: number, value: number): void;
+    reset(): void;
 }
 
 export class ArrayMemory {
@@ -49,13 +52,15 @@ export class ArrayMemory {
         this.data[address] = (value >> 8) & 0xFF;
         this.data[address + 1] = value & 0xFF;
     }
-
-    constructor() {
-        this.data = Array(4096)
-        this.lastAccess = -1;
+    reset() {
         for (var i = 0, l = this.data.length; i < l; i++) {
             this.data[i] = 0;
         }
+    }
+    constructor() {
+        this.data = Array(DEVICES[DEVICES.length-1].end()).fill(0)
+        this.lastAccess = -1;
+        this.reset()
     }
 }
 

@@ -13,12 +13,16 @@ export default function CodeActions() {
     let [currentSpeed, setCurrentSpeed] = createSignal(0);
 
     const run = () => {
+        //CPU.reset()
+        CPU.assemble()
         _SetInterval(setInterval(() => {
             CPU.step()
         }, 1000 / state.speed))
         setCurrentSpeed(state.speed)
     }
     const runQuickly = () => {
+       // CPU.reset()
+        CPU.assemble()
         setState("quick", true)
         _SetInterval(setInterval(() => {
             CPU.step()
@@ -49,7 +53,7 @@ export default function CodeActions() {
             <IoPlay color="#2ecc71" size={35} onClick={run} />
             <AiOutlineStepForward color="#2ecc71" size={35} onClick={() => CPU.step()} />
             <IoPlayForward color="#2ecc71" size={35} onClick={runQuickly}/>
-            <TbReload color="#2c3e50" size={35} />
+            <TbReload color="#2c3e50" size={35} onClick={() => CPU.reset()} />
             </Show>
         </div>
 )};

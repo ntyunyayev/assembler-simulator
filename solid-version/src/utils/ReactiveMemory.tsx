@@ -1,5 +1,6 @@
 import { createStore, type SetStoreFunction } from "solid-js/store";
 import { DEVICES } from "../core/devices";
+import { batch } from "solid-js";
 
 export class ReactiveMemory {
   data: number[];
@@ -37,7 +38,7 @@ export class ReactiveMemory {
     }
 
     this.lastAccess = address;
-    this._setData(address, value); // ✅ only this cell updates
+    this._setData(address, value);
   }
 
   store16(address: number, value: number) {
@@ -48,5 +49,15 @@ export class ReactiveMemory {
     this.lastAccess = address;
     this._setData(address, (value >> 8) & 0xFF);
     this._setData(address + 1, value & 0xFF);
+  }
+
+  reset() {
+    batch(() => {
+      for (var i = 0, l = this.data.length; i < l; i++) {
+        this._setData(i, 0);
+
+       }
+    })
+    
   }
 }
