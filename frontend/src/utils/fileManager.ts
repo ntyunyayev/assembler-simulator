@@ -1,5 +1,3 @@
-import { getStateContext } from "../utils/stateContext";
-
 /**
  * Uploads a file.
  * @returns file content as a string
@@ -8,12 +6,6 @@ export function uploadFile() {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.asm, .txt';
-    input.onchange = async (event) => {
-        const file = (event.target as HTMLInputElement).files?.[0];
-        if (file) {
-            const content = await file.text();
-        }
-    };
     input.click();
 
     return new Promise<string>((resolve, reject) => {

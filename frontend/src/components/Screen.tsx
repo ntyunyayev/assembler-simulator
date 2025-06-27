@@ -51,7 +51,7 @@ export default function Screen() {
             <h4>Screen Output (Mode: {isTextMode() ? "Texte" : "Graphique"})</h4>
             <div class="screen" onMouseEnter={() => setRecording(true)} onMouseLeave={() => setRecording(false)}>
                 <Index each={state.cpuState.memory}>
-                    {(item, index) => (
+                    {(_, index) => (
                         
                         <Show when={index >= DEVICES.screen.start() && index < DEVICES.screen.end() && (index - DEVICES.screen.start()) % 2 === 0}>
                             <div class="screen-pixel" style={{"background-color": !isTextMode() ? getBright(index): "black"}}>

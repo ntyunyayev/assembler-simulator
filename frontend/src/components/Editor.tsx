@@ -1,7 +1,6 @@
-import { createSignal, onMount, onCleanup, createEffect } from 'solid-js';
+import { onMount, onCleanup, createEffect } from 'solid-js';
 import * as monaco from 'monaco-editor';
 import { getStateContext } from '../utils/stateContext';
-import { CPU } from '../utils/ReactiveCPU';
 import CodeActions from './CodeActions';
 import '../styles/Editor.css';
 
