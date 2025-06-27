@@ -36,6 +36,7 @@ export interface CPUState {
 
 export interface State {
     isRunning: boolean;
+    isDebugging: boolean;
     error: string;
     speed: SPEED;
     settings: Settings;
@@ -53,6 +54,7 @@ export interface State {
 export function createStateStore() {
     return createStore<State>({
         isRunning: false,
+        isDebugging: false,
         error: '',
         speed: 4,
         quick: false,

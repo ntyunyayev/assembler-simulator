@@ -4,7 +4,7 @@ import { getStateContext } from "../utils/stateContext";
 import { VsDebugPause } from "solid-icons/vs";
 import { TbReload } from "solid-icons/tb";
 import { IoPlay, IoPlayForward } from "solid-icons/io";
-import { AiOutlineStepForward } from "solid-icons/ai";
+import { AiFillBug, AiOutlineClose, AiOutlineStepForward } from "solid-icons/ai";
 import "../styles/CodeActions.css"; 
 
 export default function CodeActions() {
@@ -22,7 +22,7 @@ export default function CodeActions() {
         setState("isRunning", true)
     }
     const runQuickly = () => {
-       // CPU.reset()
+        CPU.reset()
         CPU.assemble()
         setState("quick", true)
         _SetInterval(setInterval(() => {
@@ -44,18 +44,31 @@ export default function CodeActions() {
             run()
         }
     })
+
+    const launchDebug = () => {
+        CPU.reset()
+        CPU.assemble()
+        setState("isDebugging", true)
+    }
+
     return (
        <div class="code_buttons">
-            <Show when={interval() != 0}>
+            <Show when={state.isRunning}>
                 <VsDebugPause color="red" size={35} onClick={stop}/>    
-            
             </Show>
-            <Show when={interval() === 0}>
+            <Show when={state.isDebugging === false && !state.isRunning}>
+                <AiFillBug title="Debug" color="#2ecc71" size={35} onClick={launchDebug} />
+                <IoPlayForward class="bite" title="Run fast" color="#2ecc71" size={35} onClick={runQuickly}/>
+                <TbReload title="Reset the VM" color="#2c3e50" size={35} onClick={() => CPU.reset()} />
+            </Show>
+            <Show when={state.isDebugging === true}>
+                <Show when={!state.isRunning}>
+                    <AiOutlineClose color="red" size={35} onClick={() => setState("isDebugging", false)}/>    
 
-            <IoPlay color="#2ecc71" size={35} onClick={run} />
-            <AiOutlineStepForward color="#2ecc71" size={35} onClick={() => CPU.step()} />
-            <IoPlayForward color="#2ecc71" size={35} onClick={runQuickly}/>
-            <TbReload color="#2c3e50" size={35} onClick={() => CPU.reset()} />
+                </Show>
+                <IoPlay color="#2ecc71" size={35} onClick={run} />
+                <AiOutlineStepForward class={state.isRunning ? "disabled" : ""} title="Step" color="#2ecc71" size={35} onClick={() => CPU.step()} />                
             </Show>
+           
         </div>
 )};

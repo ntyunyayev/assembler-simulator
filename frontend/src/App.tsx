@@ -34,9 +34,8 @@ function App() {
             <Navbar/>
             <div class="columns">
                 <div class="col0">
-                    <Show when={!state.isRunning}>
-                        <SelectExample />
-                    </Show>
+                    <SelectExample />
+                    
                     <Editor />
                 </div>
                 <div class="col1">
