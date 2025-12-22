@@ -1,0 +1,46 @@
+.screen {
+  padding: 2px;
+  border-radius: 4px;
+  display: inline-block;
+  background-color: #000000;
+  outline: none;
+  font-size: 0; /* To make space between lines = 0*/
+  text-wrap: nowrap;
+}
+
+.screen-pixel {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  color: white;
+  padding-top: 5px;
+  font-size: 10px;
+  text-align: center;
+  line-height: 1;
+  white-space: pre;
+  font-weight: bold;
+}
+
+.screen-pixel-on {
+  background: #000000;
+}
+
+.screen-pixel-off {
+  background: #ffffff;
+}
+
+.screen-pixel-ascii {
+  font-family: monospace;
+  font-size: 10px;
+  text-align: center;
+  line-height: 12px;
+  color: #000000;
+}
+
+.screen:hover {
+  border: 5px solid #d63031;
+}
+
+.screen:not(:hover) {
+  border: 5px solid white;
+}

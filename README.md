@@ -1,28 +1,51 @@
 # Simple 16-bit Assembler Simulator
-A simulator which provides a simplified assembler syntax (based on NASM) and is simulating a x86 like cpu. Press Help inside the simulator to see an overview about the supported instructions.
 
-####<a href="http://schweigi.github.io/assembler-simulator/index.html" target="_blank">TRY IT ONLINE</a>
+A simple assembler simulator for educational purposes, designed to help users understand the basics of assembly language and CPU instruction execution.
 
-### Features
-- 16-bit CPU
-- 4 general purpose registers
-- 1024 bytes of memory
-- Console output
+## Try it online
+You can try the simulator online at [Assembler Simulator](http://asm.info.ucl.ac.be/).
 
-### How to build
-Make sure you have <a href="http://www.gruntjs.com/" target="_blank">Grunt</a> installed to compile the `asmsimulator.js` script.
-Run `grunt` to build the project.
+## Features
+This project implements simplified version of assembly language and CPU simulation on a 16-bit architecture. The details of the instruction set can be found [here](http://asm.info.ucl.ac.be/instruction-set.html).
 
-### Background
-A technical introduction is available on my blog: [www.mschweighauser.com](https://www.mschweighauser.com/make-your-own-assembler-simulator-in-javascript-part1/).
+The simulator includes the following features:
+- Parse and execute basic assembly instructions
+- Step-by-step simulation of instruction execution
+- Visualize registers and memory state
+- User-friendly interface for loading and editing assembly code
+- Small screen mapped to memory to visualize the output
 
-### License
-**The MIT License**
+## Contributing
+Contributions are welcome! Please open issues or submit pull requests for improvements.
 
-Copyright (c) 2015 Marco Schweighauser
+## Acknowledgements
+This project is based on the original work by Marco Schweighauser, which can be found at [Marco's Blog](https://www.mschweighauser.com/make-your-own-assembler-simulator-in-javascript-part1/).
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The new version has been completely rewritten as part of an UCL/INGI Open Week 2025 project by @tdaron, @Piwy-dev and @ernesto.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+### Clone the repository
+```bash
+git clone https://github.com/tdaron/assembler-simulator.git
+cd assembler-simulator
+```
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+### Go to the frontend directory
+```bash
+cd frontend
+```
+
+### Install dependencies
+    ```bash
+    pnpm install
+    ```
+
+3. **Run the simulator**
+```bash
+pnpm run dev
+```
+### Open the website
+Navigate to `http://localhost:5173/` to access the simulator.
+
+## License
+
+This project is licensed under the MIT License.

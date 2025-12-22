@@ -1,0 +1,26 @@
+.code_buttons {
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.code_buttons svg, .settings-icon-container svg {
+  margin-right: 10px;
+  background-color: rgba(0, 0, 0, .05);;
+  border: 1px solid rgba(0, 0, 0, .2);
+  padding: 5px;
+  border-radius: 3px;
+  transition: .2s all;
+}
+
+.code_buttons svg:not(.disabled):hover, .settings-icon-container svg:hover {
+  cursor: pointer;
+  filter: brightness(50%);
+  background-color: rgba(0, 0, 0, .2);
+}
+
+.code_buttons svg.disabled {
+  fill: grey;
+  background-color: rgba(0, 0, 0, .1);;
+
+}
