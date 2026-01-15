@@ -19,6 +19,5 @@ jobs:
         proxy_key: ${{ secrets.SSH_KEY_PROXY }}
         script: |
           # git update to latest codebase on main branch
-          cd /shared_data/assembler-simulator && git fetch --all && git reset --hard origin/master && git pull
-          systemctl enable nginx
+          cd /share_data/assembler-simulator && pm2 delete all ; pm2 start "npm run dev -- --host 127.0.0.1" --name "asm" 
           

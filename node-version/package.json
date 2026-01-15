@@ -1,0 +1,20 @@
+{
+  "name": "asm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "node_main.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^10.2.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
+  }
+}
