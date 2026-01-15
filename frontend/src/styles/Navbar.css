@@ -1,0 +1,27 @@
+.navbar{
+    font-family: "Poppins", sans-serif;
+    height: 50px;
+    line-height: 50px;
+    background-color: #428bca;
+    color: white;
+    padding: 0 20px; 
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.instruction-set-link {
+    font-family: "Poppins", sans-serif;
+    background-color: #19C17D;
+    color: white;
+    width: 15%;
+    text-decoration: none;
+    text-align: center;
+    margin-right: 0;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}

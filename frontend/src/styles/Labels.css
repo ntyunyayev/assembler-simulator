@@ -1,0 +1,18 @@
+.labels-table {
+  width: 100%;
+  text-align: center;
+}
+.labels {
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.link:hover {
+  cursor: pointer;
+  color: #fd79a8;
+}

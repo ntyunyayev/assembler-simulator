@@ -1,0 +1,27 @@
+.myBreakpoint {
+    background: #e51400;
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50%;
+    margin-left: 5px !important;
+    margin-top: 3px;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Poppins", serif;
+}
+
+.disabled .monaco-editor .cursor { display: none !important; }
+
+.highlight {
+  background-color: #bdc3c7;
+}
+
+.highlight-error {
+  background-color: #ffcdc0;
+}
+.error {
+  color: red;
+}

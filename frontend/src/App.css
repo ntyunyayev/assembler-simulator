@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+button {
+  border-radius: 5px;
+  vertical-align: middle;
+  line-height: 24px;
+  border: none;
+  padding: 5px 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.col1 *, .col2 * {
+  font-family: "Poppins", serif;
+} 
+
+.source-code *{
+  font-family: "Source Code Pro", monospace;
+}
+
+h4 {
+  margin: 10px 0;
+}
+
+.columns {
+  display: flex;
+}
+
+.col0 {
+  width: 33%;
+  padding: 10px;
+}
+
+.col1 {
+  width: 33%;
+  padding: 10px;
+}
+
+.col2 {
+  width: 33%;
+  padding: 10px;
+}
+
+textarea {width: 100%;}
+
+button:hover {
+  cursor: pointer;
+}

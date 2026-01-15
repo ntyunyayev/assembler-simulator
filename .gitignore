@@ -5,3 +5,4 @@
 ASMSimulator.iml
 **/*pycache*/*
 **/*.dat
+**/angular-version/assets/*.js

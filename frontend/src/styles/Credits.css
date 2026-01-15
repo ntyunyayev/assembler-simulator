@@ -1,0 +1,10 @@
+.credits {
+	position: absolute;
+	right: 20px;
+	bottom: 0px;
+}
+
+.github-fork-link {
+    color: #337ab7;
+    text-decoration:none
+}
