@@ -30,7 +30,13 @@ export default function Labels() {
                                         ? `0x${address.toString(16).toUpperCase().padStart(4, '0')}`
                                         : address}
                                 </td>
-                                <td>{state.cpuState.memory[address]}</td>
+                                <td>
+                                    {state.settings.displayHex
+                                        ? `0x${((state.cpuState.memory[address] << 8) | state.cpuState.memory[address + 1])
+                                            .toString(16).toUpperCase().padStart(4, '0')}`
+                                        : (state.cpuState.memory[address] << 8) | state.cpuState.memory[address + 1]
+                                    }
+                                </td>
                             </tr>
                         )}
                     </For>
