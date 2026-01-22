@@ -1,6 +1,6 @@
 import { For } from 'solid-js';
 import { getStateContext } from '../utils/stateContext';
-import '../styles/Labels.css'; 
+import '../styles/Labels.css';
 
 export default function Labels() {
     const [state, setState] = getStateContext();
@@ -21,7 +21,15 @@ export default function Labels() {
                         {([name, address]) => (
                             <tr>
                                 <td>{name}</td>
-                                <td onMouseLeave={reset} onMouseEnter={() => highlight(address)} class='link'>{state.settings.displayHex ? address.toString(16).padStart(4, '0') : address}</td>
+                                <td
+                                    onMouseLeave={reset}
+                                    onMouseEnter={() => highlight(address)}
+                                    class='link'
+                                >
+                                    {state.settings.displayHex
+                                        ? `0x${address.toString(16).toUpperCase().padStart(4, '0')}`
+                                        : address}
+                                </td>
                                 <td>{state.cpuState.memory[address]}</td>
                             </tr>
                         )}
