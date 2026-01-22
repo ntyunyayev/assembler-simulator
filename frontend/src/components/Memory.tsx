@@ -1,4 +1,4 @@
-import { Index } from "solid-js";
+import { Index, Show } from "solid-js";
 import { getStateContext } from "../utils/stateContext";
 import { DEVICES } from "cpu-core/src/devices";
 import type { CPUState, Settings } from "../stores/state";
@@ -59,30 +59,33 @@ export default function Memory() {
         <>
             <h4>Memory (RAM)</h4>
             <div class="ram">
-                {/* Header Row: 1 empty corner cell + 16 column headers */}
                 <div class="corner-label"></div>
                 <Index each={Array.from({ length: 16 })}>
                     {(_, i) => (
                         <div class="column-label">
-                            {i.toString(16).toUpperCase()}
+                            {state.settings.displayHex
+                                ? i.toString(16).toUpperCase()
+                                : i.toString().padStart(2, '0')}
                         </div>
                     )}
                 </Index>
-
-                {/* Existing Memory Loop */}
                 <Index each={state.cpuState.memory}>
                     {(item, index) => (
                         <>
                             <Show when={index % 16 === 0}>
                                 <div class="row-label">
-                                    {index.toString(16).toUpperCase().padStart(2, '0')}
+                                    {state.settings.displayHex
+                                        ? `0x${index.toString(16).toUpperCase().padStart(2, '0')}`
+                                        : index.toString().padStart(3, '0')}
                                 </div>
                             </Show>
                             <div class="memory-block" id={"" + index}>
                                 <div class={`marker ${getBGClass(index)}`}>
                                     <small class={`${getInstructionClass(index)}`}>
                                         {state.settings.ramDisplayMode == "Number" ?
-                                            (state.settings.displayHex ? item().toString(16).padStart(2, '0') : item())
+                                            (state.settings.displayHex
+                                                ? item().toString(16).padStart(2, '0').toUpperCase()
+                                                : item())
                                             : getLetter(index)
                                         }
                                     </small>
@@ -93,5 +96,5 @@ export default function Memory() {
                 </Index>
             </div>
         </>
-    )
-};
+    );
+}
