@@ -35,9 +35,10 @@ cd frontend
 ```
 
 ### Install dependencies
-    ```bash
-    pnpm install
-    ```
+
+```bash
+pnpm install
+```
 
 3. **Run the simulator**
 ```bash
@@ -45,6 +46,15 @@ pnpm run dev
 ```
 ### Open the website
 Navigate to `http://localhost:5173/` to access the simulator.
+
+
+## Contributors
+
+Thank you to everyone who has contributed to this project!
+
+<a href="https://github.com/ntyunyayev/assembler-simulator/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=ntyunyayev/assembler-simulator" />
+</a>
 
 ## License
 
