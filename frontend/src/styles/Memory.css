@@ -53,21 +53,41 @@
   background-color: #E81F1F;
 }
 
-.memory-block {
-  width: 1.8em;
-  display: inline-block;
+.ram {
+  overflow-y: auto;
+  max-height: 50vh;
+  
+  display: grid;
+  grid-template-columns: repeat(16, 1.8em);
+  /* This centers the 16-column block itself within col1 */
+  justify-content: center; 
+  /* This ensures the individual cells are centered if they vary in width */
+  justify-items: center; 
+  
+  margin: 0 auto; /* Extra insurance for centering */
+  gap: 1px;
+}
+
+/* Optional: Center the "Memory (RAM)" title too */
+h4 {
   text-align: center;
 }
 
-.ram {
-  overflow-y: scroll;
-  max-height: 50vh;
+.memory-block {
+  /* Remove display: inline-block; as Grid handles this now */
+  width: 1.8em;
+  text-align: center;
 }
 
-.ram  .marker > small {
-  font-family: "Source Code Pro", monospace;
+.marker {
+  width: 100%; /* Make marker fill the block */
+  height: 1.8em; /* Ensure it stays square */
+  line-height: 1.8em; /* Centers the text vertically */
+  color: black;
+  user-select: none;
+  white-space: pre;
+  display: block;
 }
-
 .highlighted {
   background-color: #fd79a8;
 }

@@ -1,4 +1,3 @@
-
 import { Index } from "solid-js";
 import { getStateContext } from "../utils/stateContext";
 import { DEVICES } from "cpu-core/src/devices";
