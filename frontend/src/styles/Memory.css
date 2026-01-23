@@ -53,17 +53,24 @@
   background-color: #E81F1F;
 }
 
-.ram {
-    display: grid;
-    /* 17 columns: Label + 16 data blocks */
-    grid-template-columns: min-content repeat(16, 1.8em);
-    justify-content: center;
-    overflow-y: auto;
-    max-height: 50vh;
-    gap: 1px 0px;
+/* Add this to the parent container of your Memory component */
+.memory-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Lock the total height to the screen */
+    overflow: hidden; /* Prevent the whole page from scrolling */
 }
 
-/* Header styling */
+/* Update your .ram class */
+.ram {
+    display: grid;
+    grid-template-columns: min-content repeat(16, 1.8em);
+    justify-content: center;
+    
+    flex-grow: 1;        /* Take up all remaining vertical space */
+    overflow-y: auto;    /* Enable scrolling ONLY here */
+    padding-bottom: 20px; 
+}/* Header styling */
 .column-label, .corner-label {
     position: sticky;
     top: 0;

@@ -40,6 +40,7 @@ export default function Flags() {
                         <th style="text-align: center">C</th>
                         <th style="text-align: center">F</th>
                         <th style="text-align: center">SM</th>
+                        <th style="text-align: center">IB</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,6 +91,7 @@ export default function Flags() {
                         <td><small>{state.cpuState.flags.c.valueOf() ? '1' : '0'}</small></td>
                         <td><small>{state.cpuState.flags.f.valueOf() ? '1' : '0'}</small></td>
                         <td><small>{formatValue(state.cpuState.memory[DEVICES["screen-mode"].start() + 1])}</small></td>
+                        <td><small>{formatValue(state.cpuState.memory[DEVICES["input"].start() + 1])}</small></td>
                     </tr>
                 </tbody>
             </table>

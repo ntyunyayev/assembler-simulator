@@ -57,43 +57,45 @@ export default function Memory() {
 
     return (
         <>
-            <h4>Memory (RAM)</h4>
-            <div class="ram">
-                <div class="corner-label"></div>
-                <Index each={Array.from({ length: 16 })}>
-                    {(_, i) => (
-                        <div class="column-label">
-                            {state.settings.displayHex
-                                ? `0x${i.toString(16).toUpperCase()}`
-                                : i.toString().padStart(2, '0')}
-                        </div>
-                    )}
-                </Index>
-                <Index each={state.cpuState.memory}>
-                    {(item, index) => (
-                        <>
-                            <Show when={index % 16 === 0}>
-                                <div class="row-label">
-                                    {state.settings.displayHex
-                                        ? `0x${index.toString(16).toUpperCase().padStart(2, '0')}`
-                                        : index.toString().padStart(3, '0')}
-                                </div>
-                            </Show>
-                            <div class="memory-block" id={"" + index}>
-                                <div class={`marker ${getBGClass(index)}`}>
-                                    <small class={`${getInstructionClass(index)}`}>
-                                        {state.settings.ramDisplayMode == "Number" ?
-                                            (state.settings.displayHex
-                                                ? item().toString(16).padStart(2, '0').toUpperCase()
-                                                : item())
-                                            : getLetter(index)
-                                        }
-                                    </small>
-                                </div>
+            <div class="memory-container">
+                <h4>Memory (RAM)</h4>
+                <div class="ram">
+                    <div class="corner-label"></div>
+                    <Index each={Array.from({ length: 16 })}>
+                        {(_, i) => (
+                            <div class="column-label">
+                                {state.settings.displayHex
+                                    ? `0x${i.toString(16).toUpperCase()}`
+                                    : i.toString().padStart(2, '0')}
                             </div>
-                        </>
-                    )}
-                </Index>
+                        )}
+                    </Index>
+                    <Index each={state.cpuState.memory}>
+                        {(item, index) => (
+                            <>
+                                <Show when={index % 16 === 0}>
+                                    <div class="row-label">
+                                        {state.settings.displayHex
+                                            ? `0x${index.toString(16).toUpperCase().padStart(2, '0')}`
+                                            : index.toString().padStart(3, '0')}
+                                    </div>
+                                </Show>
+                                <div class="memory-block" id={"" + index}>
+                                    <div class={`marker ${getBGClass(index)}`}>
+                                        <small class={`${getInstructionClass(index)}`}>
+                                            {state.settings.ramDisplayMode == "Number" ?
+                                                (state.settings.displayHex
+                                                    ? item().toString(16).padStart(2, '0').toUpperCase()
+                                                    : item())
+                                                : getLetter(index)
+                                            }
+                                        </small>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                    </Index>
+                </div>
             </div>
         </>
     );

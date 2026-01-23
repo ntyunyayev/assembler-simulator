@@ -1,3 +1,16 @@
-.registers-header th {
-  font-size: 1em;
+.marker {
+    display: inline-flex;    /* Uses flexbox to center content perfectly */
+    align-items: center;     /* Centers text vertically */
+    justify-content: center; /* Centers text horizontally */
+    
+    padding: 4px 8px;        /* Now scales evenly */
+    min-width: 2.5ch;        /* Optional: keeps boxes from jumping in size */
+    line-height: 1;          /* Forces the text box to be exactly the font height */
+    border-radius: 3px;
+}
+
+/* Ensure the small tag inside doesn't have extra margins */
+.marker small {
+    display: block;
+    line-height: 1;
 }
