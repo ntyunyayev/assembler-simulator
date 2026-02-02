@@ -33,7 +33,5 @@ jobs:
           cd ../frontend
           pnpm install
           pnpm build
-          # Restart
-          pm2 delete asm || true
-          pm2 start "npm run dev -- --host 127.0.0.1" --name "asm"
+          # Static files in frontend/dist are served directly by NGINX
 
