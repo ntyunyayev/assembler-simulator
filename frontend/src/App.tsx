@@ -51,10 +51,9 @@ function App() {
                         <Flags />
                     </Show>
                     <Screen />
-
+                    <Credits />
                 </div>
             </div>
-            <Credits></Credits>
         </StateContext.Provider>
     )
 }
