@@ -243,7 +243,7 @@ export default function Editor() {
     if (decoration) {
       editor.deltaDecorations(decoration, []);
     }
-    if (state.lineHighlight < 0 || (!state.isDebugging && state.error == "")) return;
+    if (state.lineHighlight < 0 || state.quick || (!state.isDebugging && state.error == "")) return;
     editor.revealLine(state.lineHighlight);
     decoration = editor.deltaDecorations([], [
       {

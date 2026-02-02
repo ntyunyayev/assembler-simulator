@@ -25,7 +25,7 @@ The new version has been completely rewritten as part of an UCL/INGI Open Week 2
 
 ### Clone the repository
 ```bash
-git clone https://github.com/tdaron/assembler-simulator.git
+git clone https://github.com/ntyunyayev/assembler-simulator.git
 cd assembler-simulator
 ```
 

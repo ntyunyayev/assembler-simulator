@@ -58,7 +58,6 @@ export default function CodeActions() {
         clearInterval(interval())
         _SetInterval(0);
         setState("isRunning", false);
-        setState("isDebugging", false);
     }
 
     createEffect(() => {
