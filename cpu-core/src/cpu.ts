@@ -750,7 +750,7 @@ export class LittleCPU {
         }
     }
     reset() {
-        this.maxSP = DEVICES.base.end() - 1;
+        this.maxSP = DEVICES.base.end();
         this.minSP = DEVICES.base.start();
         this.gpr = [0, 0, 0, 0];
         this.sp = this.maxSP;
