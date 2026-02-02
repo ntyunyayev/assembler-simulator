@@ -83,12 +83,14 @@
     padding-bottom: 5px;
     border-bottom: 2px solid #eee;
     user-select: none;
+    font-family: "Source Code Pro", monospace;
 }
 
 .row-label {
     grid-column: 1; /* Keep labels in the first column */
     font-size: 0.7rem;
-    color: #999;
+    font-weight: bold;
+    color: #428BCA;
     padding-right: 10px;
     text-align: right;
     align-self: center;
@@ -112,8 +114,4 @@
 }
 .highlighted {
   background-color: #fd79a8;
-}
-
-.instruction {
-  font-weight: bold;
 }

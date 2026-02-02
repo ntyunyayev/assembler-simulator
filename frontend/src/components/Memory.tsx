@@ -43,11 +43,6 @@ export default function Memory() {
         return "";
     }
 
-    const getInstructionClass = (index: number) => {
-        if (state.mapping[index]) return "instruction";
-        return "";
-    }
-
     const getLetter = (index: number) => {
         const val = state.cpuState.memory[index];
         if (val <= 32 || val >= 126) return " ";
@@ -82,7 +77,7 @@ export default function Memory() {
                                 </Show>
                                 <div class="memory-block" id={"" + index}>
                                     <div class={`marker ${getBGClass(index)}`}>
-                                        <small class={`${getInstructionClass(index)}`}>
+                                        <small>
                                             {state.settings.ramDisplayMode == "Number" ?
                                                 (state.settings.displayHex
                                                     ? item().toString(16).padStart(2, '0').toUpperCase()
