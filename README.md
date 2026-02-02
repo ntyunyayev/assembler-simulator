@@ -29,23 +29,32 @@ git clone https://github.com/ntyunyayev/assembler-simulator.git
 cd assembler-simulator
 ```
 
-### Go to the frontend directory
-```bash
-cd frontend
-```
-
-### Install dependencies
+### Build cpu-core
+The frontend depends on the `cpu-core` package, which must be built first.
 
 ```bash
+cd cpu-core
 pnpm install
+pnpm build
 ```
 
-3. **Run the simulator**
+### Build and run the frontend
 ```bash
+cd ../frontend
+pnpm install
 pnpm run dev
 ```
+
 ### Open the website
 Navigate to `http://localhost:5173/` to access the simulator.
+
+### Production build
+To create a production build:
+```bash
+cd cpu-core && pnpm install && pnpm build
+cd ../frontend && pnpm install && pnpm build
+```
+The built files will be in `frontend/dist/`.
 
 
 ## Contributors

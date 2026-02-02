@@ -18,15 +18,22 @@ jobs:
         proxy_username: ${{ secrets.SSH_USERNAME_PROXY }}
         proxy_key: ${{ secrets.SSH_KEY_PROXY }}
         script: |
-          cd /shared_data/assembler-simulator/frontend
+          cd /shared_data/assembler-simulator
           # Fetch all remote changes
           git fetch --all
           # Force the local branch to match the remote master exactly
           git reset --hard origin/master
-          # Clean up any untracked files (optional but recommended for a 'clean' pull)
+          # Clean up any untracked files
           git clean -fd
-          # Install and restart
+          # Build cpu-core first
+          cd cpu-core
           pnpm install
-          # Restarting safely: delete only if it exists, or use 'restart' if configured
-          pm2 delete asm || true 
+          pnpm build
+          # Then build frontend
+          cd ../frontend
+          pnpm install
+          pnpm build
+          # Restart
+          pm2 delete asm || true
           pm2 start "npm run dev -- --host 127.0.0.1" --name "asm"
+
