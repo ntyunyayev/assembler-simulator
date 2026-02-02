@@ -58,6 +58,7 @@ export default function CodeActions() {
         clearInterval(interval())
         _SetInterval(0);
         setState("isRunning", false);
+        setState("isDebugging", false);
     }
 
     createEffect(() => {
@@ -95,7 +96,7 @@ export default function CodeActions() {
     const isStepDisabled = () => !state.isDebugging || state.isRunning;
     const isRunDisabled = () => !state.isDebugging || state.isRunning;
     const isRunFastDisabled = () => state.isRunning;
-    const isStopDisabled = () => !state.isRunning;
+    const isStopDisabled = () => !state.isRunning && !state.isDebugging;
 
     return (
         <div class="code_buttons">
