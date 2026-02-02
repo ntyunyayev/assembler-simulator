@@ -36,7 +36,13 @@
   cursor: pointer;
 }
 
-.assemble-btn:hover {
+.assemble-btn:not(.disabled):hover {
   filter: brightness(50%);
   background-color: rgba(0, 0, 0, .2);
+}
+
+.assemble-btn.disabled {
+  color: grey;
+  background-color: rgba(0, 0, 0, .1);
+  cursor: default;
 }

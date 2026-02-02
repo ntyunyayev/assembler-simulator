@@ -1,12 +1,11 @@
-import { createEffect, createSignal, Show } from "solid-js";
+import { createEffect, createSignal } from "solid-js";
 import { CPU } from "../utils/ReactiveCPU";
 import { getStateContext } from "../utils/stateContext";
-import { VsDebugPause } from "solid-icons/vs";
+import { VsDebugStop } from "solid-icons/vs";
 import { IoPlay, IoPlayForward } from "solid-icons/io";
-import { AiOutlineClose, AiOutlineStepForward } from "solid-icons/ai";
-import "../styles/CodeActions.css"; 
-import { RiDocumentFolderDownloadFill, RiDocumentFolderUploadFill} from "solid-icons/ri";
-import "../utils/fileManager.ts"; 
+import { AiOutlineClear, AiOutlineStepForward } from "solid-icons/ai";
+import "../styles/CodeActions.css";
+import { RiDocumentFolderDownloadFill, RiDocumentFolderUploadFill } from "solid-icons/ri";
 import { downloadFile, uploadFile } from "../utils/fileManager.ts";
 
 export default function CodeActions() {
@@ -27,13 +26,12 @@ export default function CodeActions() {
                 setState("error", e as string);
                 stop()
                 setState("isDebugging", false);
-
             }
-            
         }, 1000 / state.speed))
         setCurrentSpeed(state.speed)
         setState("isRunning", true)
     }
+
     const runQuickly = () => {
         CPU.reset()
         CPU.assemble()
@@ -43,17 +41,16 @@ export default function CodeActions() {
             try {
                 if (!CPU.step()) {
                     stop()
-                }  
-            }
-            catch (e) {
+                }
+            } catch (e) {
                 setState("error", e as string);
                 stop()
-
             }
         }, 1000 / 4096))
         setCurrentSpeed(0)
         setState("isRunning", true)
     }
+
     const stop = () => {
         setState("quick", false)
         clearInterval(interval())
@@ -68,42 +65,109 @@ export default function CodeActions() {
         }
     })
 
-    const launchDebug = () => {
+    const assemble = () => {
         CPU.reset()
         CPU.assemble()
         if (state.error) return;
         setState("isDebugging", true)
     }
 
+    const clearRAM = () => {
+        CPU.reset();
+        setState("labels", []);
+        setState("isDebugging", false);
+    }
+
     const loadUploadedFile = () => {
         uploadFile().then(content => {
             setState("code", content);
-            CPU.assemble();
         }).catch(error => {
             console.error("Error loading file:", error);
         });
     }
 
+    // Computed disabled states
+    const isLoadDisabled = () => state.isRunning;
+    const isClearDisabled = () => state.isRunning;
+    const isAssembleDisabled = () => state.isRunning;
+    const isStepDisabled = () => !state.isDebugging || state.isRunning;
+    const isRunDisabled = () => !state.isDebugging || state.isRunning;
+    const isRunFastDisabled = () => state.isRunning;
+    const isStopDisabled = () => !state.isRunning;
+
     return (
-       <div class="code_buttons">
-            <Show when={!state.isRunning && !state.isDebugging}>
-                <RiDocumentFolderUploadFill title="Upload Code" color="#2c3e50" size={35} onClick={() => loadUploadedFile()}/>
-                <RiDocumentFolderDownloadFill title="Download Code" color="#2c3e50" size={35} onClick={() => downloadFile(state.code)}/>
-            </Show>
-            <Show when={state.isRunning}>
-                <VsDebugPause title="Pause" color="red" size={35} onClick={stop}/>    
-            </Show>
-            <Show when={state.isDebugging === false && !state.isRunning}>
-                <button class="assemble-btn" title="Assemble" onClick={launchDebug}>Assemble</button>
-                <IoPlayForward title="Run fast" class="bite" color="#2ecc71" size={35} onClick={runQuickly}/>
-            </Show>
-            <Show when={state.isDebugging === true}>
-                <Show when={!state.isRunning}>
-                    <AiOutlineClose title="Stop Debugging" color="red" size={35} onClick={() => { CPU.reset(); setState("labels", []); setState("isDebugging", false); }}/>    
-                    <IoPlay title="Run" color="#2ecc71" size={35} onClick={dcontinue} />
-                    <AiOutlineStepForward title="Step" color="#2ecc71" size={35} onClick={() => CPU.step()} />                
-                </Show>
-            </Show>
-           
+        <div class="code_buttons">
+            {/* Load file */}
+            <RiDocumentFolderUploadFill
+                title="Load File"
+                color="#2c3e50"
+                size={35}
+                classList={{ 'disabled': isLoadDisabled() }}
+                onClick={() => !isLoadDisabled() && loadUploadedFile()}
+            />
+
+            {/* Save file */}
+            <RiDocumentFolderDownloadFill
+                title="Save File"
+                color="#2c3e50"
+                size={35}
+                onClick={() => downloadFile(state.code)}
+            />
+
+            {/* Clear RAM/Labels */}
+            <AiOutlineClear
+                title="Clear RAM/Labels"
+                color="#e74c3c"
+                size={35}
+                classList={{ 'disabled': isClearDisabled() }}
+                onClick={() => !isClearDisabled() && clearRAM()}
+            />
+
+            {/* Assemble */}
+            <button
+                class="assemble-btn"
+                classList={{ 'disabled': isAssembleDisabled() }}
+                title="Assemble"
+                onClick={() => !isAssembleDisabled() && assemble()}
+            >
+                Assemble
+            </button>
+
+            {/* Step */}
+            <AiOutlineStepForward
+                title="Step"
+                color="#2ecc71"
+                size={35}
+                classList={{ 'disabled': isStepDisabled() }}
+                onClick={() => !isStepDisabled() && CPU.step()}
+            />
+
+            {/* Run continuously */}
+            <IoPlay
+                title="Run"
+                color="#2ecc71"
+                size={35}
+                classList={{ 'disabled': isRunDisabled() }}
+                onClick={() => !isRunDisabled() && dcontinue()}
+            />
+
+            {/* Run fast */}
+            <IoPlayForward
+                title="Run Fast"
+                color="#2ecc71"
+                size={35}
+                classList={{ 'disabled': isRunFastDisabled() }}
+                onClick={() => !isRunFastDisabled() && runQuickly()}
+            />
+
+            {/* Stop */}
+            <VsDebugStop
+                title="Stop"
+                color="#e74c3c"
+                size={35}
+                classList={{ 'disabled': isStopDisabled() }}
+                onClick={() => !isStopDisabled() && stop()}
+            />
         </div>
-)};
+    );
+};
