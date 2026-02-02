@@ -38,7 +38,7 @@ h4 {
 }
 
 .col1 {
-  width: 33%;
+  min-width: fit-content;
   padding: 10px;
 }
 
