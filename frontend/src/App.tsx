@@ -27,7 +27,7 @@ function App() {
 
     onMount(async () => {
         await loadExamples(setState);
-        setState("code", state.examples?.find(example => example.name === "Draw in screen")?.code || "");
+        setState("code", state.examples?.find(example => example.name === "Draw on screen")?.code || "");
     });
 
     return (

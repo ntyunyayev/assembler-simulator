@@ -101,7 +101,7 @@ export function createStateStore() {
 export async function loadExamples(set: SetStoreFunction<State>) {
     const exampleList = [
         { name: 'Hello World', file: 'hello-world.asm' },
-        { name: 'Draw in screen', file: 'draw-in-screen.asm' },
+        { name: 'Draw on screen', file: 'draw-in-screen.asm' },
         { name: 'Snake', file: 'snake.asm' }
     ];
 

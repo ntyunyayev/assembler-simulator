@@ -27,12 +27,13 @@
             <li><a class="link_instruction" href="http://www.nasm.us/xdoc/2.10.09/html/nasmdoc3.html" target="_blank">NASM Language
                     Documentation</a></li>
         </ul>
-        <p>The simulator consists of a 16-bit cpu and 1024 bytes of memory. All instructions (code) and variables (data)
-            needs to fit inside the memory. For simplicity every instruction (and operand) is 2 bytes. Therefore a MOV
-            instruction will use 6 bytes of memory. The simulator provides a console output which is memory mapped from
-            925 to 1023. Memory mapped means that every value written to this memory block is visible on the console.
-        </p>
-        <h4>Syntax</h4>
+            <p>The simulator consists of a 16-bit CPU and 1024 bytes of memory for the program. All instructions (code) and variables (data)
+            needs to fit inside the memory. For simplicity every instruction (and operand) is 2 bytes. Therefore, a MOV
+                instruction will use 6 bytes of memory. <br> 
+
+            The simulator provides a console output which is memory mapped starting from address 1026. Memory mapped means that every value written to this memory block is visible on the console. A special register DP (Display Pointer) indicates the beginning of this section. Addresses 1024 and 1025 form a 2 bytes value shown in register SM (Screen Mode). Which indicates how the CPU needs to interpret the value stored in the memory mapped region either pixel (0) or text (1). The "Hello World" example illustrates how to display text and the "Draw on screen" example illustrates the pixel mode. Finally, we also have the IB (Instruction Buffer) register that can be used to capture input from the keyboard. This only works when the user first clicks on the screen. The "Snake" sample illustrates how to use it! 
+            </p>
+    <h4>Syntax</h4>
         <p>The syntax is similar as most assemblers are using. Every instruction must be on their own line. Labels are
             optional and must either start with a letter or a dot (.) and end with a colon.</p>
         <pre>label: instruction operands ; Comment</pre>
