@@ -176,7 +176,7 @@ export default function Editor() {
       glyphMargin: true,
       lineNumbersMinChars: 1,
       padding: { top: 10 },
-      fontFamily: "Source Code Pro",
+      fontFamily: "'Source Code Pro', 'Fira Code', Consolas, 'Courier New', monospace",
       fontSize: 15,
     });
 
