@@ -183,6 +183,8 @@ export default function Editor() {
     //@ts-ignore
     editor.getContribution("editor.contrib.suggestController")!.widget.value._setDetailsVisible(true);
 
+    document.fonts.ready.then(() => monaco.editor.remeasureFonts());
+
     const changeDisposable = editor.onDidChangeModelContent(() => {
       setState("code", editor!.getValue());
     });
