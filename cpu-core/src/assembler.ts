@@ -217,7 +217,8 @@ class Assembler {
 
         for (var i = 0, l = lines.length; i < l; i++) {
             try {
-                var match = regex.exec(lines[i]!)!;
+                var line = lines[i]!.replace(/\[\s*(\w+)\s*([+-])\s*(\d+)\s*\]/g, '[$1$2$3]');
+                var match = regex.exec(line)!;
                 if (match[1] !== undefined || match[2] !== undefined) {
                     if (match[1] !== undefined) {
                         addLabel(match[1]);

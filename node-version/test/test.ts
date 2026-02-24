@@ -700,6 +700,55 @@ finmin: RET
     });
 });
 
+describe('Syllabus', function() {
+    describe('Functions', function() {
+        it('MIN with spaces in offset addressing', function() {
+            let code =
+                `
+JMP start
+arg1: DB 5
+arg2: DB 10
+start:
+MOV D, [arg1]
+PUSH [arg2]
+CALL min
+ADD SP, 2
+HLT
+min:
+MOV A, [SP + 2]
+CMP A,D
+JBE finmin
+MOV A,D
+finmin: RET
+`;
+            check_equality(code, { "A": 5 })
+        });
+    });
+});
+
+describe('Syllabus', function() {
+    describe('Functions', function() {
+        it('f with spaces in offset addressing', function() {
+            let code =
+                `
+MOV D, 3
+PUSH 4
+PUSH 1
+CALL f
+ADD SP, 4
+HLT
+
+f:
+MOV A, [ SP + 4 ] ; récupère x
+MUL D
+ADD A, [ SP+2 ]
+RET
+`;
+            check_equality(code, { "A": 13 })
+        });
+    });
+});
+
 
 
 
