@@ -62,6 +62,28 @@ def run_test(asm_file, test_file, hidden_keyword=HIDDEN_KEYWORD):
         values = {}
 
         for key in t[1]:
+            if type(key) is int:
+                addr = key
+                if type(t[1][key]) is str:
+                    res = ""
+                    for i in range(len(t[1][key])):
+                        res += chr(load16(addr + (2*i), data["cpu"]["memory"]["data"]))
+                elif type(t[1][key]) is list:
+                    array = []
+                    for i in range(len(t[1][key])):
+                        elem = t[1][key][i]
+                        if type(elem) is int:
+                            array.append(load16(addr + (2*i), data["cpu"]["memory"]["data"]))
+                        else:
+                            array.append("?")
+                    res = array
+                else:
+                    res = load16(addr, data["cpu"]["memory"]["data"])
+                values[key] = res
+                if res != t[1][key]:
+                    do_test_pass = False
+                continue
+
             actual_key = key
             offset = 0
             if "+" in key:
@@ -77,6 +99,23 @@ def run_test(asm_file, test_file, hidden_keyword=HIDDEN_KEYWORD):
                 res = load16(actual_key, data["cpu"]["memory"]["data"])
             elif key == "SP":
                 res = data["cpu"]["sp"]
+            elif key == "DP":
+                addr = data["cpu"]["dp"]
+                if type(t[1][key]) is str:
+                    res = ""
+                    for i in range(len(t[1][key])):
+                        res += chr(load16(addr + (2*i), data["cpu"]["memory"]["data"]))
+                elif type(t[1][key]) is list:
+                    array = []
+                    for i in range(len(t[1][key])):
+                        elem = t[1][key][i]
+                        if type(elem) is int:
+                            array.append(load16(addr + (2*i), data["cpu"]["memory"]["data"]))
+                        else:
+                            array.append("?")
+                    res = array
+                else:
+                    res = load16(addr, data["cpu"]["memory"]["data"])
             elif type(t[1][key]) is str:
                 res = ""
                 elem = t[1][key]
